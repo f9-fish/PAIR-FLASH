@@ -3,8 +3,9 @@
 .subject-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.choice{padding:30px 12px;font-size:25px;min-height:125px;border:1px solid #526487}.unit{display:block;width:100%;text-align:left;margin:9px 0;padding:17px}.back{margin-bottom:12px}.status{color:#bcd8ff;font-size:14px;margin-top:12px}@media(max-width:480px){.subject-grid{grid-template-columns:1fr}}
 </style></head><body><div class="wrap"><header><div><div class="brand">Yoshi.Lab <span style="color:#64e4b8">●</span></div><div class="sub">英語表現 × ペアワーク</div></div><span class="pill" id="bankSize">8 expressions</span></header><h1 id="pageTitle">科目を選ぼう ⚡</h1><p class="sub" id="pageSub">英C・論表から学習をスタート！</p>
 <section class="panel" id="subjects"><h2>📚 科目を選択</h2><div class="subject-grid"><button class="choice" data-subject="英C">英C<br><small>英語コミュニケーション</small></button><button class="choice" data-subject="論表">論表<br><small>論理・表現</small></button></div><p class="status" id="loadStatus">問題集を読み込み中…</p></section>
-<section class="panel hidden" id="units"><button class="outline back" id="toSubjects">← 科目選択に戻る</button><h2 id="unitTitle">単元を選ぼう</h2><div id="unitList"></div></section>
-<section class="panel hidden" id="lessonNav"><button class="outline back" id="toUnits">← 単元選択に戻る</button><h2 id="selectedLesson"></h2></section>
+<section class="panel hidden" id="units"><button class="outline back" id="toSubjects">← 科目選択に戻る</button><h2 id="unitTitle">Lessonを選ぼう</h2><div id="unitList"></div></section>
+<section class="panel hidden" id="parts"><button class="outline back" id="toLessons">← Lesson選択に戻る</button><h2 id="partTitle">Partを選ぼう</h2><div id="partList"></div></section>
+<section class="panel hidden" id="lessonNav"><button class="outline back" id="toUnits">← Part選択に戻る</button><h2 id="selectedLesson"></h2></section>
 <div id="practice" class="hidden">
 <section class="panel"><h2>⚙️ セッション設定</h2><div class="settings"><div class="field"><label for="mode">学習モード</label><select id="mode"><option value="normal">通常モード</option><option value="cloze">本文穴埋めモード</option></select></div><div class="field" id="directionField"><label for="direction">出題方向</label><select id="direction"><option value="en">英語 → 日本語</option><option value="ja">日本語 → 英語</option><option value="mix">毎問ランダム</option></select></div><div class="field"><label for="duration">制限時間</label><select id="duration"><option value="10">10秒</option><option value="30" selected>30秒</option><option value="60">1分</option></select></div><div class="field"><label for="starter">最初の回答者</label><select id="starter"><option value="A">生徒A</option><option value="B">生徒B</option></select></div><div class="field"><label for="order">出題順序</label><select id="order"><option value="ordered" selected>順番通り</option><option value="random">ランダム</option></select></div></div><div class="space"></div><div class="controls"><button class="primary" id="start">▶ スタート</button><button id="pause" disabled>一時停止</button><button class="outline" id="reset">リセット</button></div></section>
 <section class="panel"><div class="statrow"><div class="stat"><strong id="timer">00:30</strong><span>残り時間</span></div><div class="stat"><strong id="role">A</strong><span>回答者</span></div><div class="stat"><strong id="score">0 / 0</strong><span>正解 / 回答</span></div><div class="stat"><strong id="progress">0 / 8</strong><span>出題済み / 全問</span></div></div><div class="space"></div><div class="card" aria-live="polite"><div class="hint" id="cardLabel">STARTを押して開始</div><div class="prompt" id="question">Ready?</div><div class="answer hidden" id="answer"></div><div class="hint" id="cardHint">回答者は画面を見ずに、出題者が読み上げてもOK！</div></div><div class="space"></div><button class="primary" id="reveal" style="width:100%" disabled>答えを見る</button><div class="space"></div><div class="grid2"><button class="green" id="correct" disabled>✓ 正解</button><button class="red" id="wrong" disabled>✕ 不正解</button></div><div class="space"></div><div class="controls"><button id="skip" disabled>スキップ</button><button id="switch" disabled>⇄ A / B 交代</button></div><p class="muted" id="message">全問出題したら、選択した出題順序で次の周回に入ります。</p></section>
@@ -55,10 +56,58 @@ $('mode').onchange=()=>{if(!running){reset();updateMode()}};$('start').onclick=s
 $('reveal').onclick=()=>{if(!running||paused)return;flipped=true;show('answer',true);$('reveal').disabled=true;$('correct').disabled=false;$('wrong').disabled=false};$('correct').onclick=()=>mark(true);$('wrong').onclick=()=>mark(false);$('skip').onclick=()=>{if(running&&!paused)next()};$('switch').onclick=()=>{if(!running||paused)return;active=active==='A'?'B':'A';display();$('message').textContent='回答者を生徒'+active+'に交代しました！'};$('duration').onchange=()=>{if(!running){remaining=+$('duration').value||Infinity;display()}};$('starter').onchange=()=>{if(!running){active=$('starter').value;display()}};
 function download(name,content,type){let blob=new Blob([content],{type});let url=URL.createObjectURL(blob);let a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000)}
 $('export').onclick=()=>{let rows=[['回答者','英語','日本語','結果'],...history.map(x=>[x.role,x.english,x.japanese,x.correct])];let csv='\ufeff'+rows.map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\r\n');download('pairflash_results.csv',csv,'text/csv;charset=utf-8')};
-function chooseSubject(s){subject=s;show('subjects',false);show('units',true);show('lessonNav',false);show('practice',false);$('pageTitle').textContent=s+'｜単元を選ぼう';$('pageSub').textContent='学習したい単元を選んでね';$('unitTitle').textContent=s+' の単元';const list=$('unitList');list.replaceChildren();const filtered=groups.filter(g=>g.subject===s);if(!filtered.length){list.textContent='この科目の公開問題はまだありません。';return}filtered.forEach(g=>{const b=document.createElement('button');b.className='unit';b.textContent=g.name+'（'+g.cards.length+'問）';b.onclick=()=>chooseUnit(g);list.appendChild(b)})}
-function chooseUnit(g){unit=g;terms=g.cards.map(x=>[String(x[0]??''),String(x[1]??'')]);$('mode').value=terms.some(x=>hasBlank(x[0]))?'cloze':'normal';reset();updateMode();show('units',false);show('lessonNav',true);show('practice',true);$('selectedLesson').textContent=subject+' / '+g.name;$('pageTitle').textContent=g.name+' ⚡';$('pageSub').textContent='ペアで出題 → 口頭で回答 → 正誤を記録！'}
-function leaveUnit(){if(running&&!confirm('進行中の記録はリセットされます。戻りますか？'))return;reset();chooseSubject(subject)}
-$('toUnits').onclick=leaveUnit;$('toSubjects').onclick=()=>{subject='';unit=null;show('subjects',true);show('units',false);show('lessonNav',false);show('practice',false);$('pageTitle').textContent='科目を選ぼう ⚡';$('pageSub').textContent='英C・論表から学習をスタート！'};
+function lessonLabel(id){const v=String(id??'').trim();return /^lesson\\b/i.test(v)?v:'Lesson '+v}
+function partLabel(name){const v=String(name??'').trim();return /^part\\b/i.test(v)?v:'Part '+v}
+let selectedLessonId='';
+function chooseSubject(s){
+ subject=s;unit=null;selectedLessonId='';
+ show('subjects',false);show('units',true);show('parts',false);show('lessonNav',false);show('practice',false);
+ $('pageTitle').textContent=s+'｜Lessonを選ぼう';$('pageSub').textContent='学習したいLessonを選んでね';
+ $('unitTitle').textContent=s+' のLesson';
+ const list=$('unitList');list.replaceChildren();
+ const filtered=groups.filter(g=>g.subject===s);
+ const ids=[...new Set(filtered.map(g=>String(g.id??'').trim()))];
+ if(!ids.length){list.textContent='この科目の公開問題はまだありません。';return}
+ ids.forEach(id=>{
+  const matches=filtered.filter(g=>String(g.id??'').trim()===id);
+  const b=document.createElement('button');b.className='unit';
+  b.textContent=lessonLabel(id)+'（'+matches.length+' Part）';
+  b.onclick=()=>chooseLesson(id);list.appendChild(b);
+ });
+}
+function chooseLesson(id){
+ selectedLessonId=id;show('units',false);show('parts',true);show('lessonNav',false);show('practice',false);
+ $('pageTitle').textContent=lessonLabel(id)+'｜Partを選ぼう';
+ $('pageSub').textContent='学習したいPartを選んでね';
+ $('partTitle').textContent=lessonLabel(id)+' のPart';
+ const list=$('partList');list.replaceChildren();
+ const matches=groups.filter(g=>g.subject===subject&&String(g.id??'').trim()===id);
+ matches.forEach(g=>{
+  const b=document.createElement('button');b.className='unit';
+  b.textContent=partLabel(g.name)+'（'+g.cards.length+'問）';
+  b.onclick=()=>chooseUnit(g);list.appendChild(b);
+ });
+}
+function chooseUnit(g){
+ unit=g;terms=g.cards.map(x=>[String(x[0]??''),String(x[1]??'')]);
+ $('mode').value=terms.some(x=>hasBlank(x[0]))?'cloze':'normal';
+ reset();updateMode();
+ show('units',false);show('parts',false);show('lessonNav',true);show('practice',true);
+ $('selectedLesson').textContent=subject+' / '+lessonLabel(g.id)+' / '+partLabel(g.name);
+ $('pageTitle').textContent=lessonLabel(g.id)+' — '+partLabel(g.name)+' ⚡';
+ $('pageSub').textContent='ペアで出題 → 口頭で回答 → 正誤を記録！';
+}
+function leaveUnit(){
+ if(running&&!confirm('進行中の記録はリセットされます。戻りますか？'))return;
+ reset();chooseLesson(selectedLessonId);
+}
+$('toUnits').onclick=leaveUnit;
+$('toLessons').onclick=()=>chooseSubject(subject);
+$('toSubjects').onclick=()=>{
+ subject='';unit=null;selectedLessonId='';
+ show('subjects',true);show('units',false);show('parts',false);show('lessonNav',false);show('practice',false);
+ $('pageTitle').textContent='科目を選ぼう ⚡';$('pageSub').textContent='英C・論表から学習をスタート！';
+};
 document.querySelectorAll('[data-subject]').forEach(b=>b.onclick=()=>chooseSubject(b.dataset.subject));
 function loaded(result){if(!Array.isArray(result))throw Error('問題集の形式が正しくありません');groups=result;$('loadStatus').textContent='読み込み完了：'+groups.length+'単元';}
 function failed(e){$('loadStatus').textContent='読み込み失敗：'+(e.message||String(e))+'。再読み込みしてください。'}
