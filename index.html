@@ -35,23 +35,18 @@ document.querySelectorAll('[data-subject]').forEach(b=>b.onclick=()=>chooseSubje
 function loaded(result){if(!Array.isArray(result))throw Error('問題集の形式が正しくありません');groups=result;$('loadStatus').textContent='読み込み完了：'+groups.length+'単元';}
 function failed(e){$('loadStatus').textContent='読み込み失敗：'+(e.message||String(e))+'。再読み込みしてください。'}
 reset();
-// GitHub Pages から Apps Script の公開データを JSONP で読み込む。
-const API_URL='https://script.google.com/macros/s/AKfycbz6dCvOpKUCVPpjFhFISBIOoBZ24yyWaNvqUpuXUh7V-wKYgn5ih-EyxmHnnqFN0hOkfg/exec';
-let fetchTimer=null;
-window.pairFlashReceive=function(payload){
-  clearTimeout(fetchTimer);
-  document.getElementById('pairflash-data-request')?.remove();
-  if(payload&&payload.error){failed(new Error(payload.error));return;}
-  try{loaded(payload)}catch(e){failed(e)}
-};
-function fetchLessons(){
+// 同じGitHub Pages上の公開データを読み込む（Googleログイン不要）
+async function fetchLessons(){
   $('loadStatus').textContent='問題集を読み込み中…';
-  document.getElementById('pairflash-data-request')?.remove();
-  const s=document.createElement('script');s.id='pairflash-data-request';
-  s.src=API_URL+'?format=jsonp&callback=pairFlashReceive&_='+Date.now();
-  s.onerror=()=>{clearTimeout(fetchTimer);failed(new Error('通信できません。Apps Scriptの新しいデプロイURLと公開設定を確認してください'))};
-  fetchTimer=setTimeout(()=>{s.remove();failed(new Error('読み込みがタイムアウトしました'))},15000);
-  document.head.appendChild(s);
+  try{
+    const controller=new AbortController();
+    const timeout=setTimeout(()=>controller.abort(),15000);
+    let response;
+    try{response=await fetch('./lessons.json?t='+Date.now(),{cache:'no-store',signal:controller.signal});}
+    finally{clearTimeout(timeout);}
+    if(!response.ok)throw new Error('問題データがありません（HTTP '+response.status+'）。Apps Scriptで最初の同期を実行してください');
+    loaded(await response.json());
+  }catch(e){failed(e)}
 }
 fetchLessons();
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(console.warn))}
