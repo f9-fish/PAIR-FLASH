@@ -117,5 +117,159 @@
         "hint": ""
       }
     ]
+  },
+  {
+    "subject": "英C",
+    "id": "7",
+    "name": "3",
+    "words": [
+      {
+        "word": "paradise",
+        "meaning": "楽園",
+        "hint": ""
+      },
+      {
+        "word": "suffer",
+        "meaning": "苦しむ",
+        "hint": ""
+      },
+      {
+        "word": "garbage",
+        "meaning": "ゴミ",
+        "hint": ""
+      },
+      {
+        "word": "amount",
+        "meaning": "量",
+        "hint": ""
+      },
+      {
+        "word": "government",
+        "meaning": "政府",
+        "hint": ""
+      },
+      {
+        "word": "bury",
+        "meaning": "埋める-",
+        "hint": ""
+      },
+      {
+        "word": "pile",
+        "meaning": "積み重ねる",
+        "hint": ""
+      },
+      {
+        "word": "pollute",
+        "meaning": "汚染する",
+        "hint": ""
+      },
+      {
+        "word": "burn",
+        "meaning": "燃える、燃やす",
+        "hint": ""
+      },
+      {
+        "word": "spontaneously",
+        "meaning": "同時に",
+        "hint": ""
+      },
+      {
+        "word": "economy",
+        "meaning": "経済",
+        "hint": ""
+      },
+      {
+        "word": "damage",
+        "meaning": "損害を与える",
+        "hint": ""
+      },
+      {
+        "word": "environment",
+        "meaning": "環境",
+        "hint": ""
+      },
+      {
+        "word": "similar",
+        "meaning": "似ている",
+        "hint": ""
+      }
+    ]
+  },
+  {
+    "subject": "英C",
+    "id": "7",
+    "name": "4",
+    "words": [
+      {
+        "word": "dramatically",
+        "meaning": "劇的に",
+        "hint": ""
+      },
+      {
+        "word": "increase",
+        "meaning": "増える",
+        "hint": ""
+      },
+      {
+        "word": "recent",
+        "meaning": "最近の",
+        "hint": ""
+      },
+      {
+        "word": "despite",
+        "meaning": "～に関わらず",
+        "hint": ""
+      },
+      {
+        "word": "temporary",
+        "meaning": "一時的な",
+        "hint": ""
+      },
+      {
+        "word": "decrease",
+        "meaning": "減少",
+        "hint": ""
+      },
+      {
+        "word": "due to ~",
+        "meaning": "～が理由で",
+        "hint": ""
+      },
+      {
+        "word": "spread",
+        "meaning": "拡大",
+        "hint": ""
+      },
+      {
+        "word": "public transportation",
+        "meaning": "公共交通機関",
+        "hint": ""
+      },
+      {
+        "word": "crowded with~",
+        "meaning": "～で混んでいる",
+        "hint": ""
+      },
+      {
+        "word": "narrow",
+        "meaning": "狭い",
+        "hint": ""
+      },
+      {
+        "word": "property",
+        "meaning": "財産",
+        "hint": ""
+      },
+      {
+        "word": "permission",
+        "meaning": "許可",
+        "hint": ""
+      },
+      {
+        "word": "annoyed",
+        "meaning": "いらついた",
+        "hint": ""
+      }
+    ]
   }
 ]
