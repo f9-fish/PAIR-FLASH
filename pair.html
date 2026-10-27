@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#FAFAF7"><title>Yoshi.Lab｜2台連動ペアワーク</title><style>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101D38"><title>Yoshi.Lab｜2台連動ペアワーク</title><style>
 :root{font-family:system-ui,-apple-system,'Noto Sans JP',sans-serif;background:#0c1325;color:#eaf0ff}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 90% 0,#263b69,transparent 40%),#0c1325}.wrap{max-width:760px;margin:auto;padding:18px 14px 60px}h1{font-size:25px}h2{font-size:18px;margin-top:0}.sub,.muted{color:#afbed8;font-size:13px;line-height:1.6}.panel{background:#17213a;border:1px solid #33476b;border-radius:18px;padding:18px;margin:15px 0}.hidden{display:none!important}button,select,input{font:inherit;border-radius:10px;padding:12px;border:1px solid #526487;background:#101a30;color:#fff;max-width:100%}button{cursor:pointer;font-weight:750;background:#34486c}button:disabled{opacity:.45;cursor:not-allowed}.primary{background:#75b1ff;color:#081529}.green{background:#27c593;color:#04251d}.red{background:#f18a8e;color:#371116}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.row>*{flex:1}.field{display:grid;gap:6px;margin:12px 0}.field label{color:#bfd0ed;font-size:13px}.code{font-size:clamp(36px,9vw,62px);font-weight:900;letter-spacing:.15em;text-align:center;color:#a9d1ff}.card{border-radius:17px;background:linear-gradient(145deg,#293d68,#192843);padding:22px 18px;min-height:220px}.english{font-size:clamp(20px,4vw,28px);font-weight:700;line-height:1.7;overflow-wrap:break-word}.japanese{margin-top:18px;padding-top:16px;border-top:1px solid #60769a;font-size:17px;line-height:1.6}.blank{border-bottom:2px solid #a9c9ff;display:inline-block;min-width:3em;text-align:center}.tag{display:inline-block;background:#283e62;border-radius:100px;padding:6px 12px;font-size:13px}.stat{display:flex;justify-content:space-between;gap:8px;margin:10px 0}.status{color:#ffe2a0;font-size:13px;line-height:1.6;white-space:pre-wrap}.big{font-size:23px;font-weight:800}.judgment{font-size:clamp(34px,9vw,58px);font-weight:950;text-align:center;padding:22px 10px;border-radius:18px;margin:10px 0 18px;letter-spacing:.04em}.judgment.correct{color:#053f2b;background:#79f2bb;border:3px solid #25c78d}.judgment.incorrect{color:#5d1020;background:#ffb4bf;border:3px solid #f36d86}.answer-target{display:inline;background:transparent;color:#ffe066;font-weight:900;text-decoration:underline;text-decoration-color:#ffe066;text-decoration-thickness:2px;text-underline-offset:4px}.answer-key{font-size:13px;color:#d6e4ff;margin:10px 0 6px}.split{display:grid;grid-template-columns:1fr 1fr;gap:10px}a{color:#9bc7ff}.step-label{color:#91c4ff;font-weight:800;font-size:13px;letter-spacing:.06em}.step-choice{display:block;width:100%;min-height:76px;margin:11px 0;padding:20px;text-align:left;font-size:clamp(20px,5vw,27px);font-weight:850;border:1px solid #57749e;border-radius:16px;background:#263b60}.step-choice small{display:block;font-size:13px;font-weight:500;color:#bed2f1;margin-top:6px}.step-choice:disabled{opacity:.36}.step-choice.featured{min-height:145px;background:#27c593;color:#052c23;text-align:center;font-size:36px;border-color:#27c593}.step-choice.featured small{color:#164a3c}.step-time{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.step-time .step-choice{text-align:center;min-height:80px;font-size:21px;padding:15px 5px}.step-back{background:transparent;border:1px solid #60799f;margin-bottom:16px}.step-summary{background:#101c32;border-radius:12px;padding:12px;color:#d2e4ff;line-height:1.7;margin:14px 0}.join-area{border-top:1px solid #405574;margin-top:22px;padding-top:18px}.step-choice:focus-visible{outline:3px solid #ffdc83;outline-offset:2px}
 /* Yoshi.Lab light-blue outer background / preserved navy learning panels */
 :root{background:#e8f2ff;color:#193557;color-scheme:light}
@@ -58,7 +58,67 @@ select,input{background:#102F35;border-color:#547A7C;color:#fff}
 .feedback-word{color:#FFE18A}
 .feedback-meaning{border-color:#638A8B}
 button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #E6B85C;outline-offset:3px}
-</style></head><body><div class="wrap"><a href="./index.html">← 通常練習に戻る</a><h1>Yoshi.Lab <span style="color:#61dbb3">PAIR</span></h1><p class="sub">2台連動・口頭回答・5問ごとに役割交代</p><div class="row" style="margin:10px 0"><button id="soundToggle" type="button" style="flex:0 0 auto">🔇 効果音をON</button><span class="muted">各スマホで一度押してね</span></div><div id="status" class="status">Firebaseに接続しています…</div>
+
+/* Unified teal palette: remove all legacy blue controls and panels */
+:root{--teal-900:#183B42;--teal-800:#20484D;--teal-700:#28565A;--teal-600:#3E8C85;--teal-soft:#A4D9D3;--cream:#FAFAF7}
+
+.step-choice{background:#28565A;border-color:#628C86;color:#FFFFFF}
+.step-choice small{color:#CBE4DE}
+.step-choice:hover:not(:disabled){background:#356C6B}
+.step-choice.featured{background:#69B8AC;border-color:#69B8AC;color:#103A37}
+.step-choice.featured small{color:#24524A}
+.step-back{background:#244A4E;border-color:#628C86;color:#F7FBFA}
+.step-summary{background:#10343A;color:#D4E7E3}
+.panel .step-summary{background:#10343A;color:#D4E7E3}
+.join-area{border-top-color:#547A76}
+.card{background:linear-gradient(145deg,#28565A,#173B42);border:1px solid #547F7B}
+.tag{background:#28565A;color:#E7F5F1}
+.japanese{border-top-color:#628782}
+.blank{border-bottom-color:#A4D9D3}
+.answer-key{color:#D4E7E3}
+.card.vocab-card #instruction{color:#C5E4DE}
+.card.vocab-card #english{border-top-color:#628782;color:#FFE18A}
+#feedbackWordCard{background:linear-gradient(145deg,#28565A,#14383F);border-color:#E4C77D}
+.feedback-word-label{color:#D2E8E1}
+.feedback-meaning{border-top-color:#628782}
+#status{background:#EDF5F0;border-color:#D6E8DF;color:#476B68}
+
+/* Yoshi.Lab electric blue unified visual system */
+:root{background:#101D38!important;color:#F1F6FF!important;color-scheme:dark!important}
+body{background:radial-gradient(ellipse at 84% -10%,#263F76 0%,transparent 48%),radial-gradient(ellipse at 0% 90%,#142D56 0%,transparent 52%),#101D38!important;color:#F1F6FF!important;min-height:100vh}
+.panel{background:#192C50!important;border:1px solid #35517D!important;color:#F1F6FF!important;box-shadow:0 12px 30px #07122955}
+.sub,.muted,.hint,label,.field label{color:#B7CBED!important}
+.brand{font-size:clamp(28px,6vw,38px)!important;letter-spacing:-.035em!important;font-weight:950!important;line-height:1.2;color:#FFFFFF!important;text-shadow:0 3px 24px #528DFF55}
+.brand .brand-accent,.pair-brand .brand-accent,.footer .brand-accent{color:#6BA2FF!important}
+.pair-brand{font-size:clamp(29px,7vw,40px)!important;font-weight:950!important;letter-spacing:-.035em!important;margin:12px 0 5px;color:#FFFFFF!important;text-shadow:0 3px 24px #528DFF55}
+.pair-brand .pair-suffix{font-size:.5em;letter-spacing:.08em;margin-left:.3em;color:#8BB5FF;vertical-align:middle}
+button,.choice,.unit,.mode-choice,.vocab-options button,.step-choice{background:#253E6D!important;border:1px solid #45659B!important;color:#FFFFFF!important}
+button:hover:not(:disabled),.choice:hover,.unit:hover,.mode-choice:hover,.step-choice:hover:not(:disabled){background:#34568E!important}
+button.primary,.primary,.pair-start{background:#528DFF!important;color:#FFFFFF!important;border-color:#528DFF!important;font-weight:850!important}
+button.green,.green{background:#27C593!important;color:#04251D!important;border-color:#27C593!important}
+button.red,.red{background:#F18A8E!important;color:#371116!important;border-color:#F18A8E!important}
+.step-choice.featured{background:#27C593!important;color:#04251D!important;border-color:#27C593!important}
+.step-choice.featured small{color:#164A3C!important}
+.step-choice small,.mode-choice small,.choice small{color:#C5D6F2!important}
+.card{background:linear-gradient(145deg,#253E6D,#192C50)!important;border:1px solid #45659B!important;color:#FFFFFF!important}
+.subjects-panel .choice{background:#253E6D!important;border-color:#45659B!important;color:#FFFFFF!important}
+.subjects-panel .choice:hover{background:#34568E!important}
+.subjects-panel .status{color:#B7CBED!important}
+.stat,.step-summary,.panel .step-summary{background:#142544!important;color:#D5E5FF!important}
+.pill,.tag{background:#253E6D!important;color:#D5E5FF!important;border-color:#45659B!important}
+.cloze-gap,.blank{border-bottom-color:#8BB5FF!important}
+.cloze-japanese,.japanese,.answer,.feedback-meaning{border-top-color:#45659B!important;color:#F1F6FF!important}
+.answer-target,.japanese-highlight{color:#FFE066!important;font-weight:900!important}
+.japanese-highlight{background:#FFE06618;border-radius:3px;padding:0 1px}
+.answer-key{color:#C5D6F2!important}
+#feedbackWordCard{background:linear-gradient(145deg,#253E6D,#192C50)!important;border-color:#D7B85D!important}
+#feedbackWord,.card.vocab-card #english{color:#FFE066!important}
+#status{background:#142544!important;border-color:#35517D!important;color:#C5D6F2!important}
+input,select,textarea{background:#101D38!important;color:#FFFFFF!important;border-color:#45659B!important}
+a{color:#8BB5FF!important}
+.footer{color:#9EB9E2!important;font-size:13px!important;padding:12px 0}
+.footer .brand-accent{font-weight:850}
+</style></head><body><div class="wrap"><a href="./index.html">← 通常練習に戻る</a><h1 class="pair-brand">Yoshi<span class="brand-accent">.Lab</span><span class="pair-suffix">PAIR</span></h1><p class="sub">2台連動・口頭回答・5問ごとに役割交代</p><div class="row" style="margin:10px 0"><button id="soundToggle" type="button" style="flex:0 0 auto">🔇 効果音をON</button><span class="muted">各スマホで一度押してね</span></div><div id="status" class="status">Firebaseに接続しています…</div>
 <section id="lobby" class="panel hidden"><div id="wizard"><div class="step-label" id="stepLabel">STEP 1 / 5</div><h2 id="stepTitle">科目を選ぼう</h2><button type="button" id="stepBack" class="step-back hidden">← 戻る</button><div id="stepChoices"></div><p class="status" id="stepMessage"></p></div><div class="join-area"><h2>参加コードを持っている人（生徒B）</h2><p class="muted">生徒Aが作った6桁のコードを入力して参加してね。</p><div class="row"><input id="joinCode" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" placeholder="6桁のコード" aria-label="参加コード"><button id="join">参加（生徒B）</button></div></div></section>
 <section id="waiting" class="panel hidden"><h2>相手の参加を待っています</h2><div class="code" id="roomCode"></div><p class="muted">この6桁を相手に伝えてね。相手は「参加」に入力します。</p><button id="cancel" class="red">待機を終了</button></section>
 <section id="game" class="hidden"><section class="panel"><div class="stat"><span id="role" class="tag"></span><span id="counter" class="tag"></span></div><div class="stat"><span>残り時間</span><strong id="timer">00:30</strong></div><div class="stat"><span>ペアの正解数</span><strong id="score">0 / 0</strong></div><div class="card"><div class="sub" id="instruction"></div><div id="english" class="english"></div><div id="answerKey" class="answer-key hidden">黄色い文字が解答箇所</div><div id="japanese" class="japanese"></div></div><p id="roleHint" class="muted"></p><div id="grading" class="split hidden"><button id="correct" class="green">○ 正解</button><button id="wrong" class="red">× 不正解</button></div><div id="feedback" class="panel hidden"><div id="feedbackTitle" class="judgment" role="status">正答確認</div><div id="feedbackWordCard" class="hidden"><div class="feedback-word-label">正しい英単語</div><div id="feedbackWord" class="feedback-word"></div><div id="feedbackMeaning" class="feedback-meaning"></div></div><p id="feedbackAnswer" class="english"></p><button id="next" class="primary" style="width:100%">次の問題へ →</button><p id="nextHint" class="muted"></p></div></section><section id="change" class="panel hidden"><h2>🔄 役割交代！</h2><p>次の5問は出題者と回答者が入れ替わるよ。</p></section></section>
@@ -117,6 +177,20 @@ function showClozeForAsker(el,source){
     span.className='answer-target';
     span.textContent=match[1];
     el.append(span);
+    last=re.lastIndex;
+  }
+  el.append(document.createTextNode(source.slice(last)));
+}
+function showHighlightedJapanese(el,source){
+  el.replaceChildren();
+  const re=/\(([^()]+)\)/g;
+  let last=0,match;
+  while((match=re.exec(String(source)))!==null){
+    el.append(document.createTextNode(source.slice(last,match.index)));
+    const mark=document.createElement('span');
+    mark.className='japanese-highlight';
+    mark.textContent=match[1];
+    el.append(mark);
     last=re.lastIndex;
   }
   el.append(document.createTextNode(source.slice(last)));
@@ -224,7 +298,7 @@ if(revealed){
   const key=code+':'+i;
   if(lastSoundKey!==key){lastSoundKey=key;playJudgment(!!room.reveal.ok)}
 }
-msg('ペア接続中：'+code);if(i>=cards.length){$('result').textContent=s.right+' / '+s.total+' 問正解';$('detail').textContent='正答率 '+(s.total?Math.round(100*s.right/s.total):0)+'%';return}let asker=(Math.floor(i/5)%2===0?'A':'B'),answerer=asker==='A'?'B':'A',isAsker=side===asker;let [en,ja]=cards[i];$('role').textContent='あなた：生徒'+side+'（'+(isAsker?'出題者':'回答者')+'）';$('counter').textContent=(i+1)+' / '+cards.length+' 問';$('score').textContent=s.right+' / '+s.total;$('instruction').textContent=isAsker?'正解を見ながら口頭で出題し、○×を判定':'相手の出題を聞いて口頭で回答';$('roleHint').textContent=isAsker?'回答者：生徒'+answerer+'　判定すると両方の画面が進みます。':'出題者：生徒'+asker+'　回答後は相手の判定を待ってね。';show('grading',isAsker&&!revealed);show('feedback',!!revealed);$('feedbackTitle').textContent=revealed?(room.reveal.ok?'○ 正解！':'× 不正解'):'正答確認';$('feedbackTitle').className='judgment '+(revealed?(room.reveal.ok?'correct':'incorrect'):'');$('feedbackAnswer').textContent=revealed&&room.mode!=='vocab'?en.replace(/\(([^()]+)\)/g,'$1'):'';show('feedbackWordCard',!!revealed&&room.mode==='vocab');$('feedbackWord').textContent=revealed&&room.mode==='vocab'?en:'';$('feedbackMeaning').textContent=revealed&&room.mode==='vocab'?ja:'';show('next',!!revealed&&isAsker);$('nextHint').textContent=isAsker?'正答を確認したら次へ進もう':'出題者が「次の問題へ」を押すまで待ってね';show('change',i>0&&i%5===0&&i!==lastIndex);lastIndex=i;let text=room.mode==='cloze'?(isAsker?en.replace(/\(([^()]+)\)/g,'$1'):en.replace(/\(([^()]+)\)/g,'______')):isAsker?en:en;$('english').textContent=text;show('answerKey',room.mode==='cloze'&&isAsker);if(room.mode==='cloze'&&isAsker)showClozeForAsker($('english'),en);$('japanese').textContent=ja;const cardEl=$('english').closest('.card');cardEl.classList.toggle('vocab-card',room.mode==='vocab');cardEl.classList.toggle('vocab-answerer',room.mode==='vocab'&&!isAsker);if(room.mode==='vocab'){$('instruction').textContent=isAsker?'日本語を英語になおそう（出題者）':'日本語を英語になおそう';$('japanese').textContent=ja;$('english').textContent=isAsker?en:'';show('answerKey',false)}else if(room.mode==='normal'&&!isAsker){$('english').textContent='日本語を聞いて、英語で答えよう';$('japanese').textContent=ja}else if(room.mode==='normal'&&isAsker){$('instruction').textContent='日本語を読み上げ、相手の英語を採点'}updateTimer();}
+msg('ペア接続中：'+code);if(i>=cards.length){$('result').textContent=s.right+' / '+s.total+' 問正解';$('detail').textContent='正答率 '+(s.total?Math.round(100*s.right/s.total):0)+'%';return}let asker=(Math.floor(i/5)%2===0?'A':'B'),answerer=asker==='A'?'B':'A',isAsker=side===asker;let [en,ja]=cards[i];$('role').textContent='あなた：生徒'+side+'（'+(isAsker?'出題者':'回答者')+'）';$('counter').textContent=(i+1)+' / '+cards.length+' 問';$('score').textContent=s.right+' / '+s.total;$('instruction').textContent=isAsker?'正解を見ながら口頭で出題し、○×を判定':'相手の出題を聞いて口頭で回答';$('roleHint').textContent=isAsker?'回答者：生徒'+answerer+'　判定すると両方の画面が進みます。':'出題者：生徒'+asker+'　回答後は相手の判定を待ってね。';show('grading',isAsker&&!revealed);show('feedback',!!revealed);$('feedbackTitle').textContent=revealed?(room.reveal.ok?'○ 正解！':'× 不正解'):'正答確認';$('feedbackTitle').className='judgment '+(revealed?(room.reveal.ok?'correct':'incorrect'):'');$('feedbackAnswer').textContent=revealed&&room.mode!=='vocab'?en.replace(/\(([^()]+)\)/g,'$1'):'';show('feedbackWordCard',!!revealed&&room.mode==='vocab');$('feedbackWord').textContent=revealed&&room.mode==='vocab'?en:'';$('feedbackMeaning').textContent=revealed&&room.mode==='vocab'?ja:'';show('next',!!revealed&&isAsker);$('nextHint').textContent=isAsker?'正答を確認したら次へ進もう':'出題者が「次の問題へ」を押すまで待ってね';show('change',i>0&&i%5===0&&i!==lastIndex);lastIndex=i;let text=room.mode==='cloze'?(isAsker?en.replace(/\(([^()]+)\)/g,'$1'):en.replace(/\(([^()]+)\)/g,'______')):isAsker?en:en;$('english').textContent=text;show('answerKey',room.mode==='cloze'&&isAsker);if(room.mode==='cloze'&&isAsker)showClozeForAsker($('english'),en);$('japanese').textContent=ja;if(room.mode==='cloze')showHighlightedJapanese($('japanese'),ja);const cardEl=$('english').closest('.card');cardEl.classList.toggle('vocab-card',room.mode==='vocab');cardEl.classList.toggle('vocab-answerer',room.mode==='vocab'&&!isAsker);if(room.mode==='vocab'){$('instruction').textContent=isAsker?'日本語を英語になおそう（出題者）':'日本語を英語になおそう';$('japanese').textContent=ja;$('english').textContent=isAsker?en:'';show('answerKey',false)}else if(room.mode==='normal'&&!isAsker){$('english').textContent='日本語を聞いて、英語で答えよう';$('japanese').textContent=ja}else if(room.mode==='normal'&&isAsker){$('instruction').textContent='日本語を読み上げ、相手の英語を採点'}updateTimer();}
 function updateTimer(){
   if(!room||!room.guestUid)return;
   const s=room.state,secs=room.duration;
