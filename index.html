@@ -323,7 +323,7 @@ function updateClock(){
  }
 }
 function finish(){
- if(!soloSaved&&stats.A.total+stats.B.total){soloSaved=true;saveSoloRecord($('mode').value==='cloze'?'text':'text',stats.A.right+stats.B.right,stats.A.total+stats.B.total,soloBestStreak)}
+ if(!soloSaved&&stats.A.total+stats.B.total){soloSaved=true;saveSoloRecord('text',stats.A.right+stats.B.right,stats.A.total+stats.B.total,soloBestStreak,activeTimer.stop())}
  clearInterval(tick);tick=null;running=false;paused=false;lockSettings(false);
  ['reveal','correct','wrong','skip','switch','pause','finishSession'].forEach(x=>$(x).disabled=true);
  $('cardLabel').textContent='終了';$('question').textContent='おつかれさま！';show('answer',false);
