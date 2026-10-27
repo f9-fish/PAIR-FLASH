@@ -107,8 +107,11 @@ function chooseSubject(s){
  $('unitTitle').textContent=s+' のLesson';
  const list=$('unitList');list.replaceChildren();
  const filtered=[...groups,...vocabularyGroups].filter(g=>g.subject===s);
- const ids=[...new Set(filtered.map(g=>String(g.id??'').trim()))];
- if(!ids.length){list.textContent='この科目の公開問題はまだありません。';return}
+const ids = [...new Set(
+  filtered.map(g => String(g.id ?? '').trim())
+)].sort((a, b) =>
+  a.localeCompare(b, undefined, { numeric: true })
+); if(!ids.length){list.textContent='この科目の公開問題はまだありません。';return}
  ids.forEach(id=>{
   const matches=filtered.filter(g=>String(g.id??'').trim()===id);
   const b=document.createElement('button');b.className='unit';
@@ -122,8 +125,18 @@ function chooseLesson(id){
  $('pageSub').textContent='学習したいPartを選んでね';
  $('partTitle').textContent=lessonLabel(id)+' のPart';
  const list=$('partList');list.replaceChildren();
- const matches=[...groups,...vocabularyGroups].filter(g=>g.subject===subject&&String(g.id??'').trim()===id);
- const unique=[...new Set(matches.map(g=>String(g.name)))];
+const matches = groups
+  .filter(g =>
+    g.subject === subject &&
+    String(g.id ?? '').trim() === id
+  )
+  .sort((a, b) =>
+    String(a.name).localeCompare(
+      String(b.name),
+      undefined,
+      { numeric: true }
+    )
+  ); const unique=[...new Set(matches.map(g=>String(g.name)))];
  unique.forEach(name=>{
   const b=document.createElement('button');b.className='unit';
   b.textContent=partLabel(name);
