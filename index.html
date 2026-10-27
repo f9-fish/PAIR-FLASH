@@ -154,7 +154,7 @@ body.welcome-active #welcomeCover{display:block}
 .solo-streak-banner{display:flex;justify-content:center;margin:17px 0 13px}
 .solo-streak-banner .streak-chip{font-size:clamp(20px,5.4vw,28px);padding:12px 24px;border:2px solid #F5A94F;background:linear-gradient(125deg,#334571,#253E6D)!important;color:#FFE3A0;box-shadow:0 5px 24px #F5A94F25;letter-spacing:.02em}
 .cloze-answer-highlight{color:#FFE066!important;font-weight:950;text-decoration:underline;text-decoration-color:#FFE066;text-underline-offset:4px}
-</style></head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
+<style>.account-strip{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#192C50;border:1px solid #35517D;border-radius:15px;padding:12px 14px;margin:15px 0;color:#fff;flex-wrap:wrap}.account-strip small{color:#B7CBED}.account-strip button{padding:9px 14px}.account-strip a{background:#528DFF!important;color:white!important;border-radius:10px;padding:10px 14px;text-decoration:none;font-weight:800}.account-strip .account-msg{flex:1;min-width:150px}.account-strip .account-msg strong{display:block;font-size:14px}</style></style></head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
   <div class="welcome-hero"><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
   <section aria-label="使い方"><h2 class="welcome-how">HOW TO USE ━━━</h2><div class="welcome-steps">
     <div class="welcome-step"><div class="welcome-symbol" aria-hidden="true">▣</div><div class="welcome-step-content"><div class="welcome-step-title">単語を勉強したい</div><div class="welcome-path"><span class="welcome-chip">科目</span><span class="welcome-chevron">›</span><span class="welcome-chip">Lesson</span><span class="welcome-chevron">›</span><span class="welcome-chip">Part</span><span class="welcome-chevron">›</span><span class="welcome-chip end">単語チェック</span></div></div></div>
@@ -165,20 +165,29 @@ body.welcome-active #welcomeCover{display:block}
 </div></div>
 <script>document.body.classList.add('welcome-active');document.getElementById('welcomeStart').addEventListener('click',function(){document.body.classList.remove('welcome-active');document.getElementById('welcomeCover').remove();window.scrollTo(0,0);});</script>
 <div class="wrap"><header><div><div class="brand">Yoshi<span class="brand-accent">.Lab</span></div><div class="sub">英語表現 × ペアワーク</div></div><span class="pill" id="bankSize">8 expressions</span></header><h1 id="pageTitle">科目を選ぼう ✦</h1><p class="sub" id="pageSub">英C・論表から学習をスタート！</p>
-<section class="panel pair-feature"><h2>📱 2台連動ペアワーク</h2><p class="muted">2人がそれぞれのスマホで参加。5問ごとに出題者と回答者が交代します。</p><a href="./pair.html" class="pair-start">ペアワークを始める →</a></section><section class="panel subjects-panel" id="subjects"><h2>📚 科目を選択</h2><div class="subject-grid"><button class="choice" data-subject="英C">英C<br><small>英語コミュニケーション</small></button><button class="choice" data-subject="論表">論表<br><small>論理・表現</small></button></div><p class="status" id="loadStatus">問題集を読み込み中…</p></section>
+<div class="account-strip"><div class="account-msg"><strong id="accountStatus">学習記録を保存するにはGoogleログイン</strong><small id="accountDetail">学校のGoogleアカウントを使用</small></div><button id="googleLogin" type="button">Googleでログイン</button><button id="googleLogout" type="button" class="hidden">ログアウト</button><a href="./mypage.html">📊 MY PAGE →</a></div><section class="panel pair-feature"><h2>📱 2台連動ペアワーク</h2><p class="muted">2人がそれぞれのスマホで参加。5問ごとに出題者と回答者が交代します。</p><a href="./pair.html" class="pair-start">ペアワークを始める →</a></section><section class="panel subjects-panel" id="subjects"><h2>📚 科目を選択</h2><div class="subject-grid"><button class="choice" data-subject="英C">英C<br><small>英語コミュニケーション</small></button><button class="choice" data-subject="論表">論表<br><small>論理・表現</small></button></div><p class="status" id="loadStatus">問題集を読み込み中…</p></section>
 <section class="panel hidden" id="units"><button class="outline back" id="toSubjects">← 科目選択に戻る</button><h2 id="unitTitle">Lessonを選ぼう</h2><div id="unitList"></div></section>
 <section class="panel hidden" id="parts"><button class="outline back" id="toLessons">← Lesson選択に戻る</button><h2 id="partTitle">Partを選ぼう</h2><div id="partList"></div></section>
 <section class="panel hidden" id="modePicker"><button class="outline back" id="modeBack">← Part選択に戻る</button><h2 id="modeHeading">学習モードを選ぼう</h2><div class="mode-grid"><button class="mode-choice" id="pickText">📖 本文穴埋め<small>今までの本文練習</small></button><button class="mode-choice" id="pickVocab">🔤 単語チェック<small>4択・スペリング</small></button></div><p class="notice" id="modeNotice"></p></section>
 <section class="panel hidden" id="vocabPractice"><button class="outline back" id="vocabBack">← 学習モードに戻る</button><h2 id="vocabHeading">英単語チャレンジ</h2><div class="controls"><label for="vocabType">問題形式</label><select id="vocabType"><option value="choice">意味を選ぶ（4択）</option><option value="typing">英単語を入力する</option></select><button class="primary" id="vocabStart">▶ ゲームスタート！</button></div><div id="vocabGame" class="hidden"><div style="margin-top:15px;text-align:right"><span class="streak-chip" id="vocabStreakChip">🔥 0 STREAK</span></div><div class="statrow" style="margin-top:18px"><div class="stat"><strong id="vocabProgress">0 / 0</strong><span>進行状況</span></div><div class="stat"><strong id="vocabScore">0</strong><span>正解数</span></div><div class="stat"><strong id="vocabStreak">0</strong><span>連続正解</span></div><div class="stat"><strong id="vocabPoints">0</strong><span>ポイント</span></div></div><div class="card" style="margin-top:16px;min-height:180px"><div class="hint" id="vocabPrompt">英単語の意味は？</div><div class="vocab-word" id="vocabWord"></div></div><div class="space"></div><div id="vocabOptions" class="vocab-options"></div><div id="vocabInputArea" class="hidden"><input id="vocabInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="英単語を入力" style="width:100%"><button id="vocabSubmit" class="primary" style="width:100%;margin-top:10px">回答する</button></div><div class="vocab-feedback" id="vocabFeedback" aria-live="polite"></div><p class="muted" id="vocabHint"></p><button class="primary hidden" id="vocabNext" style="width:100%">次の問題へ →</button></div></section>
 <section class="panel hidden" id="lessonNav"><button class="outline back" id="toUnits">← Part選択に戻る</button><h2 id="selectedLesson"></h2></section>
 <div id="practice" class="hidden">
-<section class="panel"><h2>⚙️ セッション設定</h2><div class="settings"><div class="field"><label for="mode">学習モード</label><select id="mode"><option value="normal">通常モード</option><option value="cloze">本文穴埋めモード</option></select></div><div class="field" id="directionField"><label for="direction">出題方向</label><select id="direction"><option value="en">英語 → 日本語</option><option value="ja">日本語 → 英語</option><option value="mix">毎問ランダム</option></select></div><div class="field"><label for="duration">制限時間</label><select id="duration"><option value="10">10秒</option><option value="30" selected>30秒</option><option value="60">1分</option><option value="0">無制限</option></select></div><div class="field"><label for="starter">最初の回答者</label><select id="starter"><option value="A">生徒A</option><option value="B">生徒B</option></select></div><div class="field"><label for="order">出題順序</label><select id="order"><option value="ordered" selected>順番通り</option><option value="random">ランダム</option></select></div></div><div class="space"></div><div class="controls"><button class="primary" id="start">▶ スタート</button><button id="pause" disabled>一時停止</button><button class="outline" id="reset">リセット</button></div></section>
+<section class="panel"><h2>⚙️ セッション設定</h2><div class="settings"><div class="field"><label for="mode">学習モード</label><select id="mode"><option value="normal">通常モード</option><option value="cloze">本文穴埋めモード</option></select></div><div class="field" id="directionField"><label for="direction">出題方向</label><select id="direction"><option value="en">英語 → 日本語</option><option value="ja">日本語 → 英語</option><option value="mix">毎問ランダム</option></select></div><div class="field"><label for="duration">制限時間</label><select id="duration"><option value="10">10秒</option><option value="30" selected>30秒</option><option value="60">1分</option><option value="0">無制限</option></select></div><div class="field"><label for="starter">最初の回答者</label><select id="starter"><option value="A">生徒A</option><option value="B">生徒B</option></select></div><div class="field"><label for="order">出題順序</label><select id="order"><option value="ordered" selected>順番通り</option><option value="random">ランダム</option></select></div></div><div class="space"></div><div class="controls"><button class="primary" id="start">▶ スタート</button><button id="pause" disabled>一時停止</button><button class="outline" id="reset">リセット</button><button id="finishSession" class="green" disabled>終了して記録</button></div></section>
 <section class="panel"><div class="statrow"><div class="stat"><strong id="timer">00:30</strong><span>この問題の残り時間</span></div><div class="stat"><strong id="role">A</strong><span>回答者</span></div><div class="stat"><strong id="score">0 / 0</strong><span>正解 / 回答</span></div><div class="stat"><strong id="progress">0 / 8</strong><span>出題済み / 全問</span></div></div><div class="solo-streak-banner"><span class="streak-chip" id="soloStreakChip">🔥 0 STREAK</span></div><div class="space"></div><div class="card" aria-live="polite"><div class="hint" id="cardLabel">STARTを押して開始</div><div class="prompt" id="question">Ready?</div><div class="answer hidden" id="answer"></div><div class="hint" id="cardHint">回答者は画面を見ずに、出題者が読み上げてもOK！</div></div><div class="space"></div><button class="primary" id="reveal" style="width:100%" disabled>答えを見る</button><div class="space"></div><div class="grid2"><button class="green" id="correct" disabled>✓ 正解</button><button class="red" id="wrong" disabled>✕ 不正解</button></div><div class="space"></div><div class="controls"><button id="skip" disabled>スキップ</button><button id="switch" disabled>⇄ A / B 交代</button></div><p class="muted" id="message">全問出題したら、選択した出題順序で次の周回に入ります。</p></section>
 <section class="panel"><h2>🏆 スコアボード</h2><div class="grid2"><div class="stat"><strong id="scoreA">0 / 0</strong><span>生徒A（正解 / 回答）</span></div><div class="stat"><strong id="scoreB">0 / 0</strong><span>生徒B（正解 / 回答）</span></div></div><div class="space"></div><button class="outline" id="export">結果をCSV保存</button></section>
 <section class="panel hidden"><details id="editor"><summary>✏️ 先生用：熟語リストを編集する</summary><div><p class="muted">1行に「英語 | 日本語」を入力。タブ区切りもOK。保存した内容はこの端末のブラウザに記憶されます。生徒の端末へ共有する場合は、下の「共有用HTMLを保存」を使ってください。</p><textarea id="terms" spellcheck="false"></textarea><div class="space"></div><div class="controls"><button class="primary" id="save">この端末に保存</button><button id="restore">初期リストに戻す</button><button id="share">共有用HTMLを保存</button></div><p id="editMessage" class="notice"></p></div></details></section></div><div class="footer">Yoshi<span class="brand-accent">.Lab</span></div></div>
 <div id="streakCelebration" class="streak-celebration" hidden aria-live="polite"><div class="streak-celebration-card"><div class="streak-fire" id="streakFire">🔥</div><div class="streak-count"><b id="streakNumber">5</b> <span>STREAK!</span></div><div class="streak-praise" id="streakPraise">AWESOME!</div></div></div>
+<script type="module" src="./account.js"></script>
 <script>
 const $=id=>document.getElementById(id);
+let accountAttached=false;
+function attachAccount(){if(accountAttached||!window.YoshiAccount)return;accountAttached=true;const a=window.YoshiAccount;
+a.subscribe(u=>{$('accountStatus').textContent=u?(u.displayName||'ログイン中'):'学習記録を保存するにはGoogleログイン';$('accountDetail').textContent=u?(u.email||''):'学校のGoogleアカウントを使用';$('googleLogin').classList.toggle('hidden',!!u);$('googleLogout').classList.toggle('hidden',!u)});
+$('googleLogin').onclick=async()=>{try{await a.login()}catch(e){alert('ログインできませんでした：'+e.message)}};
+$('googleLogout').onclick=async()=>{if(confirm('ログアウトしますか？'))await a.logout()};}
+document.addEventListener('yoshi-auth-ready',attachAccount);setTimeout(attachAccount,0);
+async function saveSoloRecord(mode,right,total,best){if(!total||!window.YoshiAccount?.user)return;try{await window.YoshiAccount.save({subject:String(subject||''),lesson:String(selectedLessonId||''),part:normalizedPart(unit?.name||selectedVocabulary?.name||''),mode,right,total,bestStreak:best})}catch(e){console.warn('学習記録を保存できませんでした',e);$('accountDetail').textContent='学習記録の保存に失敗しました。Firebaseの設定を確認してください'}}
+
 
 const streakMilestones={3:'NICE!',5:'AWESOME!',10:'INCREDIBLE!',20:'LEGENDARY!'};
 let streakHideTimer=null;
@@ -195,8 +204,8 @@ function showStreakCelebration(n){
 }
 function clearStreakCelebration(){clearTimeout(streakHideTimer);document.getElementById('streakCelebration').hidden=true}
 
-let vocabularyGroups=[], selectedVocabulary=null, vocabDeck=[],vocabIndex=0,vocabCorrect=0,vocabStreak=0,vocabPoints=0,vocabAnswered=false;
-let soloStreak={A:0,B:0},soloNextPending=false;
+let vocabularyGroups=[], selectedVocabulary=null, vocabDeck=[],vocabIndex=0,vocabCorrect=0,vocabStreak=0,vocabBestStreak=0,vocabPoints=0,vocabAnswered=false;
+let soloStreak={A:0,B:0},soloNextPending=false,soloBestStreak=0,soloSaved=false;
 function updateSoloStreak(){if($('soloStreakChip'))$('soloStreakChip').textContent='🔥 '+soloStreak[active]+' STREAK（生徒'+active+'）'}
 let groups=[], subject='', unit=null, terms=[], deck=[], availableIndices=[],seen=0,last=-1,current=-1,flipped=false,round=0,dir='en',active='A',running=false,paused=false,remaining=30,deadline=0,tick=null,stats={A:{right:0,total:0},B:{right:0,total:0}},history=[];
 const show=(id,yes)=>$(id).classList.toggle('hidden',!yes);
@@ -268,8 +277,8 @@ function start(){
  if(running||!availableIndices.length)return;
  clearInterval(tick);tick=null;running=true;paused=false;
  active=$('starter').value;stats={A:{right:0,total:0},B:{right:0,total:0}};
- history=[];deck=[];round=0;last=-1;soloStreak={A:0,B:0};clearStreakCelebration();lockSettings(true);
- $('pause').textContent='一時停止';$('pause').disabled=false;$('skip').disabled=false;$('switch').disabled=false;
+ history=[];deck=[];round=0;last=-1;soloStreak={A:0,B:0};soloBestStreak=0;soloSaved=false;clearStreakCelebration();lockSettings(true);
+ $('finishSession').disabled=false;$('pause').textContent='一時停止';$('pause').disabled=false;$('skip').disabled=false;$('switch').disabled=false;
  next();tick=setInterval(updateClock,200);display();
  $('message').textContent='各問題ごとにタイマーがリセットされます。時間切れは不正解として次の問題へ進みます。';
 }
@@ -283,13 +292,15 @@ function updateClock(){
  }
 }
 function finish(){
+ if(!soloSaved&&stats.A.total+stats.B.total){soloSaved=true;saveSoloRecord($('mode').value==='cloze'?'text':'text',stats.A.right+stats.B.right,stats.A.total+stats.B.total,soloBestStreak)}
  clearInterval(tick);tick=null;running=false;paused=false;lockSettings(false);
- ['reveal','correct','wrong','skip','switch','pause'].forEach(x=>$(x).disabled=true);
+ ['reveal','correct','wrong','skip','switch','pause','finishSession'].forEach(x=>$(x).disabled=true);
  $('cardLabel').textContent='終了';$('question').textContent='おつかれさま！';show('answer',false);
  $('cardHint').textContent='スコアを確認しよう';
 }
-function reset(){soloStreak={A:0,B:0};soloNextPending=false;clearStreakCelebration();clearInterval(tick);tick=null;running=false;paused=false;lockSettings(false);['reveal','correct','wrong','skip','switch','pause'].forEach(x=>$(x).disabled=true);stats={A:{right:0,total:0},B:{right:0,total:0}};history=[];deck=[];round=0;seen=0;availableIndices=terms.map((_,i)=>i).filter(i=>$('mode').value!=='cloze'||hasBlank(terms[i][0]));active=$('starter').value;remaining=selectedSeconds();$('question').textContent='Ready?';$('cardLabel').textContent='STARTを押して開始';show('answer',false);$('message').textContent='全問出題したら、選択した出題順序で次の周回に入ります。';display()}
-function mark(ok){if(!running||!flipped||soloNextPending)return;stats[active].total++;if(ok){stats[active].right++;soloStreak[active]++}else soloStreak[active]=0;history.push({role:active,english:terms[current][0],japanese:terms[current][1],correct:ok?'正解':'不正解'});display();if(ok&&streakLabel(soloStreak[active])){soloNextPending=true;showStreakCelebration(soloStreak[active]);setTimeout(()=>{soloNextPending=false;if(running)next()},1200)}else next()}
+function reset(){if(running&&!soloSaved&&stats.A.total+stats.B.total){soloSaved=true;saveSoloRecord('text',stats.A.right+stats.B.right,stats.A.total+stats.B.total,soloBestStreak)}soloStreak={A:0,B:0};soloNextPending=false;clearStreakCelebration();clearInterval(tick);tick=null;running=false;paused=false;lockSettings(false);['reveal','correct','wrong','skip','switch','pause','finishSession'].forEach(x=>$(x).disabled=true);stats={A:{right:0,total:0},B:{right:0,total:0}};history=[];deck=[];round=0;seen=0;availableIndices=terms.map((_,i)=>i).filter(i=>$('mode').value!=='cloze'||hasBlank(terms[i][0]));active=$('starter').value;remaining=selectedSeconds();$('question').textContent='Ready?';$('cardLabel').textContent='STARTを押して開始';show('answer',false);$('message').textContent='全問出題したら、選択した出題順序で次の周回に入ります。';display()}
+function mark(ok){if(!running||!flipped||soloNextPending)return;stats[active].total++;if(ok){stats[active].right++;soloStreak[active]++;soloBestStreak=Math.max(soloBestStreak,soloStreak[active])}else soloStreak[active]=0;history.push({role:active,english:terms[current][0],japanese:terms[current][1],correct:ok?'正解':'不正解'});display();if(ok&&streakLabel(soloStreak[active])){soloNextPending=true;showStreakCelebration(soloStreak[active]);setTimeout(()=>{soloNextPending=false;if(running)next()},1200)}else next()}
+$('finishSession').onclick=finish;
 $('mode').onchange=()=>{if(!running){reset();updateMode()}};$('start').onclick=start;$('reset').onclick=reset;$('pause').onclick=()=>{if(!running)return;if(!paused){updateClock();paused=true;$('pause').textContent='▶ 再開';$('reveal').disabled=true;$('correct').disabled=true;$('wrong').disabled=true;$('skip').disabled=true}else{paused=false;deadline=Date.now()+remaining*1000;$('pause').textContent='一時停止';$('reveal').disabled=flipped;$('correct').disabled=!flipped;$('wrong').disabled=!flipped;$('skip').disabled=false}};
 $('reveal').onclick=()=>{if(!running||paused)return;flipped=true;show('answer',true);$('reveal').disabled=true;$('correct').disabled=false;$('wrong').disabled=false};$('correct').onclick=()=>mark(true);$('wrong').onclick=()=>mark(false);$('skip').onclick=()=>{if(running&&!paused)next()};$('switch').onclick=()=>{if(!running||paused)return;active=active==='A'?'B':'A';display();$('message').textContent='回答者を生徒'+active+'に交代しました！'};$('duration').onchange=()=>{if(!running){remaining=selectedSeconds();display()}};$('starter').onchange=()=>{if(!running){active=$('starter').value;display()}};
 function download(name,content,type){let blob=new Blob([content],{type});let url=URL.createObjectURL(blob);let a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000)}
@@ -359,7 +370,7 @@ $('vocabBack').onclick=()=>chooseMode(selectedVocabulary.name);
 function vocabQuestion(){
  vocabAnswered=false;
  if(vocabIndex>=vocabDeck.length){
-  $('vocabPrompt').textContent='終了！';$('vocabWord').textContent='おつかれさま！';
+  saveSoloRecord('vocab',vocabCorrect,vocabDeck.length,vocabBestStreak);$('vocabPrompt').textContent='終了！';$('vocabWord').textContent='おつかれさま！';
   $('vocabOptions').replaceChildren();show('vocabInputArea',false);
   $('vocabFeedback').textContent=vocabCorrect+' / '+vocabDeck.length+' 問正解！';
   $('vocabHint').textContent='もう一度挑戦するなら「ゲームスタート！」を押してね。';show('vocabNext',false);return;
@@ -379,7 +390,7 @@ function vocabQuestion(){
 function vocabAnswer(ok,clicked){
  if(vocabAnswered)return;vocabAnswered=true;
  const w=vocabDeck[vocabIndex];
- if(ok){vocabCorrect++;vocabStreak++;vocabPoints+=10+Math.min(vocabStreak-1,5)*2;showStreakCelebration(vocabStreak)}else vocabStreak=0;
+ if(ok){vocabCorrect++;vocabStreak++;vocabBestStreak=Math.max(vocabBestStreak,vocabStreak);vocabPoints+=10+Math.min(vocabStreak-1,5)*2;showStreakCelebration(vocabStreak)}else vocabStreak=0;
  $('vocabFeedback').textContent=ok?'○ 正解！':'× 不正解　正解：'+($('vocabType').value==='typing'?w.word:w.meaning);
  $('vocabFeedback').style.color=ok?'#61dbb3':'#ff9fa5';
  $('vocabHint').textContent=w.hint?'💡 '+w.hint:'';
@@ -390,7 +401,7 @@ function vocabAnswer(ok,clicked){
 }
 $('vocabStart').onclick=()=>{
  vocabDeck=selectedVocabulary.words.filter(w=>w.word&&w.meaning).map(w=>({...w})).sort(()=>Math.random()-.5);
- vocabIndex=0;vocabCorrect=0;vocabStreak=0;vocabPoints=0;clearStreakCelebration();
+ vocabIndex=0;vocabCorrect=0;vocabStreak=0;vocabBestStreak=0;vocabPoints=0;clearStreakCelebration();
  show('vocabGame',true);vocabQuestion();
 };
 $('vocabSubmit').onclick=()=>{
