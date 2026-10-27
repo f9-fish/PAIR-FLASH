@@ -154,7 +154,17 @@ body.welcome-active #welcomeCover{display:block}
 .solo-streak-banner{display:flex;justify-content:center;margin:17px 0 13px}
 .solo-streak-banner .streak-chip{font-size:clamp(20px,5.4vw,28px);padding:12px 24px;border:2px solid #F5A94F;background:linear-gradient(125deg,#334571,#253E6D)!important;color:#FFE3A0;box-shadow:0 5px 24px #F5A94F25;letter-spacing:.02em}
 .cloze-answer-highlight{color:#FFE066!important;font-weight:950;text-decoration:underline;text-decoration-color:#FFE066;text-underline-offset:4px}
-<style>.account-strip{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#192C50;border:1px solid #35517D;border-radius:15px;padding:12px 14px;margin:15px 0;color:#fff;flex-wrap:wrap}.account-strip small{color:#B7CBED}.account-strip button{padding:9px 14px}.account-strip a{background:#528DFF!important;color:white!important;border-radius:10px;padding:10px 14px;text-decoration:none;font-weight:800}.account-strip .account-msg{flex:1;min-width:150px}.account-strip .account-msg strong{display:block;font-size:14px}</style></style></head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
+<style>.account-strip{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#192C50;border:1px solid #35517D;border-radius:15px;padding:12px 14px;margin:15px 0;color:#fff;flex-wrap:wrap}.account-strip small{color:#B7CBED}.account-strip button{padding:9px 14px}.account-strip a{background:#528DFF!important;color:white!important;border-radius:10px;padding:10px 14px;text-decoration:none;font-weight:800}.account-strip .account-msg{flex:1;min-width:150px}.account-strip .account-msg strong{display:block;font-size:14px}
+/* Keep the account name/email and MY PAGE in separate rows on phones. */
+.account-strip .account-msg{min-width:0;overflow-wrap:anywhere;word-break:break-word}
+.account-strip .account-msg small{display:block;line-height:1.5;overflow-wrap:anywhere;word-break:break-word}
+.account-strip>a{position:static;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;max-width:100%}
+@media(max-width:640px){
+  .account-strip{display:flex;flex-direction:column;align-items:stretch;gap:12px}
+  .account-strip .account-msg{width:100%;flex:none}
+  .account-strip>a{align-self:flex-start;margin:0}
+  .account-strip button{align-self:flex-start}
+}</style></style></head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
   <div class="welcome-hero"><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
   <section aria-label="使い方"><h2 class="welcome-how">HOW TO USE ━━━</h2><div class="welcome-steps">
     <div class="welcome-step"><div class="welcome-symbol" aria-hidden="true">▣</div><div class="welcome-step-content"><div class="welcome-step-title">単語を勉強したい</div><div class="welcome-path"><span class="welcome-chip">科目</span><span class="welcome-chevron">›</span><span class="welcome-chip">Lesson</span><span class="welcome-chevron">›</span><span class="welcome-chip">Part</span><span class="welcome-chevron">›</span><span class="welcome-chip end">単語チェック</span></div></div></div>
@@ -163,7 +173,19 @@ body.welcome-active #welcomeCover{display:block}
   </div></section>
   <button id="welcomeStart" type="button">START LEARNING →</button><div class="welcome-foot">Yoshi<strong>.Lab</strong></div>
 </div></div>
-<script>document.body.classList.add('welcome-active');document.getElementById('welcomeStart').addEventListener('click',function(){document.body.classList.remove('welcome-active');document.getElementById('welcomeCover').remove();window.scrollTo(0,0);});</script>
+<script>// Show the opening only on the first visit in this browser tab.
+(function(){
+  const directSubjects = new URLSearchParams(window.location.search).get('view') === 'subjects';
+  let visited = false;
+  try {
+    visited = sessionStorage.getItem('yoshiLabOpened') === '1';
+    sessionStorage.setItem('yoshiLabOpened', '1');
+  } catch(e) {
+    // Private browsing/storage restrictions: still allow direct subject links.
+    visited = performance.getEntriesByType('navigation')[0]?.type === 'reload';
+  }
+  if (!directSubjects && !visited) document.body.classList.add('welcome-active');
+})();document.getElementById('welcomeStart').addEventListener('click',function(){document.body.classList.remove('welcome-active');document.getElementById('welcomeCover').remove();window.scrollTo(0,0);});</script>
 <div class="wrap"><header><div><div class="brand">Yoshi<span class="brand-accent">.Lab</span></div><div class="sub">英語表現 × ペアワーク</div></div><span class="pill" id="bankSize">8 expressions</span></header><h1 id="pageTitle">科目を選ぼう ✦</h1><p class="sub" id="pageSub">英C・論表から学習をスタート！</p>
 <div class="account-strip"><div class="account-msg"><strong id="accountStatus">学習記録を保存するにはGoogleログイン</strong><small id="accountDetail">Googleアカウントを使用</small></div><button id="googleLogin" type="button">Googleでログイン</button><a href="./mypage.html">📊 MY PAGE →</a></div><section class="panel pair-feature"><h2>📱 2台連動ペアワーク</h2><p class="muted">2人がそれぞれのスマホで参加。5問ごとに出題者と回答者が交代します。</p><a href="./pair.html" class="pair-start">ペアワークを始める →</a></section><section class="panel subjects-panel" id="subjects"><h2>📚 科目を選択</h2><div class="subject-grid"><button class="choice" data-subject="英C">英C<br><small>英語コミュニケーション</small></button><button class="choice" data-subject="論表">論表<br><small>論理・表現</small></button></div><p class="status" id="loadStatus">問題集を読み込み中…</p></section>
 <section class="panel hidden" id="units"><button class="outline back" id="toSubjects">← 科目選択に戻る</button><h2 id="unitTitle">Lessonを選ぼう</h2><div id="unitList"></div></section>
