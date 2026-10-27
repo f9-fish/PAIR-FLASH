@@ -13,6 +13,108 @@
         "word": "tourism",
         "meaning": "観光",
         "hint": "tourist＝観光客"
+      },
+      {
+        "word": "transfer",
+        "meaning": "乗り換える",
+        "hint": ""
+      },
+      {
+        "word": "gorgeous",
+        "meaning": "豪華な",
+        "hint": ""
+      },
+      {
+        "word": "slip",
+        "meaning": "滑る",
+        "hint": ""
+      },
+      {
+        "word": "nap",
+        "meaning": "昼寝・仮眠",
+        "hint": ""
+      },
+      {
+        "word": "beauty",
+        "meaning": "美しさ",
+        "hint": ""
+      },
+      {
+        "word": "wildlife",
+        "meaning": "野生動物",
+        "hint": ""
+      },
+      {
+        "word": "highlight",
+        "meaning": "ハイライト",
+        "hint": ""
+      },
+      {
+        "word": "definitely",
+        "meaning": "絶対に",
+        "hint": ""
+      },
+      {
+        "word": "ideal",
+        "meaning": "理想の",
+        "hint": ""
+      },
+      {
+        "word": "destination",
+        "meaning": "目的地",
+        "hint": ""
+      }
+    ]
+  },
+  {
+    "subject": "英C",
+    "id": "7",
+    "name": "2",
+    "words": [
+      {
+        "word": "be located",
+        "meaning": "位置する",
+        "hint": ""
+      },
+      {
+        "word": "southwest",
+        "meaning": "南西の",
+        "hint": ""
+      },
+      {
+        "word": "consist of ~",
+        "meaning": "～で構成される",
+        "hint": ""
+      },
+      {
+        "word": "nearly",
+        "meaning": "約",
+        "hint": ""
+      },
+      {
+        "word": "resident",
+        "meaning": "住人",
+        "hint": ""
+      },
+      {
+        "word": "Breath-taking",
+        "meaning": "息をのむような",
+        "hint": ""
+      },
+      {
+        "word": "worries",
+        "meaning": "心配事",
+        "hint": ""
+      },
+      {
+        "word": "interact",
+        "meaning": "交流する",
+        "hint": ""
+      },
+      {
+        "word": "completely",
+        "meaning": "完全に、全く",
+        "hint": ""
       }
     ]
   }
