@@ -1,10 +1,12 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0c1325"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Yoshi.Lab"><link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./icon-192.png"><title>Yoshi.Lab</title><style>
 :root{font-family:system-ui,-apple-system,'Noto Sans JP',sans-serif;color:#eaf0ff;background:#0c1325}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0,#24345b 0,transparent 36%),#0c1325;min-height:100vh}.wrap{max-width:950px;margin:auto;padding:24px 16px 60px}header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.brand{font-weight:900;letter-spacing:.11em;font-size:15px;color:#91c4ff}.sub{color:#a7b5d1;font-size:13px}.panel{background:#17213a;border:1px solid #2c3a58;border-radius:20px;padding:20px;margin-top:16px;box-shadow:0 12px 32px #050b1b35}h1{font-size:clamp(24px,5vw,35px);margin:12px 0 5px}h2{font-size:18px;margin:0 0 16px}button,select,textarea,input{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:12px 17px;background:#32415f;color:#fff;font-weight:750}button:hover{filter:brightness(1.13)}button:disabled{opacity:.35;cursor:not-allowed}.primary{background:#6ca8ff;color:#09152b}.green{background:#27c593;color:#052c23}.red{background:#f17e83;color:#3d0d16}.outline{background:transparent;border:1px solid #526487}.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.controls>*{flex:1}.controls button{white-space:nowrap}select,input,textarea{background:#101a30;color:#eaf0ff;border:1px solid #455674;border-radius:10px;padding:11px;max-width:100%}label{font-size:13px;color:#c6d3e9}.statrow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat{background:#101b31;border-radius:13px;padding:13px;text-align:center}.stat strong{display:block;font-size:25px;font-variant-numeric:tabular-nums}.stat span{color:#aebfdb;font-size:12px}.card{min-height:270px;border-radius:20px;background:linear-gradient(145deg,#293d68,#192843);border:1px solid #456294;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:25px;text-align:center;gap:18px}.prompt{white-space:pre-line}.card:has(.prompt.cloze) .prompt{font-size:clamp(20px,3.8vw,31px)}.prompt{font-size:clamp(25px,5vw,44px);font-weight:850;line-height:1.35;overflow-wrap:anywhere}.answer{font-size:clamp(20px,4vw,28px);color:#9fe9c9;font-weight:750;border-top:1px solid #60769a;padding-top:18px;width:100%}.hint{font-size:12px;color:#aec1df}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.space{height:12px}.settings{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.field{display:flex;flex-direction:column;gap:7px}.muted{color:#aab9d4;font-size:13px;line-height:1.7}.hidden{display:none!important}textarea{width:100%;min-height:210px;resize:vertical;font-size:14px;line-height:1.6}summary{cursor:pointer;font-weight:750}details>div{padding-top:15px}.pill{display:inline-block;border:1px solid #5377ae;border-radius:99px;padding:6px 12px;font-size:12px;color:#bcd8ff}.notice{color:#ffdb99;font-size:13px}.footer{text-align:center;color:#8293b3;font-size:12px;margin-top:20px}@media(max-width:640px){.statrow{grid-template-columns:repeat(2,1fr)}.settings{grid-template-columns:1fr}.grid3{grid-template-columns:1fr 1fr}.panel{padding:15px}.card{min-height:230px}.controls>*{flex:auto}}
-.subject-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.choice{padding:30px 12px;font-size:25px;min-height:125px;border:1px solid #526487}.unit{display:block;width:100%;text-align:left;margin:9px 0;padding:17px}.back{margin-bottom:12px}.status{color:#bcd8ff;font-size:14px;margin-top:12px}@media(max-width:480px){.subject-grid{grid-template-columns:1fr}}
+.mode-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.mode-choice{min-height:160px;text-align:center;background:#253e66;border:1px solid #5779ad;font-size:20px}.mode-choice small{display:block;font-size:13px;color:#d2e0f5;margin-top:9px}.vocab-word{text-align:center;font-size:clamp(30px,7vw,46px);font-weight:850;margin:22px 0}.vocab-options{display:grid;gap:10px}.vocab-options button{text-align:left;background:#283d62;border:1px solid #5477ad}.vocab-options button.good{background:#187d61}.vocab-options button.bad{background:#a94052}.vocab-feedback{font-size:21px;font-weight:800;text-align:center;margin:14px 0}.subject-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.choice{padding:30px 12px;font-size:25px;min-height:125px;border:1px solid #526487}.unit{display:block;width:100%;text-align:left;margin:9px 0;padding:17px}.back{margin-bottom:12px}.status{color:#bcd8ff;font-size:14px;margin-top:12px}@media(max-width:480px){.subject-grid{grid-template-columns:1fr}}
 .card:has(.prompt.cloze){align-items:stretch;text-align:left;padding:clamp(16px,3vw,25px);gap:14px}.card:has(.prompt.cloze) .prompt{width:100%;font-size:inherit;font-weight:400;line-height:1.65;overflow-wrap:normal;word-break:normal}.cloze-english{font-size:clamp(19px,2.5vw,27px);font-weight:700;line-height:1.65;text-align:left;overflow-wrap:break-word}.cloze-english.medium{font-size:clamp(18px,2.1vw,24px)}.cloze-english.long{font-size:clamp(16px,1.8vw,21px)}.cloze-gap{display:inline-block;white-space:nowrap;color:#c5dcff;border-bottom:2px solid #9bbefa;line-height:1.2;min-width:3.2em;text-align:center;padding:0 2px}.cloze-japanese{margin-top:18px;padding-top:16px;border-top:1px solid #60769a;color:#eaf0ff;font-size:clamp(15px,1.8vw,19px);font-weight:600;line-height:1.7;text-align:left}.card:has(.prompt.cloze) .answer{text-align:left;font-size:clamp(17px,2.2vw,24px);line-height:1.65;overflow-wrap:break-word}.card:has(.prompt.cloze) .hint{text-align:left}@media(max-width:640px){.cloze-english{font-size:21px}.cloze-english.medium{font-size:19px}.cloze-english.long{font-size:17px}}</style></head><body><div class="wrap"><header><div><div class="brand">Yoshi.Lab <span style="color:#64e4b8">●</span></div><div class="sub">英語表現 × ペアワーク</div></div><span class="pill" id="bankSize">8 expressions</span></header><h1 id="pageTitle">科目を選ぼう ⚡</h1><p class="sub" id="pageSub">英C・論表から学習をスタート！</p>
 <section class="panel"><h2>📱 2台連動ペアワーク</h2><p class="muted">2人がそれぞれのスマホで参加。5問ごとに出題者と回答者が交代します。</p><a href="./pair.html" style="display:block;text-align:center;background:#6ca8ff;color:#09152b;border-radius:12px;padding:14px;font-weight:800;text-decoration:none">ペアワークを始める →</a></section><section class="panel" id="subjects"><h2>📚 科目を選択</h2><div class="subject-grid"><button class="choice" data-subject="英C">英C<br><small>英語コミュニケーション</small></button><button class="choice" data-subject="論表">論表<br><small>論理・表現</small></button></div><p class="status" id="loadStatus">問題集を読み込み中…</p></section>
 <section class="panel hidden" id="units"><button class="outline back" id="toSubjects">← 科目選択に戻る</button><h2 id="unitTitle">Lessonを選ぼう</h2><div id="unitList"></div></section>
 <section class="panel hidden" id="parts"><button class="outline back" id="toLessons">← Lesson選択に戻る</button><h2 id="partTitle">Partを選ぼう</h2><div id="partList"></div></section>
+<section class="panel hidden" id="modePicker"><button class="outline back" id="modeBack">← Part選択に戻る</button><h2 id="modeHeading">学習モードを選ぼう</h2><div class="mode-grid"><button class="mode-choice" id="pickText">📖 本文穴埋め<small>今までの本文練習</small></button><button class="mode-choice" id="pickVocab">🔤 単語チェック<small>4択・スペリング</small></button></div><p class="notice" id="modeNotice"></p></section>
+<section class="panel hidden" id="vocabPractice"><button class="outline back" id="vocabBack">← 学習モードに戻る</button><h2 id="vocabHeading">英単語チャレンジ</h2><div class="controls"><label for="vocabType">問題形式</label><select id="vocabType"><option value="choice">意味を選ぶ（4択）</option><option value="typing">英単語を入力する</option></select><button class="primary" id="vocabStart">▶ ゲームスタート！</button></div><div id="vocabGame" class="hidden"><div class="statrow" style="margin-top:18px"><div class="stat"><strong id="vocabProgress">0 / 0</strong><span>進行状況</span></div><div class="stat"><strong id="vocabScore">0</strong><span>正解数</span></div><div class="stat"><strong id="vocabStreak">0</strong><span>連続正解</span></div><div class="stat"><strong id="vocabPoints">0</strong><span>ポイント</span></div></div><div class="card" style="margin-top:16px;min-height:180px"><div class="hint" id="vocabPrompt">英単語の意味は？</div><div class="vocab-word" id="vocabWord"></div></div><div class="space"></div><div id="vocabOptions" class="vocab-options"></div><div id="vocabInputArea" class="hidden"><input id="vocabInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="英単語を入力" style="width:100%"><button id="vocabSubmit" class="primary" style="width:100%;margin-top:10px">回答する</button></div><div class="vocab-feedback" id="vocabFeedback" aria-live="polite"></div><p class="muted" id="vocabHint"></p><button class="primary hidden" id="vocabNext" style="width:100%">次の問題へ →</button></div></section>
 <section class="panel hidden" id="lessonNav"><button class="outline back" id="toUnits">← Part選択に戻る</button><h2 id="selectedLesson"></h2></section>
 <div id="practice" class="hidden">
 <section class="panel"><h2>⚙️ セッション設定</h2><div class="settings"><div class="field"><label for="mode">学習モード</label><select id="mode"><option value="normal">通常モード</option><option value="cloze">本文穴埋めモード</option></select></div><div class="field" id="directionField"><label for="direction">出題方向</label><select id="direction"><option value="en">英語 → 日本語</option><option value="ja">日本語 → 英語</option><option value="mix">毎問ランダム</option></select></div><div class="field"><label for="duration">制限時間</label><select id="duration"><option value="10">10秒</option><option value="30" selected>30秒</option><option value="60">1分</option><option value="0">無制限</option></select></div><div class="field"><label for="starter">最初の回答者</label><select id="starter"><option value="A">生徒A</option><option value="B">生徒B</option></select></div><div class="field"><label for="order">出題順序</label><select id="order"><option value="ordered" selected>順番通り</option><option value="random">ランダム</option></select></div></div><div class="space"></div><div class="controls"><button class="primary" id="start">▶ スタート</button><button id="pause" disabled>一時停止</button><button class="outline" id="reset">リセット</button></div></section>
@@ -13,6 +15,7 @@
 <section class="panel hidden"><details id="editor"><summary>✏️ 先生用：熟語リストを編集する</summary><div><p class="muted">1行に「英語 | 日本語」を入力。タブ区切りもOK。保存した内容はこの端末のブラウザに記憶されます。生徒の端末へ共有する場合は、下の「共有用HTMLを保存」を使ってください。</p><textarea id="terms" spellcheck="false"></textarea><div class="space"></div><div class="controls"><button class="primary" id="save">この端末に保存</button><button id="restore">初期リストに戻す</button><button id="share">共有用HTMLを保存</button></div><p id="editMessage" class="notice"></p></div></details></section></div><div class="footer">PAIR FLASH — 単元別ペアワーク</div></div>
 <script>
 const $=id=>document.getElementById(id);
+let vocabularyGroups=[], selectedVocabulary=null, vocabDeck=[],vocabIndex=0,vocabCorrect=0,vocabStreak=0,vocabPoints=0,vocabAnswered=false;
 let groups=[], subject='', unit=null, terms=[], deck=[], availableIndices=[],seen=0,last=-1,current=-1,flipped=false,round=0,dir='en',active='A',running=false,paused=false,remaining=30,deadline=0,tick=null,stats={A:{right:0,total:0},B:{right:0,total:0}},history=[];
 const show=(id,yes)=>$(id).classList.toggle('hidden',!yes);
 function display(){ $('bankSize').textContent=availableIndices.length+' expressions';$('role').textContent=active;$('scoreA').textContent=stats.A.right+' / '+stats.A.total;$('scoreB').textContent=stats.B.right+' / '+stats.B.total;let s=stats.A.right+stats.B.right,t=stats.A.total+stats.B.total;$('score').textContent=s+' / '+t;$('progress').textContent=seen+' / '+availableIndices.length;$('timer').textContent=remaining===Infinity?'∞':String(Math.floor(Math.max(0,remaining)/60)).padStart(2,'0')+':'+String(Math.max(0,remaining)%60).padStart(2,'0')}
@@ -94,16 +97,16 @@ $('mode').onchange=()=>{if(!running){reset();updateMode()}};$('start').onclick=s
 $('reveal').onclick=()=>{if(!running||paused)return;flipped=true;show('answer',true);$('reveal').disabled=true;$('correct').disabled=false;$('wrong').disabled=false};$('correct').onclick=()=>mark(true);$('wrong').onclick=()=>mark(false);$('skip').onclick=()=>{if(running&&!paused)next()};$('switch').onclick=()=>{if(!running||paused)return;active=active==='A'?'B':'A';display();$('message').textContent='回答者を生徒'+active+'に交代しました！'};$('duration').onchange=()=>{if(!running){remaining=selectedSeconds();display()}};$('starter').onchange=()=>{if(!running){active=$('starter').value;display()}};
 function download(name,content,type){let blob=new Blob([content],{type});let url=URL.createObjectURL(blob);let a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000)}
 $('export').onclick=()=>{let rows=[['回答者','英語','日本語','結果'],...history.map(x=>[x.role,x.english,x.japanese,x.correct])];let csv='\ufeff'+rows.map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\r\n');download('pairflash_results.csv',csv,'text/csv;charset=utf-8')};
-function lessonLabel(id){const v=String(id??'').trim();return /^lesson\\b/i.test(v)?v:'Lesson '+v}
-function partLabel(name){const v=String(name??'').trim();return /^part\\b/i.test(v)?v:'Part '+v}
+function lessonLabel(id){const v=String(id??'').trim();return /^lesson\b/i.test(v)?v:'Lesson '+v}
+function partLabel(name){const v=String(name??'').trim();return /^part\b/i.test(v)?v:'Part '+v}
 let selectedLessonId='';
 function chooseSubject(s){
  subject=s;unit=null;selectedLessonId='';
- show('subjects',false);show('units',true);show('parts',false);show('lessonNav',false);show('practice',false);
+ show('modePicker',false);show('vocabPractice',false);show('subjects',false);show('units',true);show('parts',false);show('lessonNav',false);show('practice',false);
  $('pageTitle').textContent=s+'｜Lessonを選ぼう';$('pageSub').textContent='学習したいLessonを選んでね';
  $('unitTitle').textContent=s+' のLesson';
  const list=$('unitList');list.replaceChildren();
- const filtered=groups.filter(g=>g.subject===s);
+ const filtered=[...groups,...vocabularyGroups].filter(g=>g.subject===s);
  const ids=[...new Set(filtered.map(g=>String(g.id??'').trim()))];
  if(!ids.length){list.textContent='この科目の公開問題はまだありません。';return}
  ids.forEach(id=>{
@@ -114,36 +117,105 @@ function chooseSubject(s){
  });
 }
 function chooseLesson(id){
- selectedLessonId=id;show('units',false);show('parts',true);show('lessonNav',false);show('practice',false);
+ selectedLessonId=id;show('modePicker',false);show('vocabPractice',false);show('units',false);show('parts',true);show('lessonNav',false);show('practice',false);
  $('pageTitle').textContent=lessonLabel(id)+'｜Partを選ぼう';
  $('pageSub').textContent='学習したいPartを選んでね';
  $('partTitle').textContent=lessonLabel(id)+' のPart';
  const list=$('partList');list.replaceChildren();
- const matches=groups.filter(g=>g.subject===subject&&String(g.id??'').trim()===id);
- matches.forEach(g=>{
+ const matches=[...groups,...vocabularyGroups].filter(g=>g.subject===subject&&String(g.id??'').trim()===id);
+ const unique=[...new Set(matches.map(g=>String(g.name)))];
+ unique.forEach(name=>{
   const b=document.createElement('button');b.className='unit';
-  b.textContent=partLabel(g.name)+'（'+g.cards.length+'問）';
-  b.onclick=()=>chooseUnit(g);list.appendChild(b);
+  b.textContent=partLabel(name);
+  b.onclick=()=>chooseMode(name);list.appendChild(b);
  });
 }
+
+function chooseMode(name){
+ const match=g=>g.subject===subject&&String(g.id).trim()===selectedLessonId&&String(g.name)===name;
+ unit=groups.find(match)||null;
+ selectedVocabulary=vocabularyGroups.find(match)||null;
+ show('parts',false);show('modePicker',true);show('vocabPractice',false);show('practice',false);show('lessonNav',false);
+ $('modeHeading').textContent=subject+' / '+lessonLabel(selectedLessonId)+' / '+partLabel(name);
+ $('pageTitle').textContent='何を練習する？';$('pageSub').textContent='学習モードを選択してね';
+ $('pickText').disabled=!unit||!unit.cards?.length;
+ $('pickVocab').disabled=!selectedVocabulary||!selectedVocabulary.words?.length;
+ $('modeNotice').textContent=!selectedVocabulary?.words?.length?'このPartの英単語はまだ登録されていません。':'';
+}
+$('modeBack').onclick=()=>chooseLesson(selectedLessonId);
+$('pickText').onclick=()=>{if(unit)chooseUnit(unit)};
+$('pickVocab').onclick=()=>{
+ if(!selectedVocabulary?.words?.length)return;
+ show('modePicker',false);show('vocabPractice',true);
+ $('pageTitle').textContent='英単語チャレンジ 🔤';$('pageSub').textContent='4択かスペリングを選んでスタート！';
+ $('vocabHeading').textContent=subject+' / '+lessonLabel(selectedLessonId)+' / '+partLabel(selectedVocabulary.name);
+ show('vocabGame',false);
+};
+$('vocabBack').onclick=()=>chooseMode(selectedVocabulary.name);
+function vocabQuestion(){
+ vocabAnswered=false;
+ if(vocabIndex>=vocabDeck.length){
+  $('vocabPrompt').textContent='終了！';$('vocabWord').textContent='おつかれさま！';
+  $('vocabOptions').replaceChildren();show('vocabInputArea',false);
+  $('vocabFeedback').textContent=vocabCorrect+' / '+vocabDeck.length+' 問正解！';
+  $('vocabHint').textContent='もう一度挑戦するなら「ゲームスタート！」を押してね。';show('vocabNext',false);return;
+ }
+ const w=vocabDeck[vocabIndex],typing=$('vocabType').value==='typing';
+ $('vocabProgress').textContent=(vocabIndex+1)+' / '+vocabDeck.length;
+ $('vocabScore').textContent=vocabCorrect;$('vocabStreak').textContent=vocabStreak;$('vocabPoints').textContent=vocabPoints;
+ $('vocabPrompt').textContent=typing?'日本語に合う英単語を入力':'英単語の意味を選ぼう';
+ $('vocabWord').textContent=typing?w.meaning:w.word;
+ $('vocabFeedback').textContent='';$('vocabHint').textContent='';show('vocabNext',false);
+ show('vocabInputArea',typing);$('vocabOptions').replaceChildren();
+ if(typing){$('vocabInput').value='';$('vocabInput').disabled=false;$('vocabSubmit').disabled=false;return}
+ const pool=[...new Set(selectedVocabulary.words.map(x=>x.meaning).filter(x=>x!==w.meaning))].sort(()=>Math.random()-.5);
+ const answers=[w.meaning,...pool.slice(0,3)].sort(()=>Math.random()-.5);
+ answers.forEach(a=>{const b=document.createElement('button');b.textContent=a;b.onclick=()=>vocabAnswer(a===w.meaning,b);$('vocabOptions').append(b)});
+}
+function vocabAnswer(ok,clicked){
+ if(vocabAnswered)return;vocabAnswered=true;
+ const w=vocabDeck[vocabIndex];
+ if(ok){vocabCorrect++;vocabStreak++;vocabPoints+=10+Math.min(vocabStreak-1,5)*2}else vocabStreak=0;
+ $('vocabFeedback').textContent=ok?'○ 正解！':'× 不正解　正解：'+($('vocabType').value==='typing'?w.word:w.meaning);
+ $('vocabFeedback').style.color=ok?'#61dbb3':'#ff9fa5';
+ $('vocabHint').textContent=w.hint?'💡 '+w.hint:'';
+ [...$('vocabOptions').children].forEach(b=>{b.disabled=true;if(b.textContent===w.meaning)b.classList.add('good');else if(b===clicked&&!ok)b.classList.add('bad')});
+ $('vocabInput').disabled=true;$('vocabSubmit').disabled=true;
+ $('vocabScore').textContent=vocabCorrect;$('vocabStreak').textContent=vocabStreak;$('vocabPoints').textContent=vocabPoints;
+ $('vocabNext').textContent=vocabIndex===vocabDeck.length-1?'結果を見る →':'次の問題へ →';show('vocabNext',true);
+}
+$('vocabStart').onclick=()=>{
+ vocabDeck=selectedVocabulary.words.filter(w=>w.word&&w.meaning).map(w=>({...w})).sort(()=>Math.random()-.5);
+ vocabIndex=0;vocabCorrect=0;vocabStreak=0;vocabPoints=0;
+ show('vocabGame',true);vocabQuestion();
+};
+$('vocabSubmit').onclick=()=>{
+ if(vocabAnswered)return;
+ const answer=$('vocabInput').value.trim();if(!answer)return;
+ const expected=vocabDeck[vocabIndex].word.trim();
+ vocabAnswer(answer.toLocaleLowerCase()===expected.toLocaleLowerCase(),null);
+};
+$('vocabInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('vocabSubmit').click()});
+$('vocabNext').onclick=()=>{vocabIndex++;vocabQuestion()};
+
 function chooseUnit(g){
  unit=g;terms=g.cards.map(x=>[String(x[0]??''),String(x[1]??'')]);
  $('mode').value=terms.some(x=>hasBlank(x[0]))?'cloze':'normal';
  reset();updateMode();
- show('units',false);show('parts',false);show('lessonNav',true);show('practice',true);
+ show('modePicker',false);show('vocabPractice',false);show('units',false);show('parts',false);show('lessonNav',true);show('practice',true);
  $('selectedLesson').textContent=subject+' / '+lessonLabel(g.id)+' / '+partLabel(g.name);
  $('pageTitle').textContent=lessonLabel(g.id)+' — '+partLabel(g.name)+' ⚡';
  $('pageSub').textContent='ペアで出題 → 口頭で回答 → 正誤を記録！';
 }
 function leaveUnit(){
  if(running&&!confirm('進行中の記録はリセットされます。戻りますか？'))return;
- reset();chooseLesson(selectedLessonId);
+ reset();chooseMode(unit.name);
 }
 $('toUnits').onclick=leaveUnit;
 $('toLessons').onclick=()=>chooseSubject(subject);
 $('toSubjects').onclick=()=>{
  subject='';unit=null;selectedLessonId='';
- show('subjects',true);show('units',false);show('parts',false);show('lessonNav',false);show('practice',false);
+ show('modePicker',false);show('vocabPractice',false);show('subjects',true);show('units',false);show('parts',false);show('lessonNav',false);show('practice',false);
  $('pageTitle').textContent='科目を選ぼう ⚡';$('pageSub').textContent='英C・論表から学習をスタート！';
 };
 document.querySelectorAll('[data-subject]').forEach(b=>b.onclick=()=>chooseSubject(b.dataset.subject));
@@ -163,6 +235,15 @@ async function fetchLessons(){
     loaded(await response.json());
   }catch(e){failed(e)}
 }
-fetchLessons();
+async function fetchVocabulary(){
+ try{
+  const response=await fetch('./vocabulary.json?t='+Date.now(),{cache:'no-store'});
+  if(!response.ok)throw Error('HTTP '+response.status);
+  const data=await response.json();if(!Array.isArray(data))throw Error('データ形式が不正');
+  vocabularyGroups=data;
+  if($('units').classList.contains('hidden')===false&&subject)chooseSubject(subject);
+ }catch(e){console.warn('英単語データ読み込み失敗:',e);$('loadStatus').textContent+=' / 英単語データは未取得';}
+}
+fetchLessons();fetchVocabulary();
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(console.warn))}
 </script></body></html>
