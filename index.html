@@ -186,7 +186,16 @@ a.subscribe(u=>{$('accountStatus').textContent=u?(u.displayName||'ログイン�
 $('googleLogin').onclick=async()=>{try{await a.login()}catch(e){alert('ログインできませんでした：'+e.message)}};
 $('googleLogout').onclick=async()=>{if(confirm('ログアウトしますか？'))await a.logout()};}
 document.addEventListener('yoshi-auth-ready',attachAccount);setTimeout(attachAccount,0);
-async function saveSoloRecord(mode,right,total,best){if(!total||!window.YoshiAccount?.user)return;try{await window.YoshiAccount.save({subject:String(subject||''),lesson:String(selectedLessonId||''),part:normalizedPart(unit?.name||selectedVocabulary?.name||''),mode,right,total,bestStreak:best})}catch(e){console.warn('学習記録を保存できませんでした',e);$('accountDetail').textContent='学習記録の保存に失敗しました。Firebaseの設定を確認してください'}}
+// Active learning time: count only foreground time, capped at 60 seconds after the last interaction.
+const activeTimer=(()=>{let running=false,ms=0,lastTick=0,lastAction=0;const IDLE_MS=60000;
+ function tick(){const now=performance.now();if(running&&lastTick&&document.visibilityState==='visible')ms+=Math.max(0,Math.min(now-lastTick,Math.max(0,lastAction-lastTick+IDLE_MS)));lastTick=now;}
+ function activity(e){if(!e.isTrusted||!running||document.visibilityState!=='visible')return;tick();lastAction=performance.now()}
+ for(const ev of ['pointerdown','keydown','touchstart'])document.addEventListener(ev,activity,{passive:true});
+ document.addEventListener('visibilitychange',()=>{tick();lastTick=performance.now()});
+ window.addEventListener('blur',()=>{tick();lastTick=0});window.addEventListener('focus',()=>{lastTick=performance.now()});
+ return {start(){ms=0;running=true;lastTick=performance.now();lastAction=lastTick},stop(){tick();running=false;return Math.max(0,Math.round(ms/1000))},cancel(){running=false;ms=0;lastTick=0}};
+})();
+async function saveSoloRecord(mode,right,total,best,durationSeconds){if(!total||!window.YoshiAccount?.user)return;try{await window.YoshiAccount.save({subject:String(subject||''),lesson:String(selectedLessonId||''),part:normalizedPart(unit?.name||selectedVocabulary?.name||''),mode,right,total,bestStreak:best,durationSeconds:Math.max(0,Math.round(Number(durationSeconds)||0))})}catch(e){console.warn('学習記録を保存できませんでした',e);$('accountDetail').textContent='学習記録の保存に失敗しました。Firebaseの設定を確認してください'}}
 
 
 const streakMilestones={3:'NICE!',5:'AWESOME!',10:'INCREDIBLE!',20:'LEGENDARY!'};
@@ -275,7 +284,7 @@ function selectedSeconds(){const n=Number($('duration').value);return n===0?Infi
 function lockSettings(b){['direction','duration','starter','order','mode','start'].forEach(x=>$(x).disabled=b)}
 function start(){
  if(running||!availableIndices.length)return;
- clearInterval(tick);tick=null;running=true;paused=false;
+ clearInterval(tick);tick=null;running=true;paused=false;activeTimer.start();
  active=$('starter').value;stats={A:{right:0,total:0},B:{right:0,total:0}};
  history=[];deck=[];round=0;last=-1;soloStreak={A:0,B:0};soloBestStreak=0;soloSaved=false;clearStreakCelebration();lockSettings(true);
  $('finishSession').disabled=false;$('pause').textContent='一時停止';$('pause').disabled=false;$('skip').disabled=false;$('switch').disabled=false;
@@ -298,7 +307,7 @@ function finish(){
  $('cardLabel').textContent='終了';$('question').textContent='おつかれさま！';show('answer',false);
  $('cardHint').textContent='スコアを確認しよう';
 }
-function reset(){if(running&&!soloSaved&&stats.A.total+stats.B.total){soloSaved=true;saveSoloRecord('text',stats.A.right+stats.B.right,stats.A.total+stats.B.total,soloBestStreak)}soloStreak={A:0,B:0};soloNextPending=false;clearStreakCelebration();clearInterval(tick);tick=null;running=false;paused=false;lockSettings(false);['reveal','correct','wrong','skip','switch','pause','finishSession'].forEach(x=>$(x).disabled=true);stats={A:{right:0,total:0},B:{right:0,total:0}};history=[];deck=[];round=0;seen=0;availableIndices=terms.map((_,i)=>i).filter(i=>$('mode').value!=='cloze'||hasBlank(terms[i][0]));active=$('starter').value;remaining=selectedSeconds();$('question').textContent='Ready?';$('cardLabel').textContent='STARTを押して開始';show('answer',false);$('message').textContent='全問出題したら、選択した出題順序で次の周回に入ります。';display()}
+function reset(){if(running&&!soloSaved&&stats.A.total+stats.B.total){soloSaved=true;saveSoloRecord('text',stats.A.right+stats.B.right,stats.A.total+stats.B.total,soloBestStreak,activeTimer.stop())}else activeTimer.cancel();soloStreak={A:0,B:0};soloNextPending=false;clearStreakCelebration();clearInterval(tick);tick=null;running=false;paused=false;lockSettings(false);['reveal','correct','wrong','skip','switch','pause','finishSession'].forEach(x=>$(x).disabled=true);stats={A:{right:0,total:0},B:{right:0,total:0}};history=[];deck=[];round=0;seen=0;availableIndices=terms.map((_,i)=>i).filter(i=>$('mode').value!=='cloze'||hasBlank(terms[i][0]));active=$('starter').value;remaining=selectedSeconds();$('question').textContent='Ready?';$('cardLabel').textContent='STARTを押して開始';show('answer',false);$('message').textContent='全問出題したら、選択した出題順序で次の周回に入ります。';display()}
 function mark(ok){if(!running||!flipped||soloNextPending)return;stats[active].total++;if(ok){stats[active].right++;soloStreak[active]++;soloBestStreak=Math.max(soloBestStreak,soloStreak[active])}else soloStreak[active]=0;history.push({role:active,english:terms[current][0],japanese:terms[current][1],correct:ok?'正解':'不正解'});display();if(ok&&streakLabel(soloStreak[active])){soloNextPending=true;showStreakCelebration(soloStreak[active]);setTimeout(()=>{soloNextPending=false;if(running)next()},1200)}else next()}
 $('finishSession').onclick=finish;
 $('mode').onchange=()=>{if(!running){reset();updateMode()}};$('start').onclick=start;$('reset').onclick=reset;$('pause').onclick=()=>{if(!running)return;if(!paused){updateClock();paused=true;$('pause').textContent='▶ 再開';$('reveal').disabled=true;$('correct').disabled=true;$('wrong').disabled=true;$('skip').disabled=true}else{paused=false;deadline=Date.now()+remaining*1000;$('pause').textContent='一時停止';$('reveal').disabled=flipped;$('correct').disabled=!flipped;$('wrong').disabled=!flipped;$('skip').disabled=false}};
@@ -366,11 +375,11 @@ $('pickVocab').onclick=()=>{
  $('vocabHeading').textContent=subject+' / '+lessonLabel(selectedLessonId)+' / '+partLabel(selectedVocabulary.name);
  show('vocabGame',false);
 };
-$('vocabBack').onclick=()=>chooseMode(selectedVocabulary.name);
+$('vocabBack').onclick=()=>{activeTimer.cancel();chooseMode(selectedVocabulary.name)};
 function vocabQuestion(){
  vocabAnswered=false;
  if(vocabIndex>=vocabDeck.length){
-  saveSoloRecord('vocab',vocabCorrect,vocabDeck.length,vocabBestStreak);$('vocabPrompt').textContent='終了！';$('vocabWord').textContent='おつかれさま！';
+  saveSoloRecord('vocab',vocabCorrect,vocabDeck.length,vocabBestStreak,activeTimer.stop());$('vocabPrompt').textContent='終了！';$('vocabWord').textContent='おつかれさま！';
   $('vocabOptions').replaceChildren();show('vocabInputArea',false);
   $('vocabFeedback').textContent=vocabCorrect+' / '+vocabDeck.length+' 問正解！';
   $('vocabHint').textContent='もう一度挑戦するなら「ゲームスタート！」を押してね。';show('vocabNext',false);return;
@@ -401,7 +410,7 @@ function vocabAnswer(ok,clicked){
 }
 $('vocabStart').onclick=()=>{
  vocabDeck=selectedVocabulary.words.filter(w=>w.word&&w.meaning).map(w=>({...w})).sort(()=>Math.random()-.5);
- vocabIndex=0;vocabCorrect=0;vocabStreak=0;vocabBestStreak=0;vocabPoints=0;clearStreakCelebration();
+ vocabIndex=0;vocabCorrect=0;vocabStreak=0;vocabBestStreak=0;vocabPoints=0;clearStreakCelebration();activeTimer.start();
  show('vocabGame',true);vocabQuestion();
 };
 $('vocabSubmit').onclick=()=>{
