@@ -112,7 +112,47 @@ a{color:#8BB5FF!important}
 /* Contrast fix: homepage headings on dark-blue background */
 #pageTitle{color:#FFFFFF!important;font-weight:900!important;text-shadow:0 2px 12px #07122955}
 .subjects-panel h2{color:#8BB5FF!important;font-weight:850!important}
-</style></head><body><div class="wrap"><header><div><div class="brand">Yoshi<span class="brand-accent">.Lab</span></div><div class="sub">英語表現 × ペアワーク</div></div><span class="pill" id="bankSize">8 expressions</span></header><h1 id="pageTitle">科目を選ぼう ✦</h1><p class="sub" id="pageSub">英C・論表から学習をスタート！</p>
+
+
+/* Yoshi.Lab full-screen opening cover */
+body.welcome-active>.wrap{display:none!important}
+#welcomeCover{display:none;min-height:100svh;position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse 85% 34% at 75% 0%,#174fa9 0%,transparent 74%),radial-gradient(ellipse 75% 35% at 0% 95%,#13386c 0%,transparent 75%),#081935;color:#fff}
+body.welcome-active #welcomeCover{display:block}
+#welcomeCover:before{content:"";position:absolute;inset:-28% -30% auto 26%;height:55%;background:radial-gradient(ellipse,#2777f36b 0%,transparent 65%);filter:blur(30px);pointer-events:none;z-index:-1}
+.welcome-inner{width:min(100%,780px);margin:auto;padding:clamp(28px,6vw,60px) clamp(18px,5vw,38px) max(38px,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:24px}
+.welcome-hero{text-align:center;padding:clamp(50px,9vh,110px) 0 clamp(20px,4vh,45px)}
+.welcome-logo{font-family:system-ui,-apple-system,'Noto Sans JP',sans-serif;font-size:clamp(62px,13.8vw,112px);font-weight:1000;letter-spacing:-.075em;line-height:1.1;white-space:nowrap;text-shadow:0 0 35px #538dff70}
+.welcome-logo span{color:#49a4ff;text-shadow:0 0 28px #367eff9c}
+.welcome-tagline{margin:22px 0 0;font-size:clamp(15px,3.1vw,23px);font-weight:850;letter-spacing:.27em;line-height:1.65}
+.welcome-motto{color:#70b6ff;font-size:clamp(10px,2.2vw,14px);letter-spacing:.28em;margin-top:13px;font-weight:700}
+.welcome-line{height:4px;width:75px;margin:25px auto 0;border-radius:10px;background:#43b9ff;box-shadow:0 0 17px #43b9ff}
+.welcome-how{font-size:15px;letter-spacing:.16em;font-weight:900;color:#80c4ff;margin:0 0 13px}
+.welcome-steps{display:grid;gap:10px}
+.welcome-step{background:#11284bcc;border:1px solid #2a66b4;border-radius:18px;padding:14px 15px;display:flex;align-items:center;gap:13px;box-shadow:inset 0 1px 0 #ffffff0d}
+.welcome-symbol{width:47px;height:47px;flex:none;display:grid;place-items:center;border-radius:13px;background:#1c417e;color:#8bc9ff;font-size:24px}
+.welcome-step-content{min-width:0;flex:1}
+.welcome-step-title{font-weight:850;font-size:clamp(13px,3.2vw,17px);margin-bottom:8px}
+.welcome-path{display:flex;flex-wrap:wrap;align-items:center;gap:4px}
+.welcome-chip{font-size:clamp(10px,2.3vw,13px);font-weight:750;white-space:nowrap;background:#203f76;border:1px solid #376cb2;border-radius:999px;padding:5px 9px;color:#e6f1ff}
+.welcome-chip.end{background:#277bf3;border-color:#55baff;color:#fff}
+.welcome-chevron{color:#8ccaff;font-size:15px;font-weight:900}
+#welcomeStart{display:block;width:100%;border:2px solid #7ce3ff!important;border-radius:999px;padding:clamp(22px,5vw,38px) 12px!important;margin-top:8px;background:linear-gradient(110deg,#23adfa,#2252f2 55%,#348aff)!important;box-shadow:0 0 0 4px #1769df24,0 0 38px #2088ff8a, inset 0 2px 12px #ffffff55;color:#fff!important;font-weight:1000!important;font-size:clamp(29px,7vw,58px)!important;letter-spacing:-.035em;line-height:1.1;text-align:center;text-shadow:0 2px 12px #002c8a55;transition:transform .18s,filter .18s}
+#welcomeStart:active{transform:scale(.975)}
+.welcome-foot{text-align:center;color:#8cadd9;font-size:14px;margin-top:3px}
+.welcome-foot strong{color:#65a6ff}
+@media(max-width:390px){.welcome-inner{padding-left:13px;padding-right:13px;gap:17px}.welcome-logo{font-size:clamp(49px,13vw,70px)}.welcome-step{padding:12px 10px;gap:9px}.welcome-symbol{width:37px;height:37px;font-size:19px}.welcome-chip{padding:4px 6px}.welcome-tagline{letter-spacing:.18em}}
+@media(prefers-reduced-motion:reduce){#welcomeStart{transition:none}}
+</style></head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
+  <div class="welcome-hero"><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
+  <section aria-label="使い方"><h2 class="welcome-how">HOW TO USE ━━━</h2><div class="welcome-steps">
+    <div class="welcome-step"><div class="welcome-symbol" aria-hidden="true">▣</div><div class="welcome-step-content"><div class="welcome-step-title">単語を勉強したい</div><div class="welcome-path"><span class="welcome-chip">科目</span><span class="welcome-chevron">›</span><span class="welcome-chip">Lesson</span><span class="welcome-chevron">›</span><span class="welcome-chip">Part</span><span class="welcome-chevron">›</span><span class="welcome-chip end">単語チェック</span></div></div></div>
+    <div class="welcome-step"><div class="welcome-symbol" aria-hidden="true">▤</div><div class="welcome-step-content"><div class="welcome-step-title">本文を勉強したい</div><div class="welcome-path"><span class="welcome-chip">科目</span><span class="welcome-chevron">›</span><span class="welcome-chip">Lesson</span><span class="welcome-chevron">›</span><span class="welcome-chip">Part</span><span class="welcome-chevron">›</span><span class="welcome-chip end">本文穴埋め</span></div></div></div>
+    <div class="welcome-step"><div class="welcome-symbol" aria-hidden="true">♧</div><div class="welcome-step-content"><div class="welcome-step-title">授業でペア練習したい</div><div class="welcome-path"><span class="welcome-chip end">ペアワークを始める</span><span class="welcome-chevron">›</span><span class="welcome-chip">科目</span><span class="welcome-chevron">›</span><span class="welcome-chip">単元</span></div></div></div>
+  </div></section>
+  <button id="welcomeStart" type="button">START LEARNING →</button><div class="welcome-foot">Yoshi<strong>.Lab</strong></div>
+</div></div>
+<script>document.body.classList.add('welcome-active');document.getElementById('welcomeStart').addEventListener('click',function(){document.body.classList.remove('welcome-active');document.getElementById('welcomeCover').remove();window.scrollTo(0,0);});</script>
+<div class="wrap"><header><div><div class="brand">Yoshi<span class="brand-accent">.Lab</span></div><div class="sub">英語表現 × ペアワーク</div></div><span class="pill" id="bankSize">8 expressions</span></header><h1 id="pageTitle">科目を選ぼう ✦</h1><p class="sub" id="pageSub">英C・論表から学習をスタート！</p>
 <section class="panel pair-feature"><h2>📱 2台連動ペアワーク</h2><p class="muted">2人がそれぞれのスマホで参加。5問ごとに出題者と回答者が交代します。</p><a href="./pair.html" class="pair-start">ペアワークを始める →</a></section><section class="panel subjects-panel" id="subjects"><h2>📚 科目を選択</h2><div class="subject-grid"><button class="choice" data-subject="英C">英C<br><small>英語コミュニケーション</small></button><button class="choice" data-subject="論表">論表<br><small>論理・表現</small></button></div><p class="status" id="loadStatus">問題集を読み込み中…</p></section>
 <section class="panel hidden" id="units"><button class="outline back" id="toSubjects">← 科目選択に戻る</button><h2 id="unitTitle">Lessonを選ぼう</h2><div id="unitList"></div></section>
 <section class="panel hidden" id="parts"><button class="outline back" id="toLessons">← Lesson選択に戻る</button><h2 id="partTitle">Partを選ぼう</h2><div id="partList"></div></section>
