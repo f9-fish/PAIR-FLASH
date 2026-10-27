@@ -100,6 +100,13 @@ $('export').onclick=()=>{let rows=[['回答者','英語','日本語','結果'],.
 function lessonLabel(id){const v=String(id??'').trim();return /^lesson\b/i.test(v)?v:'Lesson '+v}
 function partLabel(name){const v=String(name??'').trim();return /^part\b/i.test(v)?v:'Part '+v}
 let selectedLessonId='';
+// 本文と英単語で「2」「Part 2」などの表記が違っても同じPartとして扱う。
+function normalizedPart(value){
+ return String(value??'').trim().replace(/^part\s*/i,'').trim();
+}
+function naturalCompare(a,b){
+ return String(a).localeCompare(String(b),'ja',{numeric:true,sensitivity:'base'});
+}
 function chooseSubject(s){
  subject=s;unit=null;selectedLessonId='';
  show('modePicker',false);show('vocabPractice',false);show('subjects',false);show('units',true);show('parts',false);show('lessonNav',false);show('practice',false);
@@ -107,15 +114,13 @@ function chooseSubject(s){
  $('unitTitle').textContent=s+' のLesson';
  const list=$('unitList');list.replaceChildren();
  const filtered=[...groups,...vocabularyGroups].filter(g=>g.subject===s);
-const ids = [...new Set(
-  filtered.map(g => String(g.id ?? '').trim())
-)].sort((a, b) =>
-  a.localeCompare(b, undefined, { numeric: true })
-); if(!ids.length){list.textContent='この科目の公開問題はまだありません。';return}
+ const ids=[...new Set(filtered.map(g=>String(g.id??'').trim()))].sort(naturalCompare);
+ if(!ids.length){list.textContent='この科目の公開問題はまだありません。';return}
  ids.forEach(id=>{
   const matches=filtered.filter(g=>String(g.id??'').trim()===id);
+  const partCount=new Set(matches.map(g=>normalizedPart(g.name))).size;
   const b=document.createElement('button');b.className='unit';
-  b.textContent=lessonLabel(id)+'（'+matches.length+' Part）';
+  b.textContent=lessonLabel(id)+'（'+partCount+' Part）';
   b.onclick=()=>chooseLesson(id);list.appendChild(b);
  });
 }
@@ -125,35 +130,24 @@ function chooseLesson(id){
  $('pageSub').textContent='学習したいPartを選んでね';
  $('partTitle').textContent=lessonLabel(id)+' のPart';
  const list=$('partList');list.replaceChildren();
-const matches = groups
-  .filter(g =>
-    g.subject === subject &&
-    String(g.id ?? '').trim() === id
-  )
-  .sort((a, b) =>
-    String(a.name).localeCompare(
-      String(b.name),
-      undefined,
-      { numeric: true }
-    )
-  ); const unique=[...new Set(matches.map(g=>String(g.name)))];
+ const matches=[...groups,...vocabularyGroups].filter(g=>g.subject===subject&&String(g.id??'').trim()===id);
+ const unique=[...new Set(matches.map(g=>normalizedPart(g.name)))].sort(naturalCompare);
  unique.forEach(name=>{
   const b=document.createElement('button');b.className='unit';
   b.textContent=partLabel(name);
   b.onclick=()=>chooseMode(name);list.appendChild(b);
  });
 }
-
 function chooseMode(name){
- const match=g=>g.subject===subject&&String(g.id).trim()===selectedLessonId&&String(g.name)===name;
+ const match=g=>g.subject===subject&&String(g.id??'').trim()===selectedLessonId&&normalizedPart(g.name)===normalizedPart(name);
  unit=groups.find(match)||null;
  selectedVocabulary=vocabularyGroups.find(match)||null;
  show('parts',false);show('modePicker',true);show('vocabPractice',false);show('practice',false);show('lessonNav',false);
- $('modeHeading').textContent=subject+' / '+lessonLabel(selectedLessonId)+' / '+partLabel(name);
+ $('modeHeading').textContent=subject+' / '+lessonLabel(selectedLessonId)+' / '+partLabel(normalizedPart(name));
  $('pageTitle').textContent='何を練習する？';$('pageSub').textContent='学習モードを選択してね';
  $('pickText').disabled=!unit||!unit.cards?.length;
  $('pickVocab').disabled=!selectedVocabulary||!selectedVocabulary.words?.length;
- $('modeNotice').textContent=!selectedVocabulary?.words?.length?'このPartの英単語はまだ登録されていません。':'';
+ $('modeNotice').textContent=!unit?.cards?.length&&selectedVocabulary?.words?.length?'本文問題は未登録です。単語チェックを選んでね。':!selectedVocabulary?.words?.length?'このPartの英単語はまだ登録されていません。':'';
 }
 $('modeBack').onclick=()=>chooseLesson(selectedLessonId);
 $('pickText').onclick=()=>{if(unit)chooseUnit(unit)};
