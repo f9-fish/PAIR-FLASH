@@ -3,15 +3,15 @@
     "subject": "英C",
     "id": "7",
     "name": "1",
-    "cards": [
+    "words": [
       {
-        "en": "seaplain",
-        "ja": "水上飛行機",
+        "word": "seaplain",
+        "meaning": "水上飛行機",
         "hint": ""
       },
       {
-        "en": "tourism",
-        "ja": "観光",
+        "word": "tourism",
+        "meaning": "観光",
         "hint": "tourist＝観光客"
       }
     ]
