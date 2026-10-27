@@ -13,30 +13,37 @@ const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getDatabase(app),$=
 let groups=[],uid='',code='',side='',room=null,unsubscribe=null,busy=false,lastIndex=-1,localTimer=null;
 let serverOffset=0,offsetReady=false,timeoutPendingIndex=-1,revealBusy=false;
 const show=(id,yes)=>$(id).classList.toggle('hidden',!yes);
-let audioContext=null,soundEnabled=false,lastSoundKey='';
-function beep(freq,start,duration,volume=0.16,type='sine'){
-  const osc=audioContext.createOscillator(),gain=audioContext.createGain();
-  osc.type=type;osc.frequency.setValueAtTime(freq,start);
-  gain.gain.setValueAtTime(0.0001,start);
-  gain.gain.exponentialRampToValueAtTime(volume,start+0.015);
-  gain.gain.exponentialRampToValueAtTime(0.0001,start+duration);
-  osc.connect(gain);gain.connect(audioContext.destination);
-  osc.start(start);osc.stop(start+duration+0.02);
-}
+let soundEnabled=false,lastSoundKey='';
+const soundFiles={
+  correct:new Audio('./correct.wav'),
+  incorrect:new Audio('./incorrect.wav')
+};
+for(const audio of Object.values(soundFiles)){audio.preload='auto';audio.volume=0.8}
 function playJudgment(ok){
-  if(!soundEnabled||!audioContext||audioContext.state!=='running')return;
-  const t=audioContext.currentTime+0.02;
-  if(ok){beep(784,t,0.16,0.14);beep(1047,t+0.18,0.32,0.17)}
-  else{beep(330,t,0.27,0.17,'sawtooth');beep(220,t+0.26,0.37,0.17,'sawtooth')}
+  if(!soundEnabled)return;
+  const audio=soundFiles[ok?'correct':'incorrect'];
+  audio.pause();audio.currentTime=0;
+  audio.play().catch(()=>{});
 }
 $('soundToggle').onclick=async()=>{
+  if(soundEnabled){
+    soundEnabled=false;
+    $('soundToggle').textContent='🔇 効果音をON';
+    return;
+  }
+  // A direct tap unlocks playback on browsers that restrict audio autoplay.
   try{
-    if(soundEnabled){soundEnabled=false;$('soundToggle').textContent='🔇 効果音をON';return}
-    if(!audioContext)audioContext=new (window.AudioContext||window.webkitAudioContext)();
-    await audioContext.resume();
-    soundEnabled=true;$('soundToggle').textContent='🔊 効果音ON（タップでOFF）';
-    beep(660,audioContext.currentTime+0.02,0.1,0.08);
-  }catch(e){msg('効果音を有効にできませんでした。端末の音量設定を確認してね。')}
+    const test=soundFiles.correct;
+    test.muted=true;
+    await test.play();
+    test.pause();test.currentTime=0;test.muted=false;
+    soundEnabled=true;
+    $('soundToggle').textContent='🔊 効果音ON（タップでOFF）';
+    playJudgment(true);
+  }catch(e){
+    soundFiles.correct.muted=false;
+    msg('音声を有効にできませんでした。端末の音量設定を確認してね。');
+  }
 };
 const msg=s=>$('status').textContent=s;
 const err=e=>msg('エラー：'+(e?.message||e));
