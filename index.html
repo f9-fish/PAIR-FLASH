@@ -677,7 +677,7 @@ let katakanaLoading=null;
 function ensureKatakanaDictionary(){
  if(katakanaDictionary)return Promise.resolve(katakanaDictionary);
  if(katakanaLoading)return katakanaLoading;
- katakanaLoading=fetch('./readings.json',{cache:'force-cache'})
+ katakanaLoading=fetch('./readings.json',{cache:'no-store'})
   .then(r=>{if(!r.ok)throw new Error('読み方辞書の読み込みに失敗');return r.json()})
   .then(data=>{katakanaDictionary=data;return data})
   .catch(err=>{console.warn(err);katakanaLoading=null;return null});
@@ -685,7 +685,9 @@ function ensureKatakanaDictionary(){
 }
 function autoKatakanaReading(english){
  if(!katakanaDictionary)return '';
- const tokens=String(english||'').toLowerCase().match(/[a-z]+(?:['’][a-z]+)?/g)||[];
+ const normalized=String(english||'').toLowerCase().replace(/[’]/g,"'").trim().replace(/\s+/g,' ');
+ if(katakanaDictionary[normalized])return katakanaDictionary[normalized];
+ const tokens=normalized.match(/[a-z]+(?:['’][a-z]+)?/g)||[];
  if(!tokens.length)return '';
  const results=tokens.map(token=>katakanaDictionary[token]||'');
  return results.every(Boolean)?results.join(' '):'';
@@ -701,15 +703,8 @@ function vocabQuestion(){
  $('vocabScore').textContent=vocabCorrect;$('vocabStreak').textContent=vocabStreak;$('vocabPoints').textContent=vocabPoints;$('vocabStreakChip').textContent='🔥 '+vocabStreak+' STREAK';
  $('vocabPrompt').textContent=typing?'日本語に合う英単語を入力':'英単語の意味を選ぼう';
  $('vocabWord').textContent=typing?w.meaning:w.word;
- const reading=autoKatakanaReading(w.word)||String(w.reading||w.katakana||'').trim();
- $('vocabReadingText').textContent=reading||'読み方を取得しています…';
- if(!reading){
-  const currentWord=w.word;
-  ensureKatakanaDictionary().then(()=>{
-   if(vocabDeck[vocabIndex]?.word!==currentWord)return;
-   $('vocabReadingText').textContent=autoKatakanaReading(currentWord)||'この語の読み方は辞書にありません';
-  });
- }
+ const reading=String(w.reading||w.katakana||'').trim();
+ $('vocabReadingText').textContent=reading||'読み方が未登録です';
  $('vocabReadingText').classList.add('hidden');
  $('vocabReadingToggle').textContent='🔊 読み方表示';
  $('vocabReadingToggle').classList.toggle('hidden',typing);
