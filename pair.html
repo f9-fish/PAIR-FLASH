@@ -303,6 +303,21 @@ async function createRoom(duration){
  }catch(e){err(e)}finally{busy=false}
 }
 $('join').onclick=async()=>{if(busy)return;let c=$('joinCode').value.trim();if(!/^\d{6}$/.test(c)){msg('6桁の参加コードを入力してね。');return}busy=true;try{await set(ref(db,'rooms/'+c+'/guestUid'),uid);side='B';watch(c)}catch(e){err(e)}finally{busy=false}};
+// Streak celebration helpers: keep correct-answer rendering safe.
+function streakLabel(count){
+  return Number.isInteger(count) && count > 0 && count % 5 === 0;
+}
+function showStreakCelebration(count){
+  const overlay=$('streakCelebration');
+  if(!overlay)return;
+  const counter=overlay.querySelector('.streak-count');
+  const praise=overlay.querySelector('.streak-praise');
+  if(counter)counter.textContent=count+' STREAK';
+  if(praise)praise.textContent='連続正解！';
+  overlay.hidden=false;
+  clearTimeout(showStreakCelebration.timer);
+  showStreakCelebration.timer=setTimeout(()=>{overlay.hidden=true;},1600);
+}
 function render(){if(!room)return;let joined=!!room.guestUid;show('lobby',false);show('waiting',!joined);$('roomCode').textContent=code;show('game',joined&&room.state.index<getCards(room).length);show('done',joined&&room.state.index>=getCards(room).length);if(!joined){msg('生徒Bの参加待ち');return}let cards=getCards(room);if(!cards.length){msg('この端末に該当する問題がありません。問題集の同期を確認してね。');return}let s=room.state,i=s.index;let revealed=room.reveal&&room.reveal.index===i;const currentAnswerer=(Math.floor(i/5)%2===0?'B':'A');const currentStreak=s['streak'+currentAnswerer]||0;const displayedStreak=revealed?(room.reveal.ok?currentStreak+1:0):currentStreak;$('pairStreakChip').textContent='🔥 '+displayedStreak+' STREAK（生徒'+currentAnswerer+'）';if(revealed&&room.reveal.ok&&streakLabel(displayedStreak)){const eventKey=code+':'+i+':'+displayedStreak;if(lastStreakEvent!==eventKey){lastStreakEvent=eventKey;showStreakCelebration(displayedStreak)}}
 if(revealed){
   const key=code+':'+i;
@@ -355,4 +370,4 @@ localTimer=setInterval(updateTimer,300);
 $('cancel').onclick=()=>location.href='./pair.html';
 $('back').onclick=()=>location.href='./pair.html';
 init();
-</script><div id="streakCelebration" class="streak-celebration" hidden aria-live="polite"><div class="streak-c
+</script><div id="streakCelebration" class="streak-celebration" hidden aria-live="polite"><div class="streak-celebration-card"><div class="streak-fire">🔥</div><div class="streak-count">5 STREAK</div><div class="streak-praise">連続正解！</div></div></div></body></html>
