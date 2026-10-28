@@ -580,7 +580,7 @@ function chooseMode(name){
   unit=text.length?{subject,id:selectedLessonId,name:'1',cards:text}:null;
   selectedVocabulary=words.length?{subject,id:selectedLessonId,name:'1',words}:null;
  }else{unit=groups.find(match)||null;selectedVocabulary=vocabularyGroups.find(match)||null;}
- show('parts',false);show('modePicker',true);show('vocabPractice',false);show('practice',false);show('lessonNav',false);
+ show('units',false);show('parts',false);show('modePicker',true);show('vocabPractice',false);show('practice',false);show('lessonNav',false);
  $('modeHeading').textContent=subject+' / '+lessonLabel(selectedLessonId)+(subject==='論表'?'':' / '+partLabel(normalizedPart(name)));
  $('pickText').innerHTML=subject==='論表'?'📖 テキスト内の文をチェック<small>テキストの英文を練習</small>':'📖 本文穴埋め<small>今までの本文練習</small>';
  $('pickVocab').innerHTML=subject==='論表'?'🔤 単語・熟語チェック<small>4択・スペリング</small>':'🔤 単語チェック<small>4択・スペリング</small>';
