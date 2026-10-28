@@ -248,7 +248,13 @@ const catalog=()=>{
     if(source==='text')entry.text.push(...(g.cards||[]));
     else entry.vocab.push(...(g.words||g.cards||[]));
   }
-  return [...entries.values()];
+  const all=[...entries.values()];
+  const ron=new Map();
+  for(const g of all.filter(g=>g.subject==='論表')){
+   if(!ron.has(g.id))ron.set(g.id,{subject:'論表',id:g.id,name:'1',text:[],vocab:[]});
+   ron.get(g.id).text.push(...g.text);ron.get(g.id).vocab.push(...g.vocab);
+  }
+  return [...all.filter(g=>g.subject!=='論表'),...ron.values()];
 };
 const vocabCards=entry=>(entry?.vocab||[]).map(w=>Array.isArray(w)?[String(w[0]??''),String(w[1]??'')]:[String(w.word??''),String(w.meaning??'')]).filter(c=>c[0]&&c[1]);
 let selection={subject:'',lesson:'',part:'',mode:'',duration:0},step=0;
@@ -259,10 +265,10 @@ function choice(label,action,{detail='',disabled=false,featured=false}={}){
   b.onclick=action;$('stepChoices').append(b);
 }
 function currentEntry(){return catalog().find(g=>g.subject===selection.subject&&g.id===selection.lesson&&g.name===selection.part)}
-function goStep(n){step=n;renderStep()}
+function goStep(n){step=(selection.subject==='論表'&&n===2)?3:n;renderStep()}
 function renderStep(){
   $('stepLabel').textContent='STEP '+(step+1)+' / 5';$('stepTitle').textContent=steps[step];
-  show('stepBack',step>0);$('stepBack').onclick=()=>goStep(step-1);
+  show('stepBack',step>0);$('stepBack').onclick=()=>goStep(selection.subject==='論表'&&step===3?1:step-1);
   $('stepChoices').replaceChildren();$('stepMessage').textContent='';
   const all=catalog();
   if(step===0){
@@ -272,15 +278,15 @@ function renderStep(){
     }
   }else if(step===1){
     const ids=[...new Set(all.filter(g=>g.subject===selection.subject).map(g=>g.id))].sort(sortNatural);
-    for(const id of ids)choice(lessonLabel(id),()=>{selection.lesson=id;goStep(2)});
+    for(const id of ids)choice(lessonLabel(id),()=>{selection.lesson=id;if(selection.subject==='論表')selection.part='1';goStep(2)});
   }else if(step===2){
     const parts=all.filter(g=>g.subject===selection.subject&&g.id===selection.lesson).sort((a,b)=>sortNatural(a.name,b.name));
     for(const g of parts)choice(partLabel(g.name),()=>{selection.part=g.name;goStep(3)},{detail:(g.text.length?'本文 '+g.text.length+'問':'本文未登録')+' ／ '+vocabCards(g).length+'語'});
   }else if(step===3){
     const g=currentEntry();const cloze=(g?.text||[]).filter(c=>Array.isArray(c)&&blank(String(c[0]??'')));
     const words=vocabCards(g);
-    choice('📖 本文穴埋め',()=>{selection.mode='cloze';goStep(4)},{detail:cloze.length?cloze.length+'問':'穴埋め問題は未登録',disabled:!cloze.length});
-    choice('🔤 単語チェック',()=>{selection.mode='vocab';goStep(4)},{detail:words.length?words.length+'語・日本語を英語になおそう':'単語は未登録',disabled:!words.length});
+    choice(selection.subject==='論表'?'📖 テキスト内の文をチェック':'📖 本文穴埋め',()=>{selection.mode='cloze';goStep(4)},{detail:cloze.length?cloze.length+'問':'穴埋め問題は未登録',disabled:!cloze.length});
+    choice(selection.subject==='論表'?'🔤 単語・熟語チェック':'🔤 単語チェック',()=>{selection.mode='vocab';goStep(4)},{detail:words.length?words.length+'語・日本語を英語になおそう':'単語は未登録',disabled:!words.length});
   }else{
     $('stepMessage').textContent='無制限がおすすめ！時間を気にせず口頭で回答できるよ。';
     choice('∞ 無制限',()=>createRoom(0),{detail:'おすすめ・時間を気にせず練習',featured:true});
@@ -296,15 +302,19 @@ function renderStep(){
 async function init(){
  try{
    await signInAnonymously(auth);uid=auth.currentUser.uid;
-   const [lr,vr]=await Promise.all([
+   const [lr,vr,rr,rv]=await Promise.all([
      fetch('./lessons.json?t='+Date.now(),{cache:'no-store'}),
-     fetch('./vocabulary.json?t='+Date.now(),{cache:'no-store'})
+     fetch('./vocabulary.json?t='+Date.now(),{cache:'no-store'}),
+     fetch('./ronpyo_text.json?t='+Date.now(),{cache:'no-store'}),
+     fetch('./ronpyo_vocab.json?t='+Date.now(),{cache:'no-store'})
    ]);
    if(!lr.ok)throw Error('lessons.json が読み込めません');
    groups=await lr.json();
    if(!Array.isArray(groups))throw Error('本文データの形式が不正です');
    if(vr.ok){vocabulary=await vr.json();if(!Array.isArray(vocabulary))throw Error('単語データの形式が不正です')}
    else msg('単語データが未登録です。本文のみ利用できます。');
+   if(rr.ok){const extra=await rr.json();if(Array.isArray(extra))groups=groups.filter(g=>g.subject!=='論表').concat(extra)}
+   if(rv.ok){const extra=await rv.json();if(Array.isArray(extra))vocabulary=vocabulary.filter(g=>g.subject!=='論表').concat(extra)}
    if(!catalog().length)throw Error('公開問題がありません');
    renderStep();show('lobby',true);msg('接続準備OK。科目を選ぶか、参加コードを入力してね。');
  }catch(e){err(e)}
