@@ -191,6 +191,26 @@ body.welcome-active #welcomeCover{display:block}
 .pair-feature.pair-compact .muted{font-size:12px!important;line-height:1.45!important;margin:4px 0!important}
 .pair-feature.pair-compact .pair-start{font-size:17px!important;padding:13px 12px!important;margin-top:10px!important;border-radius:12px!important}
 @media(max-width:480px){#subjects .subject-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+
+/* Softer blue navigation, subdued back controls (2026-10-28). */
+.subjects-panel .choice,
+#subjects .choice, #units .unit, #parts .unit, #modePicker .mode-choice,
+.pair-feature .pair-start {
+  background:#719DE3!important;
+  border-color:#88ACE8!important;
+  color:#FFFFFF!important;
+}
+.subjects-panel .choice:hover,
+#subjects .choice:hover, #units .unit:hover, #parts .unit:hover,
+#modePicker .mode-choice:hover:not(:disabled), .pair-feature .pair-start:hover {
+  background:#83A9E7!important;
+}
+#units .back, #parts .back, #modePicker .back {
+  background:#2A426C!important;
+  border:1px solid #45659B!important;
+  color:#FFFFFF!important;
+}
+
 </style></style></head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
   <div class="welcome-hero"><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
   <section aria-label="使い方"><h2 class="welcome-how">HOW TO USE ━━━</h2><div class="welcome-steps">
@@ -221,7 +241,7 @@ body.welcome-active #welcomeCover{display:block}
 <section class="panel hidden" id="vocabPractice"><button class="outline back" id="vocabBack">← 学習モードに戻る</button><h2 id="vocabHeading">英単語チャレンジ</h2><div class="controls"><label for="vocabType">問題形式</label><select id="vocabType"><option value="choice">意味を選ぶ（4択）</option><option value="typing">英単語を入力する</option></select><button class="primary" id="vocabStart">▶ ゲームスタート！</button></div><div id="vocabGame" class="hidden"><div style="margin-top:15px;text-align:right"><span class="streak-chip" id="vocabStreakChip">🔥 0 STREAK</span></div><div class="statrow" style="margin-top:18px"><div class="stat"><strong id="vocabProgress">0 / 0</strong><span>進行状況</span></div><div class="stat"><strong id="vocabScore">0</strong><span>正解数</span></div><div class="stat"><strong id="vocabStreak">0</strong><span>連続正解</span></div><div class="stat"><strong id="vocabPoints">0</strong><span>ポイント</span></div></div><div class="card" style="margin-top:16px;min-height:180px"><div class="hint" id="vocabPrompt">英単語の意味は？</div><div class="vocab-word" id="vocabWord"></div></div><div class="space"></div><div id="vocabOptions" class="vocab-options"></div><div id="vocabInputArea" class="hidden"><input id="vocabInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="英単語を入力" style="width:100%"><button id="vocabSubmit" class="primary" style="width:100%;margin-top:10px">回答する</button></div><div class="vocab-feedback" id="vocabFeedback" aria-live="polite"></div><div id="vocabPronunciation" class="hidden" style="margin:12px 0;padding:12px;background:#253E6D;border:1px solid #45659B;border-radius:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap"><strong id="vocabPronunciationWord" style="font-size:21px;color:#FFE066;overflow-wrap:anywhere;flex:1"></strong><button type="button" id="vocabSpeak" class="primary" aria-label="英単語の発音を聞き直す">🔊 もう一度聞く</button><button type="button" id="vocabSpeechSpeed" aria-label="発音速度を切り替える">通常速度</button></div><p class="muted" id="vocabHint"></p><button class="primary hidden" id="vocabNext" style="width:100%">次の問題へ →</button></div></section>
 <section class="panel hidden" id="lessonNav"><button class="outline back" id="toUnits">← Part選択に戻る</button><h2 id="selectedLesson"></h2></section>
 <div id="practice" class="hidden">
-<section class="panel"><h2>⚙️ セッション設定</h2><div class="settings"><div class="field"><label for="mode">学習モード</label><select id="mode"><option value="normal">通常モード</option><option value="cloze">本文穴埋めモード</option></select></div><div class="field" id="directionField"><label for="direction">出題方向</label><select id="direction"><option value="en">英語 → 日本語</option><option value="ja">日本語 → 英語</option><option value="mix">毎問ランダム</option></select></div><div class="field"><label for="duration">制限時間</label><select id="duration"><option value="10">10秒</option><option value="30" selected>30秒</option><option value="60">1分</option><option value="0">無制限</option></select></div><div class="field"><label for="order">出題順序</label><select id="order"><option value="ordered" selected>順番通り</option><option value="random">ランダム</option></select></div></div><div class="space"></div><div class="controls"><button class="primary" id="start">▶ スタート</button><button id="pause" disabled>一時停止</button><button class="outline" id="reset">リセット</button><button id="finishSession" class="green" disabled>終了して記録</button></div></section>
+<section class="panel"><h2>⚙️ セッション設定</h2><div class="settings"><div class="field"><label for="mode">学習モード</label><select id="mode"><option value="cloze">穴埋めモード</option><option value="normal">英→日モード</option></select></div><div class="field" id="directionField"><label for="direction">出題方向</label><select id="direction"><option value="en">英語 → 日本語</option><option value="ja">日本語 → 英語</option><option value="mix">毎問ランダム</option></select></div><div class="field"><label for="duration">制限時間</label><select id="duration"><option value="10">10秒</option><option value="30" selected>30秒</option><option value="60">1分</option><option value="0">無制限</option></select></div><div class="field"><label for="order">出題順序</label><select id="order"><option value="ordered" selected>順番通り</option><option value="random">ランダム</option></select></div></div><div class="space"></div><div class="controls"><button class="primary" id="start">▶ スタート</button><button id="pause" disabled>一時停止</button><button class="outline" id="reset">リセット</button><button id="finishSession" class="green" disabled>終了して記録</button></div></section>
 <section class="panel"><div class="statrow"><div class="stat"><strong id="timer">00:30</strong><span>この問題の残り時間</span></div><div class="stat"><strong id="role">A</strong><span>回答者</span></div><div class="stat"><strong id="score">0 / 0</strong><span>正解 / 回答</span></div><div class="stat"><strong id="progress">0 / 8</strong><span>出題済み / 全問</span></div></div><div class="solo-streak-banner"><span class="streak-chip" id="soloStreakChip">🔥 0 STREAK</span></div><div class="space"></div><div class="card" aria-live="polite"><div class="hint" id="cardLabel">STARTを押して開始</div><div class="prompt" id="question">Ready?</div><div class="answer hidden" id="answer"></div><div class="hint" id="cardHint">回答者は画面を見ずに、出題者が読み上げてもOK！</div><div id="clozeSpeechControls" class="controls hidden" style="width:100%;margin-top:8px"><button type="button" id="clozeSpeak" class="primary">🔊 もう一度聞く</button><button type="button" id="clozeSpeechSpeed">通常速度</button></div></div><div class="space"></div><button class="primary" id="reveal" style="width:100%" disabled>答えを見る</button><div class="space"></div><div class="grid2"><button class="green" id="correct" disabled>✓ 正解</button><button class="red" id="wrong" disabled>✕ 不正解</button></div><div class="space"></div><div class="controls"><button id="skip" disabled>スキップ</button><button id="switch" disabled>⇄ A / B 交代</button></div><p class="muted" id="message">全問出題したら、選択した出題順序で次の周回に入ります。</p></section>
 <section class="panel"><h2>🏆 スコアボード</h2><div class="grid2"><div class="stat"><strong id="scoreA">0 / 0</strong><span>生徒A（正解 / 回答）</span></div><div class="stat"><strong id="scoreB">0 / 0</strong><span>生徒B（正解 / 回答）</span></div></div><div class="space"></div><button class="outline" id="export">結果をCSV保存</button></section>
 <section class="panel hidden"><details id="editor"><summary>✏️ 先生用：熟語リストを編集する</summary><div><p class="muted">1行に「英語 | 日本語」を入力。タブ区切りもOK。保存した内容はこの端末のブラウザに記憶されます。生徒の端末へ共有する場合は、下の「共有用HTMLを保存」を使ってください。</p><textarea id="terms" spellcheck="false"></textarea><div class="space"></div><div class="controls"><button class="primary" id="save">この端末に保存</button><button id="restore">初期リストに戻す</button><button id="share">共有用HTMLを保存</button></div><p id="editMessage" class="notice"></p></div></details></section></div><div class="footer">Yoshi<span class="brand-accent">.Lab</span></div></div>
@@ -351,7 +371,18 @@ function renderClozeQuestion(english,japanese){
  root.append(line,translation);
 }
 let clozeSpeechRate=1;
-function stopClozeSpeech(){if('speechSynthesis' in window)window.speechSynthesis.cancel()}
+let clozeSpeechToken=0;
+let clozeSpeaking=false;
+function setClozeSpeaking(playing){
+ clozeSpeaking=playing;
+ $('clozeSpeak').textContent=playing?'⏹ 止める':'🔊 もう一度聞く';
+ $('clozeSpeak').setAttribute('aria-label',playing?'本文の読み上げを止める':'本文を読み上げる');
+}
+function stopClozeSpeech(){
+ clozeSpeechToken++;
+ if('speechSynthesis' in window)window.speechSynthesis.cancel();
+ setClozeSpeaking(false);
+}
 function speakClozeSentence(){
  if(!('speechSynthesis' in window)||!('SpeechSynthesisUtterance' in window)||current<0||!terms[current])return;
  const sentence=String(terms[current][0]||'').replace(/\(([^()]*)\)/g,'$1').replace(/[～〜~＿_]+/g,' ').replace(/\.{2,}|…+/g,' ').replace(/\s+/g,' ').trim();
@@ -363,10 +394,14 @@ function speakClozeSentence(){
   const voices=window.speechSynthesis.getVoices();
   const english=voices.find(v=>v.lang.toLowerCase()==='en-us')||voices.find(v=>v.lang.toLowerCase().startsWith('en'));
   if(english)utterance.voice=english;
+  const token=clozeSpeechToken;
+  utterance.onstart=()=>{if(token===clozeSpeechToken)setClozeSpeaking(true)};
+  utterance.onend=utterance.onerror=()=>{if(token===clozeSpeechToken)setClozeSpeaking(false)};
+  setClozeSpeaking(true);
   window.speechSynthesis.speak(utterance);
  }catch(e){console.warn('本文読み上げに失敗',e)}
 }
-$('clozeSpeak').onclick=speakClozeSentence;
+$('clozeSpeak').onclick=()=>{if(clozeSpeaking)stopClozeSpeech();else speakClozeSentence()};
 $('clozeSpeechSpeed').onclick=()=>{clozeSpeechRate=clozeSpeechRate===1?0.75:1;$('clozeSpeechSpeed').textContent=clozeSpeechRate===1?'通常速度':'ゆっくり';speakClozeSentence()};
 function next(){
  stopClozeSpeech();show('clozeSpeechControls',false);
@@ -487,7 +522,18 @@ $('pickVocab').onclick=()=>{
 $('vocabBack').onclick=()=>{if(vocabSessionRunning)finishVocabularySession();chooseMode(selectedVocabulary.name)};
 let vocabSpeechRate=1;
 const vocabSpeechAvailable=('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window);
-function stopVocabSpeech(){if(vocabSpeechAvailable)window.speechSynthesis.cancel()}
+let vocabSpeechToken=0;
+let vocabSpeaking=false;
+function setVocabSpeaking(playing){
+ vocabSpeaking=playing;
+ $('vocabSpeak').textContent=playing?'⏹ 止める':'🔊 もう一度聞く';
+ $('vocabSpeak').setAttribute('aria-label',playing?'英単語の発音を止める':'英単語の発音を聞き直す');
+}
+function stopVocabSpeech(){
+ vocabSpeechToken++;
+ if(vocabSpeechAvailable)window.speechSynthesis.cancel();
+ setVocabSpeaking(false);
+}
 function speakVocabWord(){
  if(!vocabSpeechAvailable)return;
  // Display the original entry, but omit notation such as ～ / ~ / ... from speech.
@@ -504,10 +550,14 @@ function speakVocabWord(){
   const voices=window.speechSynthesis.getVoices();
   const english=voices.find(v=>v.lang.toLowerCase()==='en-us')||voices.find(v=>v.lang.toLowerCase().startsWith('en'));
   if(english)utterance.voice=english;
+  const token=vocabSpeechToken;
+  utterance.onstart=()=>{if(token===vocabSpeechToken)setVocabSpeaking(true)};
+  utterance.onend=utterance.onerror=()=>{if(token===vocabSpeechToken)setVocabSpeaking(false)};
+  setVocabSpeaking(true);
   window.speechSynthesis.speak(utterance);
  }catch(e){console.warn('発音再生に失敗',e)}
 }
-$('vocabSpeak').onclick=speakVocabWord;
+$('vocabSpeak').onclick=()=>{if(vocabSpeaking)stopVocabSpeech();else speakVocabWord()};
 $('vocabSpeechSpeed').onclick=()=>{vocabSpeechRate=vocabSpeechRate===1?0.75:1;$('vocabSpeechSpeed').textContent=vocabSpeechRate===1?'通常速度':'ゆっくり';speakVocabWord()};
 let vocabSessionRunning=false;
 function finishVocabularySession(){
