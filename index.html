@@ -260,7 +260,7 @@ body:has(#subjects.hidden) .pair-feature .pair-start:hover {
 .vocab-reading-text{font-size:15px;font-weight:700;color:#ffe39a;margin:9px 0 0;overflow-wrap:anywhere}
 .vocab-reading-toggle.hidden,.vocab-reading-text.hidden{display:none!important}
 </style>
-</head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
+<style>#modePicker .mode-choice{white-space:nowrap}#modePicker .mode-choice{font-size:clamp(13px,3.5vw,20px)}@media(max-width:390px){#modePicker .mode-grid{gap:8px}#modePicker .mode-choice{padding:10px 5px}}</style></head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
   <div class="welcome-hero"><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
   <section aria-label="使い方"><h2 class="welcome-how">HOW TO USE ━━━</h2><div class="welcome-steps">
     <div class="welcome-step"><div class="welcome-symbol" aria-hidden="true">▣</div><div class="welcome-step-content"><div class="welcome-step-title">単語を勉強したい</div><div class="welcome-path"><span class="welcome-chip">科目</span><span class="welcome-chevron">›</span><span class="welcome-chip">Lesson</span><span class="welcome-chevron">›</span><span class="welcome-chip">Part</span><span class="welcome-chevron">›</span><span class="welcome-chip end">単語チェック</span></div></div></div>
@@ -596,8 +596,8 @@ function chooseMode(name){
  }else{unit=groups.find(match)||null;selectedVocabulary=vocabularyGroups.find(match)||null;}
  show('units',false);show('parts',false);show('modePicker',true);show('vocabPractice',false);show('practice',false);show('lessonNav',false);
  $('modeHeading').textContent=subject+' / '+lessonLabel(selectedLessonId)+(subject==='論表'?'':' / '+partLabel(normalizedPart(name)));
- $('pickText').innerHTML=subject==='論表'?'📖 テキスト内の文をチェック<small>テキストの英文を練習</small>':'📖 本文穴埋め<small>今までの本文練習</small>';
- $('pickVocab').innerHTML=subject==='論表'?'🔤 単語・熟語チェック<small>4択・スペリング</small>':'🔤 単語チェック<small>4択・スペリング</small>';
+ $('pickText').innerHTML=subject==='論表'?'📖 文チェック':'📖 本文穴埋め<small>今までの本文練習</small>';
+ $('pickVocab').innerHTML=subject==='論表'?'🔤 単語・熟語チェック':'🔤 単語チェック<small>4択・スペリング</small>';
  $('modeBack').textContent=subject==='論表'?'← Lesson選択に戻る':'← Part選択に戻る';
  $('pageTitle').textContent='何を練習する？';$('pageSub').textContent='学習モードを選択してね';
  $('pickText').disabled=!unit||!unit.cards?.length;
@@ -670,6 +670,26 @@ function finishVocabularySession(){
  $('vocabHint').textContent='学習時間：約'+elapsed+'秒。もう一度挑戦するなら「ゲームスタート！」を押してね。';
  show('vocabNext',false);
 }
+// English pronunciation dictionary: local readings.json (no spreadsheet reading column required).
+let katakanaDictionary=null;
+// Load lazily once the first vocabulary question is shown.
+let katakanaLoading=null;
+function ensureKatakanaDictionary(){
+ if(katakanaDictionary)return Promise.resolve(katakanaDictionary);
+ if(katakanaLoading)return katakanaLoading;
+ katakanaLoading=fetch('./readings.json',{cache:'force-cache'})
+  .then(r=>{if(!r.ok)throw new Error('読み方辞書の読み込みに失敗');return r.json()})
+  .then(data=>{katakanaDictionary=data;return data})
+  .catch(err=>{console.warn(err);katakanaLoading=null;return null});
+ return katakanaLoading;
+}
+function autoKatakanaReading(english){
+ if(!katakanaDictionary)return '';
+ const tokens=String(english||'').toLowerCase().match(/[a-z]+(?:['’][a-z]+)?/g)||[];
+ if(!tokens.length)return '';
+ const results=tokens.map(token=>katakanaDictionary[token]||'');
+ return results.every(Boolean)?results.join(' '):'';
+}
 function vocabQuestion(){
  stopVocabSpeech();show('vocabPronunciation',false);
  vocabAnswered=false;
@@ -681,13 +701,20 @@ function vocabQuestion(){
  $('vocabScore').textContent=vocabCorrect;$('vocabStreak').textContent=vocabStreak;$('vocabPoints').textContent=vocabPoints;$('vocabStreakChip').textContent='🔥 '+vocabStreak+' STREAK';
  $('vocabPrompt').textContent=typing?'日本語に合う英単語を入力':'英単語の意味を選ぼう';
  $('vocabWord').textContent=typing?w.meaning:w.word;
- const reading=String(w.reading||w.katakana||'').trim();
- $('vocabReadingText').textContent=reading;
+ const reading=autoKatakanaReading(w.word)||String(w.reading||w.katakana||'').trim();
+ $('vocabReadingText').textContent=reading||'読み方を取得しています…';
+ if(!reading){
+  const currentWord=w.word;
+  ensureKatakanaDictionary().then(()=>{
+   if(vocabDeck[vocabIndex]?.word!==currentWord)return;
+   $('vocabReadingText').textContent=autoKatakanaReading(currentWord)||'この語の読み方は辞書にありません';
+  });
+ }
  $('vocabReadingText').classList.add('hidden');
  $('vocabReadingToggle').textContent='🔊 読み方表示';
  $('vocabReadingToggle').classList.toggle('hidden',typing);
- $('vocabReadingToggle').disabled=!reading;
- $('vocabReadingToggle').title=reading?'カタカナの読み方を表示':'スプレッドシートの「読み方」列を入力してください';
+ $('vocabReadingToggle').disabled=false;
+ $('vocabReadingToggle').title='英単語のカタカナ読みを表示';
 
  $('vocabFeedback').textContent='';$('vocabHint').textContent='';$('vocabInitialText').textContent='';show('vocabNext',false);$('vocabInitialHint').disabled=false;
  show('vocabInputArea',typing);$('vocabOptions').replaceChildren();
