@@ -191,7 +191,7 @@ body.welcome-active #welcomeCover{display:block}
 <section class="panel hidden" id="units"><button class="outline back" id="toSubjects">← 科目選択に戻る</button><h2 id="unitTitle">Lessonを選ぼう</h2><div id="unitList"></div></section>
 <section class="panel hidden" id="parts"><button class="outline back" id="toLessons">← Lesson選択に戻る</button><h2 id="partTitle">Partを選ぼう</h2><div id="partList"></div></section>
 <section class="panel hidden" id="modePicker"><button class="outline back" id="modeBack">← Part選択に戻る</button><h2 id="modeHeading">学習モードを選ぼう</h2><div class="mode-grid"><button class="mode-choice" id="pickText">📖 本文穴埋め<small>今までの本文練習</small></button><button class="mode-choice" id="pickVocab">🔤 単語チェック<small>4択・スペリング</small></button></div><p class="notice" id="modeNotice"></p></section>
-<section class="panel hidden" id="vocabPractice"><button class="outline back" id="vocabBack">← 学習モードに戻る</button><h2 id="vocabHeading">英単語チャレンジ</h2><div class="controls"><label for="vocabType">問題形式</label><select id="vocabType"><option value="choice">意味を選ぶ（4択）</option><option value="typing">英単語を入力する</option></select><button class="primary" id="vocabStart">▶ ゲームスタート！</button></div><div id="vocabGame" class="hidden"><div style="margin-top:15px;text-align:right"><span class="streak-chip" id="vocabStreakChip">🔥 0 STREAK</span></div><div class="statrow" style="margin-top:18px"><div class="stat"><strong id="vocabProgress">0 / 0</strong><span>進行状況</span></div><div class="stat"><strong id="vocabScore">0</strong><span>正解数</span></div><div class="stat"><strong id="vocabStreak">0</strong><span>連続正解</span></div><div class="stat"><strong id="vocabPoints">0</strong><span>ポイント</span></div></div><div class="card" style="margin-top:16px;min-height:180px"><div class="hint" id="vocabPrompt">英単語の意味は？</div><div class="vocab-word" id="vocabWord"></div></div><div class="space"></div><div id="vocabOptions" class="vocab-options"></div><div id="vocabInputArea" class="hidden"><input id="vocabInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="英単語を入力" style="width:100%"><button id="vocabSubmit" class="primary" style="width:100%;margin-top:10px">回答する</button></div><div class="vocab-feedback" id="vocabFeedback" aria-live="polite"></div><p class="muted" id="vocabHint"></p><button class="primary hidden" id="vocabNext" style="width:100%">次の問題へ →</button></div></section>
+<section class="panel hidden" id="vocabPractice"><button class="outline back" id="vocabBack">← 学習モードに戻る</button><h2 id="vocabHeading">英単語チャレンジ</h2><div class="controls"><label for="vocabType">問題形式</label><select id="vocabType"><option value="choice">意味を選ぶ（4択）</option><option value="typing">英単語を入力する</option></select><button class="primary" id="vocabStart">▶ ゲームスタート！</button></div><div id="vocabGame" class="hidden"><div style="margin-top:15px;text-align:right"><span class="streak-chip" id="vocabStreakChip">🔥 0 STREAK</span></div><div class="statrow" style="margin-top:18px"><div class="stat"><strong id="vocabProgress">0 / 0</strong><span>進行状況</span></div><div class="stat"><strong id="vocabScore">0</strong><span>正解数</span></div><div class="stat"><strong id="vocabStreak">0</strong><span>連続正解</span></div><div class="stat"><strong id="vocabPoints">0</strong><span>ポイント</span></div></div><div class="card" style="margin-top:16px;min-height:180px"><div class="hint" id="vocabPrompt">英単語の意味は？</div><div class="vocab-word" id="vocabWord"></div></div><div class="space"></div><div id="vocabOptions" class="vocab-options"></div><div id="vocabInputArea" class="hidden"><input id="vocabInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="英単語を入力" style="width:100%"><button id="vocabSubmit" class="primary" style="width:100%;margin-top:10px">回答する</button></div><div class="vocab-feedback" id="vocabFeedback" aria-live="polite"></div><div id="vocabPronunciation" class="hidden" style="margin:12px 0;padding:12px;background:#253E6D;border:1px solid #45659B;border-radius:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap"><strong id="vocabPronunciationWord" style="font-size:21px;color:#FFE066;overflow-wrap:anywhere;flex:1"></strong><button type="button" id="vocabSpeak" class="primary" aria-label="英単語の発音を聞き直す">🔊 もう一度聞く</button><button type="button" id="vocabSpeechSpeed" aria-label="発音速度を切り替える">通常速度</button></div><p class="muted" id="vocabHint"></p><button class="primary hidden" id="vocabNext" style="width:100%">次の問題へ →</button></div></section>
 <section class="panel hidden" id="lessonNav"><button class="outline back" id="toUnits">← Part選択に戻る</button><h2 id="selectedLesson"></h2></section>
 <div id="practice" class="hidden">
 <section class="panel"><h2>⚙️ セッション設定</h2><div class="settings"><div class="field"><label for="mode">学習モード</label><select id="mode"><option value="normal">通常モード</option><option value="cloze">本文穴埋めモード</option></select></div><div class="field" id="directionField"><label for="direction">出題方向</label><select id="direction"><option value="en">英語 → 日本語</option><option value="ja">日本語 → 英語</option><option value="mix">毎問ランダム</option></select></div><div class="field"><label for="duration">制限時間</label><select id="duration"><option value="10">10秒</option><option value="30" selected>30秒</option><option value="60">1分</option><option value="0">無制限</option></select></div><div class="field"><label for="starter">最初の回答者</label><select id="starter"><option value="A">生徒A</option><option value="B">生徒B</option></select></div><div class="field"><label for="order">出題順序</label><select id="order"><option value="ordered" selected>順番通り</option><option value="random">ランダム</option></select></div></div><div class="space"></div><div class="controls"><button class="primary" id="start">▶ スタート</button><button id="pause" disabled>一時停止</button><button class="outline" id="reset">リセット</button><button id="finishSession" class="green" disabled>終了して記録</button></div></section>
@@ -423,9 +423,29 @@ $('pickVocab').onclick=()=>{
  show('vocabGame',false);
 };
 $('vocabBack').onclick=()=>{if(vocabSessionRunning)finishVocabularySession();chooseMode(selectedVocabulary.name)};
+let vocabSpeechRate=1;
+const vocabSpeechAvailable=('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window);
+function stopVocabSpeech(){if(vocabSpeechAvailable)window.speechSynthesis.cancel()}
+function speakVocabWord(){
+ if(!vocabSpeechAvailable)return;
+ const word=$('vocabPronunciationWord').textContent.trim();
+ if(!word)return;
+ try{
+  stopVocabSpeech();
+  const utterance=new SpeechSynthesisUtterance(word);
+  utterance.lang='en-US';utterance.rate=vocabSpeechRate;utterance.pitch=1;
+  const voices=window.speechSynthesis.getVoices();
+  const english=voices.find(v=>v.lang.toLowerCase()==='en-us')||voices.find(v=>v.lang.toLowerCase().startsWith('en'));
+  if(english)utterance.voice=english;
+  window.speechSynthesis.speak(utterance);
+ }catch(e){console.warn('発音再生に失敗',e)}
+}
+$('vocabSpeak').onclick=speakVocabWord;
+$('vocabSpeechSpeed').onclick=()=>{vocabSpeechRate=vocabSpeechRate===1?0.75:1;$('vocabSpeechSpeed').textContent=vocabSpeechRate===1?'通常速度':'ゆっくり';speakVocabWord()};
 let vocabSessionRunning=false;
 function finishVocabularySession(){
  if(!vocabSessionRunning)return;
+ stopVocabSpeech();show('vocabPronunciation',false);
  vocabSessionRunning=false;
  const elapsed=activeTimer.stop();
  const answered=vocabIndex+(vocabAnswered?1:0);
@@ -440,6 +460,7 @@ function finishVocabularySession(){
  show('vocabNext',false);
 }
 function vocabQuestion(){
+ stopVocabSpeech();show('vocabPronunciation',false);
  vocabAnswered=false;
  if(vocabIndex>=vocabDeck.length){
   finishVocabularySession();return;
@@ -463,12 +484,16 @@ function vocabAnswer(ok,clicked){
  $('vocabFeedback').textContent=ok?'○ 正解！':'× 不正解　正解：'+($('vocabType').value==='typing'?w.word:w.meaning);
  $('vocabFeedback').style.color=ok?'#61dbb3':'#ff9fa5';
  $('vocabHint').textContent=w.hint?'💡 '+w.hint:'';
+ $('vocabPronunciationWord').textContent=w.word;
+ show('vocabPronunciation',true);
+ speakVocabWord();
  [...$('vocabOptions').children].forEach(b=>{b.disabled=true;if(b.textContent===w.meaning)b.classList.add('good');else if(b===clicked&&!ok)b.classList.add('bad')});
  $('vocabInput').disabled=true;$('vocabSubmit').disabled=true;
  $('vocabScore').textContent=vocabCorrect;$('vocabStreak').textContent=vocabStreak;$('vocabPoints').textContent=vocabPoints;$('vocabStreakChip').textContent='🔥 '+vocabStreak+' STREAK';
  $('vocabNext').textContent=vocabIndex===vocabDeck.length-1?'結果を見る →':'次の問題へ →';show('vocabNext',true);
 }
 $('vocabStart').onclick=()=>{
+ stopVocabSpeech();show('vocabPronunciation',false);
  if(vocabSessionRunning){finishVocabularySession();return;}
  vocabDeck=selectedVocabulary.words.filter(w=>w.word&&w.meaning).map(w=>({...w})).sort(()=>Math.random()-.5);
  vocabIndex=0;vocabCorrect=0;vocabStreak=0;vocabBestStreak=0;vocabPoints=0;clearStreakCelebration();activeTimer.start();vocabSessionRunning=true;
