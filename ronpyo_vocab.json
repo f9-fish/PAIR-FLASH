@@ -7,62 +7,74 @@
       {
         "word": "to tell the truth",
         "meaning": "実を言うと",
-        "hint": ""
+        "hint": "",
+        "reading": ""
       },
       {
         "word": "to be honest",
         "meaning": "正直に言うと",
-        "hint": ""
+        "hint": "",
+        "reading": ""
       },
       {
         "word": "to be sure",
         "meaning": "確かに",
-        "hint": ""
+        "hint": "",
+        "reading": ""
       },
       {
         "word": "to say the least",
         "meaning": "控えめに言っても",
-        "hint": ""
+        "hint": "",
+        "reading": ""
       },
       {
         "word": "to begin with",
         "meaning": "まず第一に",
-        "hint": ""
+        "hint": "",
+        "reading": ""
       },
       {
         "word": "strange to say",
         "meaning": "奇妙なことに",
-        "hint": ""
+        "hint": "",
+        "reading": ""
       },
       {
         "word": "needless to say",
         "meaning": "言うまでもなく",
-        "hint": ""
+        "hint": "",
+        "reading": ""
       },
       {
         "word": "so to speak",
         "meaning": "いわば",
-        "hint": ""
+        "hint": "",
+        "reading": ""
       },
       {
         "word": "to make matters worse",
         "meaning": "さらに悪いことに",
-        "hint": ""
+        "hint": "",
+        "reading": ""
       },
       {
         "word": "to be frank",
         "meaning": "率直に言うと",
-        "hint": ""
+        "hint": "",
+        "reading": ""
       },
       {
         "word": "to sum up",
         "meaning": "要約すると",
-        "hint": ""
+        "hint": "",
+        "reading": ""
       },
       {
         "word": "not to mention",
         "meaning": "〜は言うまでもなく",
-        "hint": ""
+        "hint": "",
+        "reading": ""
       }
     ]
   },
@@ -74,12 +86,14 @@
       {
         "word": "the place where I grew up",
         "meaning": "私が育った場所",
-        "hint": ""
+        "hint": "",
+        "reading": ""
       },
       {
         "word": "the reason why he left",
         "meaning": "彼が去った理由",
-        "hint": ""
+        "hint": "",
+        "reading": ""
       }
     ]
   }
