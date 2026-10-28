@@ -127,11 +127,13 @@ a{color:#8BB5FF!important}
 .streak-fire{font-size:clamp(48px,12vw,66px);line-height:1.3}.streak-count{font-size:clamp(40px,10vw,63px);font-weight:1000;letter-spacing:-.045em;color:white;white-space:nowrap}.streak-count span{font-size:.62em;color:#FFB15E}.streak-praise{font-size:clamp(22px,6vw,30px);font-weight:950;color:#FFB15E;margin-top:5px}
 @keyframes streak-pop{from{transform:scale(.55);opacity:0}to{transform:scale(1);opacity:1}}@keyframes streak-fade{from{opacity:0}to{opacity:1}}
 @media(prefers-reduced-motion:reduce){.streak-celebration,.streak-celebration-card{animation:none}}
+
+.review-list{display:grid;gap:5px;text-align:left;margin:10px 0 16px}.review-item{border:1px solid #dbe4ed;border-radius:8px;padding:8px 10px;background:#fff}.review-item.bad{border-left:5px solid #e88c8c}.review-item.good{border-left:5px solid #72bd9a}.review-item .review-head{font-weight:700;margin-bottom:3px;font-size:.9rem}.review-item .review-en{font-size:.94rem;white-space:pre-wrap;overflow-wrap:anywhere}.review-item .review-ja{color:#657080;margin-top:2px;white-space:pre-wrap;font-size:.85rem}.review-item .review-note{font-size:.83rem;color:#64748b;margin-top:3px}
 </style></head><body><div class="wrap"><a href="./index.html">← 通常練習に戻る</a><h1 class="pair-brand">Yoshi<span class="brand-accent">.Lab</span><span class="pair-suffix">PAIR</span></h1><p class="sub">2台連動・口頭回答・5問ごとに役割交代</p><div class="row" style="margin:10px 0"><button id="soundToggle" type="button" style="flex:0 0 auto">🔇 効果音をON</button><span class="muted">各スマホで一度押してね</span></div><div id="status" class="status">Firebaseに接続しています…</div>
 <section id="lobby" class="panel hidden"><div id="wizard"><div class="step-label" id="stepLabel">STEP 1 / 5</div><h2 id="stepTitle">科目を選ぼう</h2><button type="button" id="stepBack" class="step-back hidden">← 戻る</button><div id="stepChoices"></div><p class="status" id="stepMessage"></p></div><div class="join-area"><h2>参加コードを持っている人（生徒B）</h2><p class="muted">生徒Aが作った6桁のコードを入力して参加してね。</p><div class="row"><input id="joinCode" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" placeholder="6桁のコード" aria-label="参加コード"><button id="join">参加（生徒B）</button></div></div></section>
 <section id="waiting" class="panel hidden"><h2>相手の参加を待っています</h2><div class="code" id="roomCode"></div><p class="muted">この6桁を相手に伝えてね。相手は「参加」に入力します。</p><button id="cancel" class="red">待機を終了</button></section>
-<section id="game" class="hidden"><section class="panel"><div class="stat"><span id="role" class="tag"></span><span id="counter" class="tag"></span></div><div class="stat"><span>連続正解</span><span class="streak-chip" id="pairStreakChip">🔥 0 STREAK</span></div><div class="stat"><span>残り時間</span><strong id="timer">00:30</strong></div><div class="stat"><span>ペアの正解数</span><strong id="score">0 / 0</strong></div><div class="card"><div class="sub" id="instruction"></div><div id="english" class="english"></div><div id="answerKey" class="answer-key hidden">黄色い文字が解答箇所</div><div id="japanese" class="japanese"></div></div><p id="roleHint" class="muted"></p><div id="grading" class="split hidden"><button id="correct" class="green">○ 正解</button><button id="wrong" class="red">× 不正解</button></div><div id="feedback" class="panel hidden"><div id="feedbackTitle" class="judgment" role="status">正答確認</div><div id="feedbackWordCard" class="hidden"><div class="feedback-word-label">正しい英単語</div><div id="feedbackWord" class="feedback-word"></div><div id="feedbackMeaning" class="feedback-meaning"></div></div><p id="feedbackAnswer" class="english"></p><button id="next" class="primary" style="width:100%">次の問題へ →</button><p id="nextHint" class="muted"></p></div></section><section id="change" class="panel hidden"><h2>🔄 役割交代！</h2><p>次の5問は出題者と回答者が入れ替わるよ。</p></section></section>
-<section id="done" class="panel hidden"><h2>🎉 おつかれさま！</h2><p class="big" id="result"></p><p class="muted" id="detail"></p><button id="back" class="primary">新しいペアワークへ</button></section></div>
+<section id="ready" class="panel hidden"><h2>ペアワークの役割を確認しよう</h2><p class="muted">最初の5問は次の役割で進めます。5問ごとに交代します。</p><div class="step-summary"><strong>生徒A：出題者</strong><p>問題を出して、相手の答えを聞き、○×を判定する。</p><strong>生徒B：回答者</strong><p>問題を聞いて、口頭で答える。</p></div><p id="readyRole" class="step-label"></p><button id="startPair" class="primary hidden" type="button" style="width:100%">始める</button><p id="readyWait" class="muted hidden">生徒Aが開始するのを待っています…</p></section><section id="game" class="hidden"><section class="panel"><div class="stat"><span id="role" class="tag"></span><span id="counter" class="tag"></span></div><div class="stat"><span>連続正解</span><span class="streak-chip" id="pairStreakChip">🔥 0 STREAK</span></div><div class="stat"><span>残り時間</span><strong id="timer">00:30</strong></div><div class="stat"><span>ペアの正解数</span><strong id="score">0 / 0</strong></div><div class="card"><div class="sub" id="instruction"></div><div id="english" class="english"></div><div id="answerKey" class="answer-key hidden">黄色い文字が解答箇所</div><div id="japanese" class="japanese"></div></div><div id="hintArea" style="margin:8px 0"><button id="hintButton" type="button" style="padding:7px 14px">💡 ヒント</button><span id="hintText" class="muted" style="margin-left:10px"></span></div><p id="roleHint" class="muted"></p><div id="answerCapture" class="hidden" style="margin:8px 0"><input id="spokenAnswer" type="text" placeholder="回答者が言った答え（任意）" aria-label="回答者が言った答え" style="width:100%;box-sizing:border-box"></div><div id="grading" class="split hidden"><button id="correct" class="green">○ 正解</button><button id="wrong" class="red">× 不正解</button></div><div id="feedback" class="panel hidden"><div id="feedbackTitle" class="judgment" role="status">正答確認</div><div id="feedbackWordCard" class="hidden"><div class="feedback-word-label">正しい英単語</div><div id="feedbackWord" class="feedback-word"></div><div id="feedbackMeaning" class="feedback-meaning"></div></div><p id="feedbackAnswer" class="english"></p><button id="next" class="primary" style="width:100%">次の問題へ →</button><p id="nextHint" class="muted"></p></div></section><section id="change" class="panel hidden"><h2>🔄 役割交代！</h2><p>次の5問は出題者と回答者が入れ替わるよ。</p></section></section>
+<section id="done" class="panel hidden"><h2>🎉 おつかれさま！</h2><p class="big" id="result"></p><p class="muted" id="detail"></p><h3>今回の全問題を振り返ろう</h3><div id="reviewList" class="review-list"></div><button id="back" class="primary">新しいペアワークへ</button></section></div>
 <script type="module">
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js';
 import {getAuth,signInAnonymously,onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js';
@@ -294,7 +296,7 @@ async function createRoom(duration){
   let created=false,c='';
   for(let attempt=0;attempt<8&&!created;attempt++){
    c=String(100000+Math.floor(Math.random()*900000));
-   const initial={hostUid:uid,guestUid:'',subject:g.subject,lesson:String(g.id),part:String(g.name),mode:selection.mode,duration,createdAt:Date.now(),state:{index:0,right:0,total:0,startedAt:Date.now()}};
+   const initial={hostUid:uid,guestUid:'',subject:g.subject,lesson:String(g.id),part:String(g.name),mode:selection.mode,duration,createdAt:Date.now(),state:{index:0,right:0,total:0,startedAt:0},started:false};
    try{await set(ref(db,'rooms/'+c),initial);created=true}
    catch(e){if(e.code!=='PERMISSION_DENIED'&&e.code!=='database/permission-denied')throw e}
   }
@@ -302,30 +304,38 @@ async function createRoom(duration){
   side='A';watch(c);
  }catch(e){err(e)}finally{busy=false}
 }
+$('startPair').onclick=async()=>{if(busy||side!=='A'||!room?.guestUid||room.started)return;busy=true;try{await runTransaction(ref(db,'rooms/'+code),r=>{if(!r||r.started||!r.guestUid||r.hostUid!==uid)return;r.started=true;r.state.startedAt=Date.now()+(offsetReady?serverOffset:0);return r})}catch(e){err(e)}finally{busy=false}};
 $('join').onclick=async()=>{if(busy)return;let c=$('joinCode').value.trim();if(!/^\d{6}$/.test(c)){msg('6桁の参加コードを入力してね。');return}busy=true;try{await set(ref(db,'rooms/'+c+'/guestUid'),uid);side='B';watch(c)}catch(e){err(e)}finally{busy=false}};
-// Streak celebration helpers: keep correct-answer rendering safe.
-function streakLabel(count){
-  return Number.isInteger(count) && count > 0 && count % 5 === 0;
+let hintShownIndex=-1;
+function initialHint(en,mode){
+ const words=mode==='cloze'?[...String(en).matchAll(/\(([^()]+)\)/g)].map(m=>m[1]):[String(en).replace(/\(([^()]+)\)/g,'$1')];
+ return words.map(v=>v.trim().split(/\s+/).filter(Boolean).map(w=>{const m=w.match(/[A-Za-z]/);return m?m[0]+'…':'―'}).join(' ')).join(' / ');
 }
-function showStreakCelebration(count){
-  const overlay=$('streakCelebration');
-  if(!overlay)return;
-  const counter=overlay.querySelector('.streak-count');
-  const praise=overlay.querySelector('.streak-praise');
-  if(counter)counter.textContent=count+' STREAK';
-  if(praise)praise.textContent='連続正解！';
-  overlay.hidden=false;
-  clearTimeout(showStreakCelebration.timer);
-  showStreakCelebration.timer=setTimeout(()=>{overlay.hidden=true;},1600);
+$('hintButton').onclick=()=>{if(!room||!room.started)return;const i=room.state.index,cards=getCards(room);if(i>=cards.length)return;hintShownIndex=i;$('hintText').textContent='頭文字：'+initialHint(cards[i][0],room.mode);};
+function renderReview(cards,s){
+  const list=$('reviewList');list.replaceChildren();
+  const history=s.history||{};
+  cards.forEach(([en,ja],i)=>{
+    const value=history[i];const recorded=value===true||value===false||value===1||value===0;
+    const ok=value===true||value===1;const response=(s.historyAnswers||{})[i];
+    const item=document.createElement('article');item.className='review-item '+(recorded?(ok?'good':'bad'):'');
+    const head=document.createElement('div');head.className='review-head';head.textContent='問題 '+(i+1)+'　'+(recorded?(ok?'○ 正解':'× 不正解'):'― 記録なし');item.append(head);
+    const answer=document.createElement('div');answer.className='review-en';answer.textContent=String(en).replace(/\(([^()]+)\)/g,'$1');item.append(answer);
+    const meaning=document.createElement('div');meaning.className='review-ja';meaning.textContent=String(ja);item.append(meaning);const noteAnswer=document.createElement('div');noteAnswer.className='review-note';noteAnswer.textContent='回答：'+(response?response:(recorded?'未記録（口頭回答）':'―'))+'　｜　正答：'+String(en).replace(/\(([^()]+)\)/g,'$1');item.append(noteAnswer);
+    if(room.mode==='cloze'){
+      const note=document.createElement('div');note.className='review-note';note.textContent='穴埋めの正答：'+[...String(en).matchAll(/\(([^()]+)\)/g)].map(m=>m[1]).join(' / ');item.append(note);
+    }
+    list.append(item);
+  });
 }
-function render(){if(!room)return;let joined=!!room.guestUid;show('lobby',false);show('waiting',!joined);$('roomCode').textContent=code;show('game',joined&&room.state.index<getCards(room).length);show('done',joined&&room.state.index>=getCards(room).length);if(!joined){msg('生徒Bの参加待ち');return}let cards=getCards(room);if(!cards.length){msg('この端末に該当する問題がありません。問題集の同期を確認してね。');return}let s=room.state,i=s.index;let revealed=room.reveal&&room.reveal.index===i;const currentAnswerer=(Math.floor(i/5)%2===0?'B':'A');const currentStreak=s['streak'+currentAnswerer]||0;const displayedStreak=revealed?(room.reveal.ok?currentStreak+1:0):currentStreak;$('pairStreakChip').textContent='🔥 '+displayedStreak+' STREAK（生徒'+currentAnswerer+'）';if(revealed&&room.reveal.ok&&streakLabel(displayedStreak)){const eventKey=code+':'+i+':'+displayedStreak;if(lastStreakEvent!==eventKey){lastStreakEvent=eventKey;showStreakCelebration(displayedStreak)}}
+function render(){if(!room)return;let joined=!!room.guestUid,started=!!room.started;show('lobby',false);show('waiting',!joined);$('roomCode').textContent=code;show('ready',joined&&!started);$('readyRole').textContent='あなたは生徒'+side+'：'+(side==='A'?'最初は出題者':'最初は回答者');show('startPair',joined&&!started&&side==='A');show('readyWait',joined&&!started&&side==='B');show('game',joined&&started&&room.state.index<getCards(room).length);show('done',joined&&started&&room.state.index>=getCards(room).length);if(!joined){msg('生徒Bの参加待ち');return}if(!started){msg('役割を確認して開始を待ってね。');return}let cards=getCards(room);if(!cards.length){msg('この端末に該当する問題がありません。問題集の同期を確認してね。');return}let s=room.state,i=s.index;let revealed=room.reveal&&room.reveal.index===i;const currentAnswerer=(Math.floor(i/5)%2===0?'B':'A');const currentStreak=s['streak'+currentAnswerer]||0;const displayedStreak=revealed?(room.reveal.ok?currentStreak+1:0):currentStreak;$('pairStreakChip').textContent='🔥 '+displayedStreak+' STREAK（生徒'+currentAnswerer+'）';if(revealed&&room.reveal.ok&&streakLabel(displayedStreak)){const eventKey=code+':'+i+':'+displayedStreak;if(lastStreakEvent!==eventKey){lastStreakEvent=eventKey;showStreakCelebration(displayedStreak)}}
 if(revealed){
   const key=code+':'+i;
   if(lastSoundKey!==key){lastSoundKey=key;playJudgment(!!room.reveal.ok)}
 }
-msg('ペア接続中：'+code);if(i>=cards.length){$('result').textContent=s.right+' / '+s.total+' 問正解';$('detail').textContent='正答率 '+(s.total?Math.round(100*s.right/s.total):0)+'%';return}let asker=(Math.floor(i/5)%2===0?'A':'B'),answerer=asker==='A'?'B':'A',isAsker=side===asker;let [en,ja]=cards[i];$('role').textContent='あなた：生徒'+side+'（'+(isAsker?'出題者':'回答者')+'）';$('counter').textContent=(i+1)+' / '+cards.length+' 問';$('score').textContent=s.right+' / '+s.total;$('instruction').textContent=isAsker?'正解を見ながら口頭で出題し、○×を判定':'相手の出題を聞いて口頭で回答';$('roleHint').textContent=isAsker?'回答者：生徒'+answerer+'　判定すると両方の画面が進みます。':'出題者：生徒'+asker+'　回答後は相手の判定を待ってね。';show('grading',isAsker&&!revealed);show('feedback',!!revealed);$('feedbackTitle').textContent=revealed?(room.reveal.ok?'○ 正解！':'× 不正解'):'正答確認';$('feedbackTitle').className='judgment '+(revealed?(room.reveal.ok?'correct':'incorrect'):'');$('feedbackAnswer').textContent=revealed&&room.mode!=='vocab'?en.replace(/\(([^()]+)\)/g,'$1'):'';show('feedbackWordCard',!!revealed&&room.mode==='vocab');$('feedbackWord').textContent=revealed&&room.mode==='vocab'?en:'';$('feedbackMeaning').textContent=revealed&&room.mode==='vocab'?ja:'';show('next',!!revealed&&isAsker);$('nextHint').textContent=isAsker?'正答を確認したら次へ進もう':'出題者が「次の問題へ」を押すまで待ってね';show('change',i>0&&i%5===0&&i!==lastIndex);lastIndex=i;let text=room.mode==='cloze'?(isAsker?en.replace(/\(([^()]+)\)/g,'$1'):en.replace(/\(([^()]+)\)/g,'______')):isAsker?en:en;$('english').textContent=text;show('answerKey',room.mode==='cloze'&&isAsker);if(room.mode==='cloze'&&isAsker)showClozeForAsker($('english'),en);$('japanese').textContent=ja;if(room.mode==='cloze')showHighlightedJapanese($('japanese'),ja);const cardEl=$('english').closest('.card');cardEl.classList.toggle('vocab-card',room.mode==='vocab');cardEl.classList.toggle('vocab-answerer',room.mode==='vocab'&&!isAsker);if(room.mode==='vocab'){$('instruction').textContent=isAsker?'日本語を英語になおそう（出題者）':'日本語を英語になおそう';$('japanese').textContent=ja;$('english').textContent=isAsker?en:'';show('answerKey',false)}else if(room.mode==='normal'&&!isAsker){$('english').textContent='日本語を聞いて、英語で答えよう';$('japanese').textContent=ja}else if(room.mode==='normal'&&isAsker){$('instruction').textContent='日本語を読み上げ、相手の英語を採点'}updateTimer();}
+msg('ペア接続中：'+code);if(i>=cards.length){$('result').textContent=s.right+' / '+s.total+' 問正解';$('detail').textContent='正答率 '+(s.total?Math.round(100*s.right/s.total):0)+'%';renderReview(cards,s);return}let asker=(Math.floor(i/5)%2===0?'A':'B'),answerer=asker==='A'?'B':'A',isAsker=side===asker;let [en,ja]=cards[i];$('hintText').textContent=hintShownIndex===i?'頭文字：'+initialHint(en,room.mode):'';show('hintArea',!revealed);$('role').textContent='あなた：生徒'+side+'（'+(isAsker?'出題者':'回答者')+'）';$('counter').textContent=(i+1)+' / '+cards.length+' 問';$('score').textContent=s.right+' / '+s.total;$('instruction').textContent=isAsker?'正解を見ながら口頭で出題し、○×を判定':'相手の出題を聞いて口頭で回答';$('roleHint').textContent=isAsker?'回答者：生徒'+answerer+'　判定すると両方の画面が進みます。':'出題者：生徒'+asker+'　回答後は相手の判定を待ってね。';show('grading',isAsker&&!revealed);show('answerCapture',isAsker&&!revealed);show('feedback',!!revealed);$('feedbackTitle').textContent=revealed?(room.reveal.ok?'○ 正解！':'× 不正解'):'正答確認';$('feedbackTitle').className='judgment '+(revealed?(room.reveal.ok?'correct':'incorrect'):'');$('feedbackAnswer').textContent=revealed&&room.mode!=='vocab'?en.replace(/\(([^()]+)\)/g,'$1'):'';show('feedbackWordCard',!!revealed&&room.mode==='vocab');$('feedbackWord').textContent=revealed&&room.mode==='vocab'?en:'';$('feedbackMeaning').textContent=revealed&&room.mode==='vocab'?ja:'';show('next',!!revealed&&isAsker);$('nextHint').textContent=isAsker?'正答を確認したら次へ進もう':'出題者が「次の問題へ」を押すまで待ってね';show('change',i>0&&i%5===0&&i!==lastIndex);lastIndex=i;let text=room.mode==='cloze'?(isAsker?en.replace(/\(([^()]+)\)/g,'$1'):en.replace(/\(([^()]+)\)/g,'______')):isAsker?en:en;$('english').textContent=text;show('answerKey',room.mode==='cloze'&&isAsker);if(room.mode==='cloze'&&isAsker)showClozeForAsker($('english'),en);$('japanese').textContent=ja;if(room.mode==='cloze')showHighlightedJapanese($('japanese'),ja);const cardEl=$('english').closest('.card');cardEl.classList.toggle('vocab-card',room.mode==='vocab');cardEl.classList.toggle('vocab-answerer',room.mode==='vocab'&&!isAsker);if(room.mode==='vocab'){$('instruction').textContent=isAsker?'日本語を英語になおそう（出題者）':'日本語を英語になおそう';$('japanese').textContent=ja;$('english').textContent=isAsker?en:'';show('answerKey',false)}else if(room.mode==='normal'&&!isAsker){$('english').textContent='日本語を聞いて、英語で答えよう';$('japanese').textContent=ja}else if(room.mode==='normal'&&isAsker){$('instruction').textContent='日本語を読み上げ、相手の英語を採点'}updateTimer();}
 function updateTimer(){
-  if(!room||!room.guestUid)return;
+  if(!room||!room.guestUid||!room.started)return;
   const s=room.state,secs=room.duration;
   if(room.reveal&&room.reveal.index===s.index){$('timer').textContent='確認中';return}if(!secs){$('timer').textContent='∞';return}
   const now=Date.now()+(offsetReady?serverOffset:0);
@@ -344,7 +354,7 @@ async function grade(ok,timeout=false){
   if(side!==asker)return;
   revealBusy=true;
   try{
-    await set(ref(db,'rooms/'+code+'/reveal'),{index:room.state.index,ok:!!ok});
+    await set(ref(db,'rooms/'+code+'/reveal'),{index:room.state.index,ok:!!ok,answer:$('spokenAnswer').value.trim()});
   }catch(e){timeoutPendingIndex=-1;err(e)}
   finally{revealBusy=false}
 }
@@ -357,9 +367,9 @@ async function nextQuestion(){
   try{
     const result=await runTransaction(ref(db,'rooms/'+code+'/state'),old=>{
       if(!old||old.index!==oldIndex)return;
-      const answerer=(Math.floor(old.index/5)%2===0?'B':'A');const key='streak'+answerer;return {...old,[key]:ok?(old[key]||0)+1:0,index:old.index+1,right:old.right+(ok?1:0),total:old.total+1,startedAt:Date.now()+(offsetReady?serverOffset:0)};
+      const answerer=(Math.floor(old.index/5)%2===0?'B':'A');const key='streak'+answerer;return {...old,[key]:ok?(old[key]||0)+1:0,index:old.index+1,right:old.right+(ok?1:0),total:old.total+1,history:{...(old.history||{}),[old.index]:!!ok},historyAnswers:{...(old.historyAnswers||{}),[old.index]:room.reveal.answer||''},startedAt:Date.now()+(offsetReady?serverOffset:0)};
     },{applyLocally:false});
-    if(!result.committed)msg('問題を進められませんでした');
+    if(!result.committed)msg('問題を進められませんでした');else $('spokenAnswer').value='';
   }catch(e){err(e)}
   finally{busy=false;timeoutPendingIndex=-1}
 }
@@ -370,4 +380,4 @@ localTimer=setInterval(updateTimer,300);
 $('cancel').onclick=()=>location.href='./pair.html';
 $('back').onclick=()=>location.href='./pair.html';
 init();
-</script><div id="streakCelebration" class="streak-celebration" hidden aria-live="polite"><div class="streak-celebration-card"><div class="streak-fire">🔥</div><div class="streak-count">5 STREAK</div><div class="streak-praise">連続正解！</div></div></div></body></html>
+</script><div id="streakCelebration" class="streak-celebration" hidden aria-live="polite"><div class="streak-celebration-card"><div class="streak-fire" id="streakFire">🔥</div><div class="streak-count"><b id="streakNumber">5</b> <span>STREAK!</span></div><div class="streak-praise" id="streakPraise">AWESOME!</div></div></div></body></html>
