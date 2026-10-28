@@ -1,0 +1,86 @@
+[
+  {
+    "subject": "論表",
+    "id": "Extra 1",
+    "name": "不定詞の慣用表現",
+    "words": [
+      {
+        "word": "to tell the truth",
+        "meaning": "実を言うと",
+        "hint": ""
+      },
+      {
+        "word": "to be honest",
+        "meaning": "正直に言うと",
+        "hint": ""
+      },
+      {
+        "word": "to be sure",
+        "meaning": "確かに",
+        "hint": ""
+      },
+      {
+        "word": "to say the least",
+        "meaning": "控えめに言っても",
+        "hint": ""
+      },
+      {
+        "word": "to begin with",
+        "meaning": "まず第一に",
+        "hint": ""
+      },
+      {
+        "word": "strange to say",
+        "meaning": "奇妙なことに",
+        "hint": ""
+      },
+      {
+        "word": "needless to say",
+        "meaning": "言うまでもなく",
+        "hint": ""
+      },
+      {
+        "word": "so to speak",
+        "meaning": "いわば",
+        "hint": ""
+      },
+      {
+        "word": "to make matters worse",
+        "meaning": "さらに悪いことに",
+        "hint": ""
+      },
+      {
+        "word": "to be frank",
+        "meaning": "率直に言うと",
+        "hint": ""
+      },
+      {
+        "word": "to sum up",
+        "meaning": "要約すると",
+        "hint": ""
+      },
+      {
+        "word": "not to mention",
+        "meaning": "〜は言うまでもなく",
+        "hint": ""
+      }
+    ]
+  },
+  {
+    "subject": "論表",
+    "id": "12",
+    "name": "関係詞",
+    "words": [
+      {
+        "word": "the place where I grew up",
+        "meaning": "私が育った場所",
+        "hint": ""
+      },
+      {
+        "word": "the reason why he left",
+        "meaning": "彼が去った理由",
+        "hint": ""
+      }
+    ]
+  }
+]
