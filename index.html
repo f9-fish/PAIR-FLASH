@@ -211,7 +211,30 @@ body.welcome-active #welcomeCover{display:block}
   color:#FFFFFF!important;
 }
 
-</style></style></head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
+</style></style><style>
+/* Navigation palette: home = MY PAGE blue; deeper screens = back-button navy. */
+#subjects .choice,
+#subjects .choice:hover,
+body:has(#subjects:not(.hidden)) .pair-feature .pair-start,
+body:has(#subjects:not(.hidden)) .pair-feature .pair-start:hover {
+  background:#528DFF!important;
+  border-color:#528DFF!important;
+  color:#FFFFFF!important;
+}
+#units .unit,#parts .unit,#modePicker .mode-choice,
+#units .unit:hover,#parts .unit:hover,#modePicker .mode-choice:hover:not(:disabled),
+body:has(#subjects.hidden) .pair-feature .pair-start,
+body:has(#subjects.hidden) .pair-feature .pair-start:hover {
+  background:#2A426C!important;
+  border-color:#45659B!important;
+  color:#FFFFFF!important;
+}
+#units .back,#parts .back,#modePicker .back {
+  background:#2A426C!important;
+  border-color:#45659B!important;
+  color:#FFFFFF!important;
+}
+</style></head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
   <div class="welcome-hero"><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
   <section aria-label="使い方"><h2 class="welcome-how">HOW TO USE ━━━</h2><div class="welcome-steps">
     <div class="welcome-step"><div class="welcome-symbol" aria-hidden="true">▣</div><div class="welcome-step-content"><div class="welcome-step-title">単語を勉強したい</div><div class="welcome-path"><span class="welcome-chip">科目</span><span class="welcome-chevron">›</span><span class="welcome-chip">Lesson</span><span class="welcome-chevron">›</span><span class="welcome-chip">Part</span><span class="welcome-chevron">›</span><span class="welcome-chip end">単語チェック</span></div></div></div>
@@ -455,7 +478,7 @@ function reset(){stopClozeSpeech();show('clozeSpeechControls',false);if(running&
 function mark(ok){if(!running||!flipped||soloNextPending)return;stats[active].total++;if(ok){stats[active].right++;soloStreak[active]++;soloBestStreak=Math.max(soloBestStreak,soloStreak[active])}else soloStreak[active]=0;history.push({role:active,english:terms[current][0],japanese:terms[current][1],correct:ok?'正解':'不正解'});display();if(ok&&streakLabel(soloStreak[active])){soloNextPending=true;showStreakCelebration(soloStreak[active]);setTimeout(()=>{soloNextPending=false;if(running)next()},1200)}else next()}
 $('finishSession').onclick=finish;
 $('mode').onchange=()=>{if(!running){reset();updateMode()}};$('start').onclick=start;$('reset').onclick=reset;$('pause').onclick=()=>{if(!running)return;if(!paused){updateClock();paused=true;$('pause').textContent='▶ 再開';$('reveal').disabled=true;$('correct').disabled=true;$('wrong').disabled=true;$('skip').disabled=true}else{paused=false;deadline=Date.now()+remaining*1000;$('pause').textContent='一時停止';$('reveal').disabled=flipped;$('correct').disabled=!flipped;$('wrong').disabled=!flipped;$('skip').disabled=false}};
-$('reveal').onclick=()=>{if(!running||paused)return;flipped=true;show('answer',true);$('reveal').disabled=true;$('correct').disabled=false;$('wrong').disabled=false;const cloze=$('mode').value==='cloze';show('clozeSpeechControls',cloze);if(cloze)speakClozeSentence()};$('correct').onclick=()=>mark(true);$('wrong').onclick=()=>mark(false);$('skip').onclick=()=>{if(running&&!paused)next()};$('switch').onclick=()=>{if(!running||paused)return;active=active==='A'?'B':'A';display();$('message').textContent='回答者を生徒'+active+'に交代しました！'};$('duration').onchange=()=>{if(!running){remaining=selectedSeconds();display()}};
+$('reveal').onclick=()=>{if(!running||paused)return;flipped=true;show('answer',true);$('reveal').disabled=true;$('correct').disabled=false;$('wrong').disabled=false;show('clozeSpeechControls',true);speakClozeSentence()};$('correct').onclick=()=>mark(true);$('wrong').onclick=()=>mark(false);$('skip').onclick=()=>{if(running&&!paused)next()};$('switch').onclick=()=>{if(!running||paused)return;active=active==='A'?'B':'A';display();$('message').textContent='回答者を生徒'+active+'に交代しました！'};$('duration').onchange=()=>{if(!running){remaining=selectedSeconds();display()}};
 function download(name,content,type){let blob=new Blob([content],{type});let url=URL.createObjectURL(blob);let a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000)}
 $('export').onclick=()=>{let rows=[['回答者','英語','日本語','結果'],...history.map(x=>[x.role,x.english,x.japanese,x.correct])];let csv='\ufeff'+rows.map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\r\n');download('pairflash_results.csv',csv,'text/csv;charset=utf-8')};
 function lessonLabel(id){const v=String(id??'').trim();return /^lesson\b/i.test(v)?v:'Lesson '+v}
