@@ -1328,101 +1328,78 @@ async function fetchRonpyo(){
   $('loadStatus').textContent='問題データ読み込み完了';
  }catch(e){console.warn('論表データ:',e);$('loadStatus').textContent+=' / 論表: '+e.message;}
 }
-// Browser back/forward navigation for the in-page learning screens.
-// Store a lightweight route, not question content or student data, in history.state.
-(function enablePageHistory(){
- const panels=['subjects','modePicker','units','parts','vocabPractice','practice'];
- let restoring=false, lastRoute='', pending=false;
- const savedRoute=history.state?.yoshiRoute;
- const activePanel=()=>panels.find(id=>!document.getElementById(id).classList.contains('hidden'))||'subjects';
- const capture=()=>{
-  const page=activePanel();
-  return {page,subject,mode:selectedStudyMode,lesson:selectedLessonId,
-   part:unit?.name||selectedVocabulary?.name||'',};
- };
- const key=r=>JSON.stringify(r);
- const initial=savedRoute?.page?savedRoute:capture();
- restoring=Boolean(savedRoute?.page&&savedRoute.page!=='subjects');
- history.replaceState({...history.state,yoshiRoute:initial},'',location.href);
- lastRoute=key(initial);
- const save=()=>{
-  pending=false;
+// Stable screen navigation: save only after user navigation, never observe DOM mutations.
+(function initLearningNavigation(){
+ const key='yoshiLabCurrentScreenV26';
+ const screens=['subjects','modePicker','units','parts','practice','vocabPractice'];
+ const current=()=>screens.find(id=>!$(id).classList.contains('hidden'))||'subjects';
+ const snapshot=()=>({page:current(),subject,mode:selectedStudyMode,lesson:selectedLessonId,part:unit?.name||selectedVocabulary?.name||''});
+ const original={chooseSubject,chooseStudyMode,chooseLesson,chooseMode};
+ let restoring=false;
+ function persist(push){
   if(restoring)return;
-  const r=capture(), k=key(r);
-  if(k===lastRoute)return;
-  lastRoute=k;
-  history.pushState({...history.state,yoshiRoute:r},'',location.href);
- };
- const schedule=()=>{if(!pending&&!restoring){pending=true;queueMicrotask(save)}};
- const observer=new MutationObserver(schedule);
- panels.forEach(id=>observer.observe(document.getElementById(id),{attributes:true,attributeFilter:['class']}));
- function goHome(){
+  const route=snapshot();
+  const prev=history.state?.yoshiRoute;
+  if(prev&&JSON.stringify(prev)===JSON.stringify(route))return;
+  if(push)history.pushState({...history.state,yoshiRoute:route},'',location.href);
+  else history.replaceState({...history.state,yoshiRoute:route},'',location.href);
+  try{sessionStorage.setItem(key,JSON.stringify(route))}catch(e){}
+ }
+ // Wrap navigation functions: existing click handlers remain untouched.
+ chooseSubject=function(...args){const result=original.chooseSubject(...args);persist(true);return result};
+ chooseStudyMode=function(...args){const result=original.chooseStudyMode(...args);persist(true);return result};
+ chooseLesson=function(...args){const result=original.chooseLesson(...args);persist(true);return result};
+ chooseMode=function(...args){const result=original.chooseMode(...args);persist(true);return result};
+ function home(){
   subject='';unit=null;selectedLessonId='';selectedStudyMode='';
   ['modePicker','vocabPractice','units','parts','lessonNav','practice'].forEach(id=>show(id,false));
   show('subjects',true);
   $('pageTitle').textContent='科目を選ぼう ⚡';
   $('pageSub').textContent='英C・論表から学習をスタート！';
  }
- function restore(r){
-  if(!r||!r.page||r.page==='subjects'){goHome();return}
-  if(!r.subject){goHome();return}
-  chooseSubject(r.subject);
-  if(r.page==='modePicker')return;
-  if(!r.mode)return;
-  chooseStudyMode(r.mode);
-  if(r.page==='units')return;
-  if(!r.lesson)return;
-  chooseLesson(r.lesson);
-  if(r.page==='parts')return;
-  if(r.page==='practice'||r.page==='vocabPractice'){
-   const part=r.part?.startsWith('全部')?'__ALL_PARTS__':(r.part||'1');
-   chooseMode(part);
+ function restore(route){
+  if(!route?.subject||route.page==='subjects'){home();return}
+  original.chooseSubject(route.subject);
+  if(route.page==='modePicker')return;
+  if(!route.mode)return;
+  original.chooseStudyMode(route.mode);
+  if(route.page==='units')return;
+  if(!route.lesson)return;
+  original.chooseLesson(route.lesson);
+  if(route.page==='parts')return;
+  if(route.page==='practice'||route.page==='vocabPractice'){
+   original.chooseMode(route.part==='全部'?'__ALL_PARTS__':(route.part||'1'));
   }
  }
- // On reload, wait until all lesson and vocabulary data has been loaded.
- // Restore the selected subject/lesson/part without duplicating browser history.
- Promise.allSettled([fetchLessons(),fetchVocabulary()]).then(fetchRonpyo).then(()=>{
-  if(!restoring)return;
-  try{
-   restore(savedRoute);
-   lastRoute=key(capture());
-   history.replaceState({...history.state,yoshiRoute:capture()},'',location.href);
-  }catch(e){console.warn('リロード後の画面復元:',e);goHome();lastRoute=key(capture())}
-  finally{queueMicrotask(()=>{restoring=false;pending=false})}
- });
- window.addEventListener('popstate',event=>{
-  const route=event.state?.yoshiRoute;
-  if(!route)return; // a different document is handled by the browser
-  const current=capture();
-  if((current.page==='practice'&&running)||(current.page==='vocabPractice'&&vocabSessionRunning)){
-   if(!confirm('学習中です。前の画面に戻りますか？')){
-    // Restore the previous history entry without re-running navigation.
-    history.go(1);return;
-   }
+ // Initialize a clean first entry on first visit; keep saved route on reload.
+ let saved=history.state?.yoshiRoute;
+ if(!saved){try{saved=JSON.parse(sessionStorage.getItem(key)||'null')}catch(e){}}
+ history.replaceState({...history.state,yoshiRoute:saved||snapshot()},'',location.href);
+ window.addEventListener('popstate',e=>{
+  const route=e.state?.yoshiRoute;
+  if(!route)return;
+  if((current()==='practice'&&running)||(current()==='vocabPractice'&&vocabSessionRunning)){
+   if(!confirm('学習中です。前の画面に戻りますか？')){history.go(1);return}
   }
   restoring=true;
   try{
-   if(current.page==='practice'&&running)reset();
-   if(current.page==='vocabPractice'&&vocabSessionRunning)finishVocabularySession();
+   if(running)reset();
+   if(vocabSessionRunning)finishVocabularySession();
    restore(route);
-   lastRoute=key(capture());
-   window.scrollTo({top:0,behavior:'instant'});
-  }catch(e){console.error('画面の復元に失敗:',e);goHome();lastRoute=key(capture())}
-  finally{queueMicrotask(()=>{restoring=false;pending=false})}
+   try{sessionStorage.setItem(key,JSON.stringify(route))}catch(e){}
+   window.scrollTo(0,0);
+  }catch(err){console.error(err);home()}
+  finally{restoring=false}
  });
- // Use the same history stack for visible in-app back buttons.
- ['modeBack','toSubjects','toLessons','toUnits','vocabBack'].forEach(id=>{
-  const button=document.getElementById(id);
-  if(!button)return;
-  button.addEventListener('click',e=>{
-   if(!history.state?.yoshiRoute||history.length<2)return;
-   e.stopImmediatePropagation();
-   history.back();
-  },true);
+ // Restore only after JSON data has loaded.
+ Promise.allSettled([fetchLessons(),fetchVocabulary()]).then(fetchRonpyo).then(()=>{
+  if(!saved||saved.page==='subjects')return;
+  restoring=true;
+  try{restore(saved)}
+  catch(err){console.warn('画面復元:',err);home()}
+  finally{restoring=false}
  });
 })();
-
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(console.warn))}
 </script><div id="xpCelebrationOverlay" role="dialog" aria-modal="true" aria-label="XP獲得">
 <div id="xpCelebrationCard"><div style="font-size:15px;color:#d8e4ff;font-weight:700">⚡ XP GET!</div>
 <div id="xpCelebrationEarned">+0 XP</div><div id="xpCelebrationLevel">LEVEL 1</div>
