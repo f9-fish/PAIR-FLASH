@@ -436,12 +436,31 @@ function showXPCelebration(earned,level,leveledUp){
  overlay.classList.add('open');
 }
 document.addEventListener('click',e=>{if(e.target?.id==='xpCelebrationClose'||e.target?.id==='xpCelebrationOverlay')document.getElementById('xpCelebrationOverlay').classList.remove('open')});
-async function saveSoloRecord(mode,right,total,best,durationSeconds){if(!total||!window.YoshiAccount?.user)return;try{await window.YoshiAccount.save({subject:String(subject||''),lesson:String(selectedLessonId||''),part:normalizedPart(unit?.name||selectedVocabulary?.name||''),mode,right,total,bestStreak:best,durationSeconds:Math.max(0,Math.round(Number(durationSeconds)||0))});
-const before=await window.YoshiAccount.leaderboard().then(all=>Number(all[window.YoshiAccount.user.uid]?.totalXP||0)).catch(()=>0);
-const updated=await window.YoshiAccount.syncXP();
-if(updated){const earned=Math.max(0,updated.totalXP-before),level=Math.floor(updated.totalXP/200)+1,previousLevel=Math.floor(before/200)+1;showXPCelebration(earned,level,level>previousLevel)}
-console.info('[Yoshi.Lab] study time saved:',durationSeconds,'seconds')}catch(e){console.warn('学習記録を保存できませんでした',e);$('accountDetail').textContent='学習記録の保存に失敗しました。Firebaseの設定を確認してください'}}
-
+async function saveSoloRecord(mode,right,total,best,durationSeconds){
+ if(!total||!window.YoshiAccount?.user)return;
+ const a=window.YoshiAccount;
+ try{
+  await a.save({subject:String(subject||''),lesson:String(selectedLessonId||''),part:normalizedPart(unit?.name||selectedVocabulary?.name||''),mode,right,total,bestStreak:best,durationSeconds:Math.max(0,Math.round(Number(durationSeconds)||0))});
+  console.info('[Yoshi.Lab] 学習記録を保存しました');
+ }catch(e){
+  console.error('[Yoshi.Lab] 学習記録の保存に失敗:',e.code||'',e);
+  $('accountDetail').textContent='学習記録の保存に失敗しました：'+(e.code||e.message||'不明なエラー');
+  return;
+ }
+ try{
+  const before=await a.leaderboard().then(all=>Number(all[a.user.uid]?.totalXP||0)).catch(()=>0);
+  const updated=await a.syncXP();
+  if(updated){
+   const earned=Math.max(0,updated.totalXP-before),level=Math.floor(updated.totalXP/200)+1,previousLevel=Math.floor(before/200)+1;
+   showXPCelebration(earned,level,level>previousLevel);
+  }else{
+   $('accountDetail').textContent='学習記録は保存しました。XPの反映にはMY PAGEでプロフィール登録が必要です。';
+  }
+ }catch(e){
+  console.error('[Yoshi.Lab] XP更新エラー（学習記録は保存済み）:',e.code||'',e);
+  $('accountDetail').textContent='学習記録は保存済みです。XPの更新に失敗：'+(e.code||e.message||'不明なエラー')+'。MY PAGEから再同期できます。';
+ }
+}
 
 const streakMilestones={3:'NICE!',5:'AWESOME!',10:'INCREDIBLE!',20:'LEGENDARY!'};
 let streakHideTimer=null;
