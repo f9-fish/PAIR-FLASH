@@ -678,8 +678,51 @@ body:has(#subjects.hidden) .quest-rank{display:none!important}
  .welcome-desc{font-size:10px}
  .welcome-logo{font-size:48px}
 }
-</style></head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
-  <div class="welcome-hero"><div class="welcome-crown" aria-hidden="true">♕</div><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
+</style>
+<style id="welcomeHeaderFixV35">
+/* The hero artwork includes its own title, crown, tagline and navigation art.
+   Do not render a second live text layer over those pixels. */
+#welcomeCover .welcome-inner {
+  width:min(100%,836px);
+  padding:0 16px max(38px,env(safe-area-inset-bottom));
+  gap:16px;
+}
+#welcomeCover .welcome-hero {
+  width:calc(100% + 32px);
+  min-height:0;
+  height:auto;
+  aspect-ratio:836 / 718;
+  margin:0 -16px;
+  padding:0;
+  background-image:url("./welcome-header-v35.jpg");
+  background-position:center top;
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+  display:block;
+  position:relative;
+}
+#welcomeCover .welcome-hero > .welcome-crown,
+#welcomeCover .welcome-hero > .welcome-logo,
+#welcomeCover .welcome-hero > .welcome-tagline,
+#welcomeCover .welcome-hero > .welcome-motto,
+#welcomeCover .welcome-hero > .welcome-line {display:none!important}
+#welcomeCover .welcome-hero .welcome-hero-link {
+  position:absolute;
+  top:1.2%;
+  width:14%;
+  height:16%;
+  border-radius:50%;
+  z-index:2;
+}
+#welcomeCover .welcome-hero .welcome-hero-link-mypage{right:18%}
+#welcomeCover .welcome-hero .welcome-hero-link-home{right:2.5%}
+#welcomeCover .welcome-how{margin-top:0}
+@media(min-width:900px){
+ #welcomeCover .welcome-inner{width:min(100%,836px)}
+}
+</style>
+</head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
+  <div class="welcome-hero"><a class="welcome-hero-link welcome-hero-link-mypage" href="mypage.html" aria-label="MY PAGE"></a><a class="welcome-hero-link welcome-hero-link-home" href="./" aria-label="HOME"></a><div class="welcome-crown" aria-hidden="true">♕</div><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
   <section aria-label="使い方"><h2 class="welcome-how">🎮 HOW TO USE <span>学び方を選ぼう！</span></h2><div class="welcome-steps">
     <div class="welcome-step"><div class="welcome-symbol welcome-symbol-word" aria-hidden="true"></div><div class="welcome-step-content"><div class="welcome-step-title">単語を勉強したい</div><div class="welcome-desc">重要単語を覚えて英語の土台をつくろう！</div><div class="welcome-path"><span class="welcome-chip">科目</span><span class="welcome-chevron">›</span><span class="welcome-chip">Lesson</span><span class="welcome-chevron">›</span><span class="welcome-chip">Part</span><span class="welcome-chevron">›</span><span class="welcome-chip end">単語チェック</span></div></div></div>
     <div class="welcome-step"><div class="welcome-symbol welcome-symbol-text" aria-hidden="true"></div><div class="welcome-step-content"><div class="welcome-step-title">本文を勉強したい</div><div class="welcome-desc">教科書の本文を読んで理解を深めよう！</div><div class="welcome-path"><span class="welcome-chip">科目</span><span class="welcome-chevron">›</span><span class="welcome-chip">Lesson</span><span class="welcome-chevron">›</span><span class="welcome-chip">Part</span><span class="welcome-chevron">›</span><span class="welcome-chip end">本文穴埋め</span></div></div></div>
