@@ -225,6 +225,19 @@ body.welcome-active #welcomeCover{display:block}
 .cloze-typing-hint{position:absolute;left:5px;top:0;color:#ffe066;font-size:13px;font-weight:900;line-height:16px;pointer-events:none}
 .cloze-typed-correction{position:absolute;left:0;top:0;color:#ffe066;font-size:clamp(25px,5.2vw,32px);font-weight:1000;letter-spacing:.015em;white-space:nowrap;line-height:1.2;margin:0!important;z-index:2;text-shadow:0 2px 5px rgba(0,0,0,.95),0 0 12px rgba(255,214,64,.45);pointer-events:none}
 .cloze-typing-wrap:has(.cloze-typed-correction){padding-top:44px;margin-top:8px;margin-bottom:6px}
+
+/* XPを選択カードに統合：二重表示を解消 */
+#modePicker .mode-grid-xp{gap:12px;margin-top:18px}
+#modePicker .mode-grid-xp .mode-choice{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-height:190px;padding:15px 8px 13px;line-height:1.35;border-radius:17px;box-shadow:0 8px 20px #08142b44;transition:transform .16s,border-color .16s}
+#modePicker .mode-grid-xp .mode-choice:active{transform:scale(.98)}
+#modePicker .mode-card-icon{font-size:26px;line-height:1.3}
+#modePicker .mode-card-name{display:block;font-size:clamp(14px,3.7vw,20px);font-weight:850}
+#modePicker .mode-card-desc{display:block;font-size:11px;font-weight:500;color:#e3eaf8;opacity:.9}
+#modePicker .mode-card-xp{display:inline-flex;align-items:baseline;gap:3px;margin-top:7px;padding:5px 12px;border-radius:30px;background:#101d3b99;border:1px solid #ffcf7280;color:#ffda82;font-size:17px;font-weight:900;white-space:nowrap}
+#modePicker .mode-card-xp small{display:inline;margin:0;color:#e8e6df;font-size:10px;font-weight:600}
+#modePicker .mode-card-xp-zero{color:#d6e0f0;border-color:#9bafc66b;font-size:13px}
+#modePicker .xp-mode-foot{text-align:center;margin:16px 0 4px;font-size:12px}
+@media(max-width:390px){#modePicker .mode-grid-xp .mode-choice{min-height:174px;padding:12px 5px}#modePicker .mode-card-desc{font-size:10px}#modePicker .mode-card-xp{font-size:15px;padding:5px 9px}}
 </style></style><style>
 /* Navigation palette: home = MY PAGE blue; deeper screens = back-button navy. */
 #subjects .choice,
@@ -381,6 +394,30 @@ body:has(#subjects.hidden) .pair-feature .pair-start:hover {
 .xp-mode-icon{font-size:20px}
 .xp-mode-foot{color:#aebfda;font-size:11px;line-height:1.6;margin:10px 3px 0}
 @media(max-width:550px){.growth-mini{display:none}#subjects .choice{min-height:158px!important;padding:16px 11px!important}#subjects .growth-subject-name{font-size:30px}.xp-mode-row{padding:9px 8px;gap:7px}.xp-mode-row strong{font-size:12px}}
+</style><style>
+/* v12: arcade-style challenge cards */
+#modePicker .mode-card-desc{color:#ffe27a!important;opacity:1!important;font-weight:900!important;font-size:clamp(10px,2.8vw,13px)!important;letter-spacing:.12em;text-shadow:0 1px 5px #1b163caa;margin-top:3px}
+#modePicker .mode-card-xp{font-size:clamp(12px,3.2vw,16px)!important;letter-spacing:.015em;background:linear-gradient(120deg,#182540,#27365a)!important;border:1px solid #ffd87a!important;box-shadow:inset 0 1px 0 #ffffff22,0 3px 10px #0004;padding:7px 10px!important;color:#ffe18c!important;white-space:nowrap!important}
+#modePicker .mode-card-xp-zero{border-color:#9db1cc!important;color:#cbd7e7!important}
+#modePicker .mode-grid-xp .mode-choice{position:relative;box-shadow:inset 0 2px 0 #ffffff2a,0 7px 0 #071b31,0 12px 24px #030e224a!important;transition:transform .14s,filter .14s,box-shadow .14s!important}
+#modePicker .mode-grid-xp .mode-choice:hover{filter:brightness(1.13)}
+#modePicker .mode-grid-xp .mode-choice:active{transform:translateY(5px)!important;box-shadow:inset 0 2px 0 #ffffff2a,0 2px 0 #071b31,0 5px 12px #030e224a!important}
+#modePicker .mode-card-icon{filter:drop-shadow(0 2px 3px #06162b99)}
+@media(max-width:390px){#modePicker .mode-card-xp{font-size:12px!important;padding:6px 6px!important}}
+</style><style id="modeRefinementV13">
+/* XP labels are rewards for clearing a question, not equations. */
+#modePicker #pickVocab,
+#modePicker #pickVocabTyping {background:#a3384e!important;border-color:#ed8494!important}
+#modePicker .mode-card-desc {
+  color:#ffe27a!important;opacity:1!important;
+  font-size:clamp(10px,2.6vw,12px)!important;
+  font-weight:750!important;letter-spacing:.005em!important;
+  line-height:1.35!important;white-space:normal!important;
+  min-height:2.7em;display:flex!important;align-items:center;justify-content:center;
+  max-width:100%;text-align:center;padding:0 3px;
+}
+#modePicker .mode-card-xp {font-size:clamp(11px,3.1vw,15px)!important}
+@media(max-width:370px){#modePicker .mode-grid-xp .mode-choice{padding-inline:3px!important}}
 </style></head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
   <div class="welcome-hero"><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
   <section aria-label="使い方"><h2 class="welcome-how">HOW TO USE ━━━</h2><div class="welcome-steps">
@@ -407,12 +444,12 @@ body:has(#subjects.hidden) .pair-feature .pair-start:hover {
 <div class="account-strip"><div class="account-msg"><strong id="accountStatus">学習記録を保存するにはGoogleログイン</strong><small id="accountDetail">Googleアカウントを使用</small></div><button id="googleLogin" type="button">Googleでログイン</button><a href="./mypage.html">📊 MY PAGE →</a></div><section class="panel subjects-panel" id="subjects"><div class="growth-section-label">CHOOSE YOUR PATH <span>01 / 02</span></div><h2>🎮 挑戦する科目を選ぼう</h2><p class="growth-subcopy">科目を選んで、レッスンに挑戦。難しいモードほどXPを獲得できる！</p><div class="subject-grid"><button class="choice" data-subject="英C"><span class="growth-subject-emoji">📘</span><span class="growth-subject-name">英C</span><small>英語コミュニケーション</small><span class="growth-subject-cta">CHALLENGE <span aria-hidden="true">→</span></span></button><button class="choice" data-subject="論表"><span class="growth-subject-emoji">✍️</span><span class="growth-subject-name">論表</span><small>論理・表現</small><span class="growth-subject-cta">CHALLENGE <span aria-hidden="true">→</span></span></button></div><p class="status" id="loadStatus">問題集を読み込み中…</p></section>
 <section class="panel pair-feature"><h2>📱📱 ペアワーク</h2><p class="muted">2人がそれぞれのスマホで参加。交代のタイミングは開始前に選べます。</p><a href="./pair.html?v=20261029-role-sync" class="pair-start">ペアワーク →</a></section><section class="panel hidden" id="units"><button class="outline back" id="toSubjects">← 学習内容選択に戻る</button><h2 id="unitTitle">Lessonを選ぼう</h2><div id="unitList"></div></section>
 <section class="panel hidden" id="parts"><button class="outline back" id="toLessons">← Lesson選択に戻る</button><h2 id="partTitle">Partを選ぼう</h2><div id="partList"></div></section>
-<section class="panel hidden" id="modePicker"><button class="outline back" id="modeBack">← Part選択に戻る</button><div class="growth-section-label">SELECT YOUR CHALLENGE <span>02 / 02</span></div><h2 id="modeHeading">学習モードを選ぼう</h2><p class="growth-subcopy">自分に合った難易度を選ぼう。難しいほど経験値アップ！</p><div class="mode-grid"><button class="mode-choice" id="pickText">📖 本文穴埋め<small>今までの本文練習</small></button><button class="mode-choice" id="pickTyping">⌨️ 本文穴埋め（タイピング）</button><button class="mode-choice" id="pickVocab">🔤 単語チェック<span class="mode-typing-line">（4択）</span></button><button class="mode-choice" id="pickVocabTyping">⌨️ 単語チェック（タイピング）</button></div><div class="xp-mode-legend" aria-label="学習モードごとのXP獲得量">
-<div class="xp-mode-row"><span class="xp-mode-icon">📖</span><span>本文穴埋め（チェック）<small>ウォーミングアップ</small></span><strong class="xp-none">XPなし</strong></div>
-<div class="xp-mode-row"><span class="xp-mode-icon">🔤</span><span>単語チェック（4択）<small>意味を選んで覚える</small></span><strong>+1 XP <small>/正解</small></strong></div>
-<div class="xp-mode-row"><span class="xp-mode-icon">⌨️</span><span>単語チェック（タイピング）<small>自分で英単語を入力</small></span><strong>+2 XP <small>/正解</small></strong></div>
-<div class="xp-mode-row xp-mode-top"><span class="xp-mode-icon">⚡</span><span>本文穴埋め（タイピング）<small>最高難度・最大XP</small></span><strong>+5 XP <small>/正解</small></strong></div>
-</div><p class="xp-mode-foot">1回の学習で最大30XP。正解数に応じて獲得できます。</p><p class="notice" id="modeNotice"></p></section>
+<section class="panel hidden" id="modePicker"><button class="outline back" id="modeBack">← Part選択に戻る</button><div class="growth-section-label">SELECT YOUR CHALLENGE <span>02 / 02</span></div><h2 id="modeHeading">学習モードを選ぼう</h2><p class="growth-subcopy">自分に合った難易度を選ぼう。難しいほど経験値アップ！</p><div class="mode-grid mode-grid-xp">
+<button class="mode-choice" id="pickText"><span class="mode-card-icon">📖</span><span class="mode-card-name">本文穴埋め<span class="mode-typing-line">（チェック）</span></span><span class="mode-card-desc">Read and check the text</span><span class="mode-card-xp mode-card-xp-zero">NO XP</span></button>
+<button class="mode-choice" id="pickTyping"><span class="mode-card-icon">⚡</span><span class="mode-card-name">本文穴埋め<span class="mode-typing-line">（タイピング）</span></span><span class="mode-card-desc">Type the missing words</span><span class="mode-card-xp">1問クリア +5 XP</span></button>
+<button class="mode-choice" id="pickVocab"><span class="mode-card-icon">🔤</span><span class="mode-card-name">単語チェック<span class="mode-typing-line">（4択）</span></span><span class="mode-card-desc">Choose the correct word</span><span class="mode-card-xp">1問クリア +1 XP</span></button>
+<button class="mode-choice" id="pickVocabTyping"><span class="mode-card-icon">⌨️</span><span class="mode-card-name">単語チェック<span class="mode-typing-line">（タイピング）</span></span><span class="mode-card-desc">Type the correct word</span><span class="mode-card-xp">1問クリア +2 XP</span></button>
+</div><p class="xp-mode-foot">✨ 難しいモードほどXPアップ！ 1回の学習で最大30XP。</p><p class="notice" id="modeNotice"></p></section>
 <section class="panel hidden" id="vocabPractice"><button class="outline back" id="vocabBack">← 学習モードに戻る</button><h2 id="vocabHeading">英単語チャレンジ</h2><div class="controls"><select id="vocabType" class="hidden" aria-label="問題形式"><option value="choice">意味を選ぶ（4択）</option><option value="typing">英単語を入力する</option></select><button class="primary" id="vocabStart">▶ ゲームスタート！</button></div><div id="vocabGame" class="hidden"><div style="margin-top:15px;text-align:right"><span class="streak-chip" id="vocabStreakChip">🔥 0 STREAK</span></div><div class="statrow" style="margin-top:18px"><div class="stat"><strong id="vocabProgress">0 / 0</strong><span>進行状況</span></div><div class="stat"><strong id="vocabScore">0</strong><span>正解数</span></div><div class="stat"><strong id="vocabStreak">0</strong><span>連続正解</span></div><div class="stat"><strong id="vocabPoints">0</strong><span>ポイント</span></div></div><div class="card" style="margin-top:16px;min-height:180px"><div class="hint" id="vocabPrompt">英単語の意味は？</div><div class="question-hint-row"><div class="vocab-word-wrap"><button type="button" id="vocabReadingToggle" class="vocab-reading-toggle hidden">🔊 読み方表示</button><div id="vocabReadingText" class="vocab-reading-text hidden" aria-live="polite"></div><div class="vocab-word" id="vocabWord"></div></div><div class="hint-button-stack"><button type="button" class="question-hint-button" id="vocabInitialHint">💡 ヒント</button><small class="hint-button-caption" id="vocabHintCaption">選択肢を2つにする</small></div></div><div id="vocabInitialText" class="question-hint-output" aria-live="polite"></div></div><div class="space"></div><div id="vocabOptions" class="vocab-options"></div><div id="vocabInputArea" class="hidden"><input id="vocabInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="英単語を入力" style="width:100%"><button id="vocabSubmit" class="primary" style="width:100%;margin-top:10px">回答する</button></div><div class="vocab-feedback" id="vocabFeedback" aria-live="polite"></div><div id="vocabPronunciation" class="hidden" style="margin:12px 0;padding:12px;background:#253E6D;border:1px solid #45659B;border-radius:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap"><strong id="vocabPronunciationWord" style="font-size:21px;color:#FFE066;overflow-wrap:anywhere;flex:1"></strong><button type="button" id="vocabSpeak" class="primary" aria-label="英単語の発音を聞き直す">🔊 もう一度聞く</button><button type="button" id="vocabSpeechSpeed" aria-label="発音速度を切り替える">通常速度</button></div><p class="muted" id="vocabHint"></p><button class="primary hidden" id="vocabNext" style="width:100%">次の問題へ →</button></div></section>
 <section class="panel hidden" id="lessonNav"><button class="outline back" id="toUnits">← Part選択に戻る</button><h2 id="selectedLesson"></h2></section>
 <div id="practice" class="hidden">
@@ -799,7 +836,10 @@ function chooseSubject(s){
  subject=s;unit=null;selectedLessonId='';selectedStudyMode='';
  show('modePicker',true);show('vocabPractice',false);show('subjects',false);show('units',false);show('parts',false);show('lessonNav',false);show('practice',false);
  $('modeHeading').textContent=s+'｜学習内容を選ぼう';
- $('pickText').innerHTML='📖 本文穴埋め<span class="mode-typing-line">（チェック）</span>';$('pickTyping').innerHTML='⌨️ 本文穴埋め<span class="mode-typing-line">（タイピング）</span>';$('pickVocab').classList.toggle('vocab-long-label',s==='論表');$('pickVocab').innerHTML=s==='論表'?'🔤 <span class="vocab-main-line">単語・熟語チェック</span><span class="mode-typing-line">（4択）</span>':'🔤 単語チェック<span class="mode-typing-line">（4択）</span>';$('pickVocabTyping').innerHTML=s==='論表'?'⌨️ 単語・熟語チェック<span class="mode-typing-line">（タイピング）</span>':'⌨️ 単語チェック<span class="mode-typing-line">（タイピング）</span>';
+ const vocabLabel=s==='論表'?'単語・熟語チェック':'単語チェック';
+ $('pickVocab').classList.toggle('vocab-long-label',s==='論表');
+ $('pickVocab').querySelector('.mode-card-name').innerHTML=vocabLabel+'<span class="mode-typing-line">（4択）</span>';
+ $('pickVocabTyping').querySelector('.mode-card-name').innerHTML=vocabLabel+'<span class="mode-typing-line">（タイピング）</span>';
  $('pickText').disabled=![...groups].some(g=>g.subject===s&&(g.cards||[]).length);$('pickTyping').disabled=$('pickText').disabled;
  $('pickVocab').disabled=![...vocabularyGroups].some(g=>g.subject===s&&(g.words||[]).length);$('pickVocabTyping').disabled=$('pickVocab').disabled;
  $('modeBack').textContent='← 科目選択に戻る';$('modeNotice').textContent='';
