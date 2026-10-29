@@ -284,14 +284,14 @@ body:has(#subjects.hidden) .pair-feature .pair-start:hover {
 })();document.getElementById('welcomeStart').addEventListener('click',function(){document.body.classList.remove('welcome-active');document.getElementById('welcomeCover').remove();window.scrollTo(0,0);});</script>
 <div class="wrap"><header><div><div class="brand">Yoshi<span class="brand-accent">.Lab</span></div><div class="sub">英語表現 × ペアワーク</div></div><span class="pill" id="bankSize">8 expressions</span></header><h1 id="pageTitle">科目を選ぼう ✦</h1><p class="sub" id="pageSub">英C・論表から学習をスタート！</p>
 <div class="account-strip"><div class="account-msg"><strong id="accountStatus">学習記録を保存するにはGoogleログイン</strong><small id="accountDetail">Googleアカウントを使用</small></div><button id="googleLogin" type="button">Googleでログイン</button><a href="./mypage.html">📊 MY PAGE →</a></div><section class="panel subjects-panel" id="subjects"><h2>📚 科目を選択（一人用）</h2><div class="subject-grid"><button class="choice" data-subject="英C">英C<br><small>英語コミュニケーション</small></button><button class="choice" data-subject="論表">論表<br><small>論理・表現</small></button></div><p class="status" id="loadStatus">問題集を読み込み中…</p></section>
-<section class="panel pair-feature"><h2>📱📱 ペアワーク</h2><p class="muted">2人がそれぞれのスマホで参加。5問ごとに出題者と回答者が交代します。</p><a href="./pair.html" class="pair-start">ペアワーク →</a></section><section class="panel hidden" id="units"><button class="outline back" id="toSubjects">← 科目選択に戻る</button><h2 id="unitTitle">Lessonを選ぼう</h2><div id="unitList"></div></section>
+<section class="panel pair-feature"><h2>📱📱 ペアワーク</h2><p class="muted">2人がそれぞれのスマホで参加。5問ごとに出題者と回答者が交代します。</p><a href="./pair.html" class="pair-start">ペアワーク →</a></section><section class="panel hidden" id="units"><button class="outline back" id="toSubjects">← 学習内容選択に戻る</button><h2 id="unitTitle">Lessonを選ぼう</h2><div id="unitList"></div></section>
 <section class="panel hidden" id="parts"><button class="outline back" id="toLessons">← Lesson選択に戻る</button><h2 id="partTitle">Partを選ぼう</h2><div id="partList"></div></section>
-<section class="panel hidden" id="modePicker"><button class="outline back" id="modeBack">← Part選択に戻る</button><h2 id="modeHeading">学習モードを選ぼう</h2><div class="mode-grid"><button class="mode-choice" id="pickText">📖 本文穴埋め<small>今までの本文練習</small></button><button class="mode-choice" id="pickVocab">🔤 単語チェック<small>4択・スペリング</small></button></div><p class="notice" id="modeNotice"></p></section>
+<section class="panel hidden" id="modePicker"><button class="outline back" id="modeBack">← Part選択に戻る</button><h2 id="modeHeading">学習モードを選ぼう</h2><div class="mode-grid"><button class="mode-choice" id="pickText">📖 本文穴埋め<small>今までの本文練習</small></button><button class="mode-choice" id="pickTyping">⌨️ 本文穴埋め（タイピング）</button><button class="mode-choice" id="pickVocab">🔤 単語チェック<small>4択・スペリング</small></button></div><p class="notice" id="modeNotice"></p></section>
 <section class="panel hidden" id="vocabPractice"><button class="outline back" id="vocabBack">← 学習モードに戻る</button><h2 id="vocabHeading">英単語チャレンジ</h2><div class="controls"><label for="vocabType">問題形式</label><select id="vocabType"><option value="choice">意味を選ぶ（4択）</option><option value="typing">英単語を入力する</option></select><button class="primary" id="vocabStart">▶ ゲームスタート！</button></div><div id="vocabGame" class="hidden"><div style="margin-top:15px;text-align:right"><span class="streak-chip" id="vocabStreakChip">🔥 0 STREAK</span></div><div class="statrow" style="margin-top:18px"><div class="stat"><strong id="vocabProgress">0 / 0</strong><span>進行状況</span></div><div class="stat"><strong id="vocabScore">0</strong><span>正解数</span></div><div class="stat"><strong id="vocabStreak">0</strong><span>連続正解</span></div><div class="stat"><strong id="vocabPoints">0</strong><span>ポイント</span></div></div><div class="card" style="margin-top:16px;min-height:180px"><div class="hint" id="vocabPrompt">英単語の意味は？</div><div class="question-hint-row"><div class="vocab-word-wrap"><button type="button" id="vocabReadingToggle" class="vocab-reading-toggle hidden">🔊 読み方表示</button><div id="vocabReadingText" class="vocab-reading-text hidden" aria-live="polite"></div><div class="vocab-word" id="vocabWord"></div></div><div class="hint-button-stack"><button type="button" class="question-hint-button" id="vocabInitialHint">💡 ヒント</button><small class="hint-button-caption" id="vocabHintCaption">選択肢を2つにする</small></div></div><div id="vocabInitialText" class="question-hint-output" aria-live="polite"></div></div><div class="space"></div><div id="vocabOptions" class="vocab-options"></div><div id="vocabInputArea" class="hidden"><input id="vocabInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="英単語を入力" style="width:100%"><button id="vocabSubmit" class="primary" style="width:100%;margin-top:10px">回答する</button></div><div class="vocab-feedback" id="vocabFeedback" aria-live="polite"></div><div id="vocabPronunciation" class="hidden" style="margin:12px 0;padding:12px;background:#253E6D;border:1px solid #45659B;border-radius:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap"><strong id="vocabPronunciationWord" style="font-size:21px;color:#FFE066;overflow-wrap:anywhere;flex:1"></strong><button type="button" id="vocabSpeak" class="primary" aria-label="英単語の発音を聞き直す">🔊 もう一度聞く</button><button type="button" id="vocabSpeechSpeed" aria-label="発音速度を切り替える">通常速度</button></div><p class="muted" id="vocabHint"></p><button class="primary hidden" id="vocabNext" style="width:100%">次の問題へ →</button></div></section>
 <section class="panel hidden" id="lessonNav"><button class="outline back" id="toUnits">← Part選択に戻る</button><h2 id="selectedLesson"></h2></section>
 <div id="practice" class="hidden">
 <section class="panel"><h2>⚙️ セッション設定</h2><div class="settings"><div class="field"><label for="mode">学習モード</label><select id="mode"><option value="cloze">穴埋めモード</option><option value="normal">英→日モード</option></select></div><div class="field" id="directionField"><label for="direction">出題方向</label><select id="direction"><option value="en">英語 → 日本語</option><option value="ja">日本語 → 英語</option><option value="mix">毎問ランダム</option></select></div><div class="field"><label for="duration">制限時間</label><select id="duration"><option value="10">10秒</option><option value="30">30秒</option><option value="60">1分</option><option value="0" selected>無制限</option></select></div><div class="field"><label for="order">出題順序</label><select id="order"><option value="ordered" selected>順番通り</option><option value="random">ランダム</option></select></div></div><div class="space"></div><div class="controls"><button class="primary" id="start">▶ スタート</button><button id="pause" disabled>一時停止</button><button class="outline" id="reset">リセット</button><button id="finishSession" class="green" disabled>終了して記録</button></div></section>
-<section class="panel"><div class="statrow"><div class="stat"><strong id="timer">00:30</strong><span>この問題の残り時間</span></div><div class="stat"><strong id="role">A</strong><span>回答者</span></div><div class="stat"><strong id="score">0 / 0</strong><span>正解 / 回答</span></div><div class="stat"><strong id="progress">0 / 8</strong><span>出題済み / 全問</span></div></div><div class="solo-streak-banner"><span class="streak-chip" id="soloStreakChip">🔥 0 STREAK</span></div><div class="space"></div><div class="card" aria-live="polite"><div class="hint" id="cardLabel">STARTを押して開始</div><div class="question-hint-row"><div class="prompt" id="question">Ready?</div><div class="hint-button-stack"><button type="button" class="question-hint-button" id="soloInitialHint" disabled>💡 ヒント</button><small class="hint-button-caption">各語の頭文字を見る</small></div></div><div id="soloInitialText" class="question-hint-output" aria-live="polite"></div><div class="answer hidden" id="answer"></div><div class="hint" id="cardHint">回答者は画面を見ずに、出題者が読み上げてもOK！</div><div id="clozeSpeechControls" class="controls hidden" style="width:100%;margin-top:8px"><button type="button" id="clozeSpeak" class="primary">🔊 もう一度聞く</button><button type="button" id="clozeSpeechSpeed">通常速度</button></div></div><div class="space"></div><button class="primary" id="reveal" style="width:100%" disabled>答えを見る</button><div class="space"></div><div class="grid2"><button class="green" id="correct" disabled>✓ 正解</button><button class="red" id="wrong" disabled>✕ 不正解</button></div><div class="space"></div><div class="controls"><button id="skip" disabled>スキップ</button><button id="switch" disabled>⇄ A / B 交代</button></div><p class="muted" id="message">全問出題したら、選択した出題順序で次の周回に入ります。</p></section>
+<section class="panel"><div class="statrow"><div class="stat"><strong id="timer">00:30</strong><span>この問題の残り時間</span></div><div class="stat"><strong id="role">A</strong><span>回答者</span></div><div class="stat"><strong id="score">0 / 0</strong><span>正解 / 回答</span></div><div class="stat"><strong id="progress">0 / 8</strong><span>出題済み / 全問</span></div></div><div class="solo-streak-banner"><span class="streak-chip" id="soloStreakChip">🔥 0 STREAK</span></div><div class="space"></div><div class="card" aria-live="polite"><div class="hint" id="cardLabel">STARTを押して開始</div><div class="question-hint-row"><div class="prompt" id="question">Ready?</div><div class="hint-button-stack"><button type="button" class="question-hint-button" id="soloInitialHint" disabled>💡 ヒント</button><small class="hint-button-caption">各語の頭文字を見る</small></div></div><div id="soloInitialText" class="question-hint-output" aria-live="polite"></div><div class="answer hidden" id="answer"></div><div class="hint" id="cardHint">回答者は画面を見ずに、出題者が読み上げてもOK！</div><div id="clozeSpeechControls" class="controls hidden" style="width:100%;margin-top:8px"><button type="button" id="clozeSpeak" class="primary">🔊 もう一度聞く</button><button type="button" id="clozeSpeechSpeed">通常速度</button></div></div><div class="space"></div><div id="soloTypingArea" class="hidden" style="margin:12px 0"><input id="soloTypingInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="穴埋めの英語を入力" style="width:100%;padding:13px"><button type="button" id="soloTypingSubmit" class="primary" style="width:100%;margin-top:8px">回答する</button><p id="soloTypingFeedback" aria-live="polite"></p></div><button class="primary" id="reveal" style="width:100%" disabled>答えを見る</button><div class="space"></div><div class="grid2"><button class="green" id="correct" disabled>✓ 正解</button><button class="red" id="wrong" disabled>✕ 不正解</button></div><div class="space"></div><div class="controls"><button id="skip" disabled>スキップ</button><button id="switch" disabled>⇄ A / B 交代</button></div><p class="muted" id="message">全問出題したら、選択した出題順序で次の周回に入ります。</p></section>
 <section class="panel"><h2>🏆 スコアボード</h2><div class="grid2"><div class="stat"><strong id="scoreA">0 / 0</strong><span>生徒A（正解 / 回答）</span></div><div class="stat"><strong id="scoreB">0 / 0</strong><span>生徒B（正解 / 回答）</span></div></div><div class="space"></div><button class="outline" id="export">結果をCSV保存</button></section>
 <section class="panel hidden"><details id="editor"><summary>✏️ 先生用：熟語リストを編集する</summary><div><p class="muted">1行に「英語 | 日本語」を入力。タブ区切りもOK。保存した内容はこの端末のブラウザに記憶されます。生徒の端末へ共有する場合は、下の「共有用HTMLを保存」を使ってください。</p><textarea id="terms" spellcheck="false"></textarea><div class="space"></div><div class="controls"><button class="primary" id="save">この端末に保存</button><button id="restore">初期リストに戻す</button><button id="share">共有用HTMLを保存</button></div><p id="editMessage" class="notice"></p></div></details></section></div><div class="footer">Yoshi<span class="brand-accent">.Lab</span></div></div>
 <div id="streakCelebration" class="streak-celebration" hidden aria-live="polite"><div class="streak-celebration-card"><div class="streak-fire" id="streakFire">🔥</div><div class="streak-count"><b id="streakNumber">5</b> <span>STREAK!</span></div><div class="streak-praise" id="streakPraise">AWESOME!</div></div></div>
@@ -484,7 +484,7 @@ function next(){
  }
  show('answer',false);$('cardLabel').textContent='ROUND '+round+' • QUESTION '+seen;
  $('cardHint').textContent=cloze?'（　　　）に入る英語を答えよう':dir==='en'?'日本語で答えよう':'英語で答えよう';
- $('reveal').disabled=false;$('correct').disabled=true;$('wrong').disabled=true;display()
+ show('soloTypingArea',selectedStudyMode==='textTyping'&&cloze);$('soloTypingInput').value='';$('soloTypingInput').disabled=false;$('soloTypingSubmit').disabled=false;$('soloTypingFeedback').textContent='';$('reveal').disabled=selectedStudyMode==='textTyping';$('correct').disabled=true;$('wrong').disabled=true;display()
 }
 function selectedSeconds(){const n=Number($('duration').value);return n===0?Infinity:n}
 function lockSettings(b){['direction','duration','order','mode','start'].forEach(x=>$(x).disabled=b)}
@@ -507,7 +507,7 @@ function updateClock(){
  }
 }
 function finish(){
- stopClozeSpeech();show('clozeSpeechControls',false);
+ stopClozeSpeech();show('clozeSpeechControls',false);show('soloTypingArea',false);
  if(!soloSaved&&stats.A.total+stats.B.total){soloSaved=true;saveSoloRecord('text',stats.A.right+stats.B.right,stats.A.total+stats.B.total,soloBestStreak,activeTimer.stop())}
  clearInterval(tick);tick=null;running=false;paused=false;lockSettings(false);
  ['reveal','correct','wrong','skip','switch','pause','finishSession'].forEach(x=>$(x).disabled=true);
@@ -541,12 +541,13 @@ $('vocabInitialHint').onclick=()=>{
  }
  $('vocabInitialHint').disabled=true;
 };
-$('reveal').onclick=()=>{if(!running||paused)return;flipped=true;show('answer',true);$('reveal').disabled=true;$('correct').disabled=false;$('wrong').disabled=false;show('clozeSpeechControls',true);if($('mode').value==='cloze')speakClozeSentence()};$('correct').onclick=()=>mark(true);$('wrong').onclick=()=>mark(false);$('skip').onclick=()=>{if(running&&!paused)next()};$('switch').onclick=()=>{};$('duration').onchange=()=>{if(!running){remaining=selectedSeconds();display()}};
+$('soloTypingSubmit').onclick=()=>{if(!running||paused||soloNextPending||flipped)return;const expected=[...String(terms[current]?.[0]||'').matchAll(/\(([^()]*)\)/g)].map(m=>m[1].trim());const typed=$('soloTypingInput').value.trim();if(!typed||!expected.length)return;const normalize=v=>v.toLowerCase().replace(/[’‘]/g,"'").replace(/\s+/g,' ').trim();const answers=typed.split(/\s*[,、;；]\s*/);const ok=expected.length===1?normalize(typed)===normalize(expected[0]):answers.length===expected.length&&answers.every((a,i)=>normalize(a)===normalize(expected[i]));$('soloTypingFeedback').textContent=(ok?'○ 正解！':'× 不正解　正解：'+expected.join(' / '));$('soloTypingInput').disabled=true;$('soloTypingSubmit').disabled=true;show('answer',true);mark(ok)};$('soloTypingInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('soloTypingSubmit').click()});$('reveal').onclick=()=>{if(!running||paused)return;flipped=true;show('answer',true);$('reveal').disabled=true;$('correct').disabled=selectedStudyMode==='textTyping';$('wrong').disabled=selectedStudyMode==='textTyping';show('clozeSpeechControls',true);if($('mode').value==='cloze')speakClozeSentence()};$('correct').onclick=()=>mark(true);$('wrong').onclick=()=>mark(false);$('skip').onclick=()=>{if(running&&!paused)next()};$('switch').onclick=()=>{};$('duration').onchange=()=>{if(!running){remaining=selectedSeconds();display()}};
 function download(name,content,type){let blob=new Blob([content],{type});let url=URL.createObjectURL(blob);let a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000)}
 $('export').onclick=()=>{let rows=[['回答者','英語','日本語','結果'],...history.map(x=>[x.role,x.english,x.japanese,x.correct])];let csv='\ufeff'+rows.map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\r\n');download('pairflash_results.csv',csv,'text/csv;charset=utf-8')};
 function lessonLabel(id){const v=String(id??'').trim();return /^lesson\b/i.test(v)?v:'Lesson '+v}
 function partLabel(name){const v=String(name??'').trim();return /^part\b/i.test(v)?v:'Part '+v}
 let selectedLessonId='';
+let selectedStudyMode='';
 // 本文と英単語で「2」「Part 2」などの表記が違っても同じPartとして扱う。
 function normalizedPart(value){
  return String(value??'').trim().replace(/^part\s*/i,'').trim();
@@ -555,12 +556,26 @@ function naturalCompare(a,b){
  return String(a).localeCompare(String(b),'ja',{numeric:true,sensitivity:'base'});
 }
 function chooseSubject(s){
- subject=s;unit=null;selectedLessonId='';
- show('modePicker',false);show('vocabPractice',false);show('subjects',false);show('units',true);show('parts',false);show('lessonNav',false);show('practice',false);
+ subject=s;unit=null;selectedLessonId='';selectedStudyMode='';
+ show('modePicker',true);show('vocabPractice',false);show('subjects',false);show('units',false);show('parts',false);show('lessonNav',false);show('practice',false);
+ $('modeHeading').textContent=s+'｜学習内容を選ぼう';
+ $('pickText').textContent='📖 本文穴埋め（口頭）';$('pickTyping').textContent='⌨️ 本文穴埋め（タイピング）';$('pickVocab').textContent=s==='論表'?'🔤 単語・熟語チェック':'🔤 単語チェック';
+ $('pickText').disabled=![...groups].some(g=>g.subject===s&&(g.cards||[]).length);$('pickTyping').disabled=$('pickText').disabled;
+ $('pickVocab').disabled=![...vocabularyGroups].some(g=>g.subject===s&&(g.words||[]).length);
+ $('modeBack').textContent='← 科目選択に戻る';$('modeNotice').textContent='';
+ $('pageTitle').textContent='何を練習する？';$('pageSub').textContent='学習内容を選んでね';
+ return;
+
+
+}
+function chooseStudyMode(mode){
+ selectedStudyMode=mode;
+ show('modePicker',false);show('units',true);show('parts',false);
+ const s=subject;
  $('pageTitle').textContent=s+'｜Lessonを選ぼう';$('pageSub').textContent='学習したいLessonを選んでね';
  $('unitTitle').textContent=s+' のLesson';
  const list=$('unitList');list.replaceChildren();
- const filtered=[...groups,...vocabularyGroups].filter(g=>g.subject===s);
+ const filtered=(mode==='vocab'?vocabularyGroups:groups).filter(g=>g.subject===s);
  const ids=[...new Set(filtered.map(g=>String(g.id??'').trim()))].sort(naturalCompare);
  if(!ids.length){list.textContent='この科目の公開問題はまだありません。';return}
  ids.forEach(id=>{
@@ -578,7 +593,7 @@ function chooseLesson(id){
  $('pageSub').textContent='学習したいPartを選んでね';
  $('partTitle').textContent=lessonLabel(id)+' のPart';
  const list=$('partList');list.replaceChildren();
- const matches=[...groups,...vocabularyGroups].filter(g=>g.subject===subject&&String(g.id??'').trim()===id);
+ const matches=(selectedStudyMode==='text'?groups:vocabularyGroups).filter(g=>g.subject===subject&&String(g.id??'').trim()===id);
  const unique=[...new Set(matches.map(g=>normalizedPart(g.name)))].sort(naturalCompare);
  unique.forEach(name=>{
   const b=document.createElement('button');b.className='unit';
@@ -594,26 +609,23 @@ function chooseMode(name){
   unit=text.length?{subject,id:selectedLessonId,name:'1',cards:text}:null;
   selectedVocabulary=words.length?{subject,id:selectedLessonId,name:'1',words}:null;
  }else{unit=groups.find(match)||null;selectedVocabulary=vocabularyGroups.find(match)||null;}
- show('units',false);show('parts',false);show('modePicker',true);show('vocabPractice',false);show('practice',false);show('lessonNav',false);
- $('modeHeading').textContent=subject+' / '+lessonLabel(selectedLessonId)+(subject==='論表'?'':' / '+partLabel(normalizedPart(name)));
- $('pickText').innerHTML=subject==='論表'?'📖 文チェック':'📖 本文穴埋め<small>今までの本文練習</small>';
- $('pickVocab').innerHTML=subject==='論表'?'🔤 単語・熟語チェック':'🔤 単語チェック<small>4択・スペリング</small>';
- $('modeBack').textContent=subject==='論表'?'← Lesson選択に戻る':'← Part選択に戻る';
- $('pageTitle').textContent='何を練習する？';$('pageSub').textContent='学習モードを選択してね';
- $('pickText').disabled=!unit||!unit.cards?.length;
- $('pickVocab').disabled=!selectedVocabulary||!selectedVocabulary.words?.length;
- $('modeNotice').textContent=!unit?.cards?.length&&selectedVocabulary?.words?.length?'本文問題は未登録です。単語チェックを選んでね。':!selectedVocabulary?.words?.length?'このPartの英単語はまだ登録されていません。':'';
+ show('units',false);show('parts',false);show('modePicker',false);
+ if(selectedStudyMode!=='vocab'){
+  if(unit?.cards?.length)chooseUnit(unit);
+  else {alert('この単元には本文問題がありません');chooseStudyMode(selectedStudyMode);}
+ }else{
+  if(!selectedVocabulary?.words?.length){alert('この単元には単語問題がありません');chooseStudyMode('vocab');return;}
+  show('vocabPractice',true);show('practice',false);show('lessonNav',false);
+  $('pageTitle').textContent='英単語チャレンジ 🔤';$('pageSub').textContent='4択かスペリングを選んでスタート！';
+  $('vocabHeading').textContent=subject+' / '+lessonLabel(selectedLessonId)+(subject==='論表'?'':' / '+partLabel(selectedVocabulary.name));
+  show('vocabGame',false);
+ }
+
 }
-$('modeBack').onclick=()=>subject==='論表'?chooseSubject(subject):chooseLesson(selectedLessonId);
-$('pickText').onclick=()=>{if(unit)chooseUnit(unit)};
-$('pickVocab').onclick=()=>{
- if(!selectedVocabulary?.words?.length)return;
- show('modePicker',false);show('vocabPractice',true);
- $('pageTitle').textContent='英単語チャレンジ 🔤';$('pageSub').textContent='4択かスペリングを選んでスタート！';
- $('vocabHeading').textContent=subject+' / '+lessonLabel(selectedLessonId)+(subject==='論表'?'':' / '+partLabel(selectedVocabulary.name));
- show('vocabGame',false);
-};
-$('vocabBack').onclick=()=>{if(vocabSessionRunning)finishVocabularySession();chooseMode(selectedVocabulary.name)};
+$('modeBack').onclick=()=>$('toSubjects').click();
+$('pickText').onclick=()=>chooseStudyMode('text');$('pickTyping').onclick=()=>chooseStudyMode('textTyping');
+$('pickVocab').onclick=()=>chooseStudyMode('vocab');
+$('vocabBack').onclick=()=>{if(vocabSessionRunning)finishVocabularySession();subject==='論表'?chooseStudyMode('vocab'):chooseLesson(selectedLessonId)};
 let vocabSpeechRate=1;
 const vocabSpeechAvailable=('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window);
 let vocabSpeechToken=0;
@@ -757,15 +769,16 @@ function chooseUnit(g){
  show('modePicker',false);show('vocabPractice',false);show('units',false);show('parts',false);show('lessonNav',true);show('practice',true);
  $('selectedLesson').textContent=subject+' / '+lessonLabel(g.id)+(subject==='論表'?'':' / '+partLabel(g.name));
  $('pageTitle').textContent=lessonLabel(g.id)+' — '+partLabel(g.name)+' ⚡';
- $('pageSub').textContent='ペアで出題 → 口頭で回答 → 正誤を記録！';
+ $('pageSub').textContent=selectedStudyMode==='textTyping'?'穴埋めの英語を入力して自動採点！':'本文を口頭で答えて正誤を記録！';
 }
 function leaveUnit(){
  if(running&&!confirm('進行中の記録はリセットされます。戻りますか？'))return;
- reset();chooseMode(unit.name);
+ reset();subject==='論表'?chooseStudyMode('text'):chooseLesson(selectedLessonId);
 }
 $('toUnits').onclick=leaveUnit;
-$('toLessons').onclick=()=>chooseSubject(subject);
+$('toLessons').onclick=()=>chooseStudyMode(selectedStudyMode);
 $('toSubjects').onclick=()=>{
+ if(subject && selectedStudyMode){selectedStudyMode='';chooseSubject(subject);return;}
  subject='';unit=null;selectedLessonId='';
  show('modePicker',false);show('vocabPractice',false);show('subjects',true);show('units',false);show('parts',false);show('lessonNav',false);show('practice',false);
  $('pageTitle').textContent='科目を選ぼう ⚡';$('pageSub').textContent='英C・論表から学習をスタート！';
