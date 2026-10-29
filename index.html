@@ -337,7 +337,11 @@ body:has(#subjects.hidden) .pair-feature .pair-start:hover {
   pointer-events:none!important;
 }
 </style>
-</head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
+<style>
+#modePicker #pickVocab.vocab-long-label{font-size:clamp(12px,3.1vw,17px)!important;letter-spacing:-.045em!important;line-height:1.35!important;padding-inline:3px!important;overflow:visible!important}
+#modePicker #pickVocab.vocab-long-label .vocab-main-line{white-space:nowrap!important;display:inline!important}
+#modePicker #pickVocab.vocab-long-label .mode-typing-line{display:block!important;white-space:nowrap!important;margin-top:3px!important;font-size:1.08em!important}
+</style></head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
   <div class="welcome-hero"><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
   <section aria-label="使い方"><h2 class="welcome-how">HOW TO USE ━━━</h2><div class="welcome-steps">
     <div class="welcome-step"><div class="welcome-symbol" aria-hidden="true">▣</div><div class="welcome-step-content"><div class="welcome-step-title">単語を勉強したい</div><div class="welcome-path"><span class="welcome-chip">科目</span><span class="welcome-chevron">›</span><span class="welcome-chip">Lesson</span><span class="welcome-chevron">›</span><span class="welcome-chip">Part</span><span class="welcome-chevron">›</span><span class="welcome-chip end">単語チェック</span></div></div></div>
@@ -363,7 +367,7 @@ body:has(#subjects.hidden) .pair-feature .pair-start:hover {
 <div class="account-strip"><div class="account-msg"><strong id="accountStatus">学習記録を保存するにはGoogleログイン</strong><small id="accountDetail">Googleアカウントを使用</small></div><button id="googleLogin" type="button">Googleでログイン</button><a href="./mypage.html">📊 MY PAGE →</a></div><section class="panel subjects-panel" id="subjects"><h2>📚 科目を選択（一人用）</h2><div class="subject-grid"><button class="choice" data-subject="英C">英C<br><small>英語コミュニケーション</small></button><button class="choice" data-subject="論表">論表<br><small>論理・表現</small></button></div><p class="status" id="loadStatus">問題集を読み込み中…</p></section>
 <section class="panel pair-feature"><h2>📱📱 ペアワーク</h2><p class="muted">2人がそれぞれのスマホで参加。交代のタイミングは開始前に選べます。</p><a href="./pair.html?v=20261029-role-sync" class="pair-start">ペアワーク →</a></section><section class="panel hidden" id="units"><button class="outline back" id="toSubjects">← 学習内容選択に戻る</button><h2 id="unitTitle">Lessonを選ぼう</h2><div id="unitList"></div></section>
 <section class="panel hidden" id="parts"><button class="outline back" id="toLessons">← Lesson選択に戻る</button><h2 id="partTitle">Partを選ぼう</h2><div id="partList"></div></section>
-<section class="panel hidden" id="modePicker"><button class="outline back" id="modeBack">← Part選択に戻る</button><h2 id="modeHeading">学習モードを選ぼう</h2><div class="mode-grid"><button class="mode-choice" id="pickText">📖 本文穴埋め<small>今までの本文練習</small></button><button class="mode-choice" id="pickTyping">⌨️ 本文穴埋め（タイピング）</button><button class="mode-choice" id="pickVocab">🔤 単語チェック（4択）</button><button class="mode-choice" id="pickVocabTyping">⌨️ 単語チェック（タイピング）</button></div><p class="notice" id="modeNotice"></p></section>
+<section class="panel hidden" id="modePicker"><button class="outline back" id="modeBack">← Part選択に戻る</button><h2 id="modeHeading">学習モードを選ぼう</h2><div class="mode-grid"><button class="mode-choice" id="pickText">📖 本文穴埋め<small>今までの本文練習</small></button><button class="mode-choice" id="pickTyping">⌨️ 本文穴埋め（タイピング）</button><button class="mode-choice" id="pickVocab">🔤 単語チェック<span class="mode-typing-line">（4択）</span></button><button class="mode-choice" id="pickVocabTyping">⌨️ 単語チェック（タイピング）</button></div><p class="notice" id="modeNotice"></p></section>
 <section class="panel hidden" id="vocabPractice"><button class="outline back" id="vocabBack">← 学習モードに戻る</button><h2 id="vocabHeading">英単語チャレンジ</h2><div class="controls"><select id="vocabType" class="hidden" aria-label="問題形式"><option value="choice">意味を選ぶ（4択）</option><option value="typing">英単語を入力する</option></select><button class="primary" id="vocabStart">▶ ゲームスタート！</button></div><div id="vocabGame" class="hidden"><div style="margin-top:15px;text-align:right"><span class="streak-chip" id="vocabStreakChip">🔥 0 STREAK</span></div><div class="statrow" style="margin-top:18px"><div class="stat"><strong id="vocabProgress">0 / 0</strong><span>進行状況</span></div><div class="stat"><strong id="vocabScore">0</strong><span>正解数</span></div><div class="stat"><strong id="vocabStreak">0</strong><span>連続正解</span></div><div class="stat"><strong id="vocabPoints">0</strong><span>ポイント</span></div></div><div class="card" style="margin-top:16px;min-height:180px"><div class="hint" id="vocabPrompt">英単語の意味は？</div><div class="question-hint-row"><div class="vocab-word-wrap"><button type="button" id="vocabReadingToggle" class="vocab-reading-toggle hidden">🔊 読み方表示</button><div id="vocabReadingText" class="vocab-reading-text hidden" aria-live="polite"></div><div class="vocab-word" id="vocabWord"></div></div><div class="hint-button-stack"><button type="button" class="question-hint-button" id="vocabInitialHint">💡 ヒント</button><small class="hint-button-caption" id="vocabHintCaption">選択肢を2つにする</small></div></div><div id="vocabInitialText" class="question-hint-output" aria-live="polite"></div></div><div class="space"></div><div id="vocabOptions" class="vocab-options"></div><div id="vocabInputArea" class="hidden"><input id="vocabInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="英単語を入力" style="width:100%"><button id="vocabSubmit" class="primary" style="width:100%;margin-top:10px">回答する</button></div><div class="vocab-feedback" id="vocabFeedback" aria-live="polite"></div><div id="vocabPronunciation" class="hidden" style="margin:12px 0;padding:12px;background:#253E6D;border:1px solid #45659B;border-radius:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap"><strong id="vocabPronunciationWord" style="font-size:21px;color:#FFE066;overflow-wrap:anywhere;flex:1"></strong><button type="button" id="vocabSpeak" class="primary" aria-label="英単語の発音を聞き直す">🔊 もう一度聞く</button><button type="button" id="vocabSpeechSpeed" aria-label="発音速度を切り替える">通常速度</button></div><p class="muted" id="vocabHint"></p><button class="primary hidden" id="vocabNext" style="width:100%">次の問題へ →</button></div></section>
 <section class="panel hidden" id="lessonNav"><button class="outline back" id="toUnits">← Part選択に戻る</button><h2 id="selectedLesson"></h2></section>
 <div id="practice" class="hidden">
@@ -718,7 +722,7 @@ function chooseSubject(s){
  subject=s;unit=null;selectedLessonId='';selectedStudyMode='';
  show('modePicker',true);show('vocabPractice',false);show('subjects',false);show('units',false);show('parts',false);show('lessonNav',false);show('practice',false);
  $('modeHeading').textContent=s+'｜学習内容を選ぼう';
- $('pickText').innerHTML='📖 本文穴埋め<span class="mode-typing-line">（チェック）</span>';$('pickTyping').innerHTML='⌨️ 本文穴埋め<span class="mode-typing-line">（タイピング）</span>';$('pickVocab').textContent=s==='論表'?'🔤 単語・熟語チェック（4択）':'🔤 単語チェック（4択）';$('pickVocabTyping').innerHTML=s==='論表'?'⌨️ 単語・熟語チェック<span class="mode-typing-line">（タイピング）</span>':'⌨️ 単語チェック<span class="mode-typing-line">（タイピング）</span>';
+ $('pickText').innerHTML='📖 本文穴埋め<span class="mode-typing-line">（チェック）</span>';$('pickTyping').innerHTML='⌨️ 本文穴埋め<span class="mode-typing-line">（タイピング）</span>';$('pickVocab').classList.toggle('vocab-long-label',s==='論表');$('pickVocab').innerHTML=s==='論表'?'🔤 <span class="vocab-main-line">単語・熟語チェック</span><span class="mode-typing-line">（4択）</span>':'🔤 単語チェック<span class="mode-typing-line">（4択）</span>';$('pickVocabTyping').innerHTML=s==='論表'?'⌨️ 単語・熟語チェック<span class="mode-typing-line">（タイピング）</span>':'⌨️ 単語チェック<span class="mode-typing-line">（タイピング）</span>';
  $('pickText').disabled=![...groups].some(g=>g.subject===s&&(g.cards||[]).length);$('pickTyping').disabled=$('pickText').disabled;
  $('pickVocab').disabled=![...vocabularyGroups].some(g=>g.subject===s&&(g.words||[]).length);$('pickVocabTyping').disabled=$('pickVocab').disabled;
  $('modeBack').textContent='← 科目選択に戻る';$('modeNotice').textContent='';
@@ -754,6 +758,12 @@ function chooseLesson(id){
  const list=$('partList');list.replaceChildren();
  const matches=(selectedStudyMode.startsWith('text')?groups:vocabularyGroups).filter(g=>g.subject===subject&&String(g.id??'').trim()===id);
  const unique=[...new Set(matches.map(g=>normalizedPart(g.name)))].sort(naturalCompare);
+ if(unique.length>1){
+  const all=document.createElement('button');all.className='unit';
+  // 全パートをまとめる。実際に存在するパートだけが対象。
+  all.textContent='全部（'+(unique.length===4?'Part1～Part4':'全'+unique.length+'パート')+'）';
+  all.onclick=()=>chooseMode('__ALL_PARTS__');list.appendChild(all);
+ }
  unique.forEach(name=>{
   const b=document.createElement('button');b.className='unit';
   b.textContent=partLabel(name);
@@ -761,12 +771,18 @@ function chooseLesson(id){
  });
 }
 function chooseMode(name){
- const match=g=>g.subject===subject&&String(g.id??'').trim()===selectedLessonId&&(subject==='論表'||normalizedPart(g.name)===normalizedPart(name));
+ const allParts=name==='__ALL_PARTS__';
+ const match=g=>g.subject===subject&&String(g.id??'').trim()===selectedLessonId&&(subject==='論表'||allParts||normalizedPart(g.name)===normalizedPart(name));
  if(subject==='論表'){
   const text=groups.filter(match).flatMap(g=>g.cards||[]);
   const words=vocabularyGroups.filter(match).flatMap(g=>g.words||[]);
   unit=text.length?{subject,id:selectedLessonId,name:'1',cards:text}:null;
   selectedVocabulary=words.length?{subject,id:selectedLessonId,name:'1',words}:null;
+ }else if(allParts){
+  const text=groups.filter(match).flatMap(g=>g.cards||[]);
+  const words=vocabularyGroups.filter(match).flatMap(g=>g.words||[]);
+  unit=text.length?{subject,id:selectedLessonId,name:'全部（Part1～Part4）',cards:text}:null;
+  selectedVocabulary=words.length?{subject,id:selectedLessonId,name:'全部（Part1～Part4）',words}:null;
  }else{unit=groups.find(match)||null;selectedVocabulary=vocabularyGroups.find(match)||null;}
  show('units',false);show('parts',false);show('modePicker',false);
  if(!selectedStudyMode.startsWith('vocab')){
@@ -885,8 +901,26 @@ function vocabQuestion(){
  $('vocabFeedback').textContent='';$('vocabHint').textContent='';$('vocabInitialText').textContent='';show('vocabNext',false);$('vocabInitialHint').disabled=false;
  show('vocabInputArea',typing);$('vocabOptions').replaceChildren();
  if(typing){$('vocabInput').value='';$('vocabInput').disabled=false;$('vocabSubmit').disabled=false;return}
- const pool=[...new Set(selectedVocabulary.words.map(x=>x.meaning).filter(x=>x!==w.meaning))].sort(()=>Math.random()-.5);
- const answers=[w.meaning,...pool.slice(0,3)].sort(()=>Math.random()-.5);
+ // Choose plausible distractors from registered vocabulary, rather than random meanings.
+ const pool=selectedVocabulary.words.filter(x=>x.meaning&&x.meaning!==w.meaning);
+ const target=String(w.meaning).trim();
+ const chars=t=>[...String(t).replace(/[\s、。，・（）()]/g,'')];
+ const shared=(a,b)=>{const aa=new Set(chars(a)),bb=new Set(chars(b));return [...aa].filter(c=>bb.has(c)).length};
+ const ending=(a,b)=>{let n=0;while(n<a.length&&n<b.length&&a[a.length-1-n]===b[b.length-1-n])n++;return n};
+ const score=x=>{
+   const m=String(x.meaning).trim();
+   const a=chars(target),b=chars(m);
+   const lengthGap=Math.abs(a.length-b.length);
+   const common=shared(target,m);
+   const suffix=ending(target,m);
+   const verbPattern=/(する|になる|させる|できる|である|れる|られる)$/;
+   const sameVerbStyle=verbPattern.test(target)&&verbPattern.test(m);
+   const phraseStyle=true;
+   return common*2.5+Math.min(suffix,3)*1.8+(sameVerbStyle?2:0)+(phraseStyle?0.5:0)-lengthGap*0.7+Math.random()*1.5;
+ };
+ const candidates=[...new Map(pool.map(x=>[x.meaning,x])).values()].map(x=>({x,rank:score(x)})).sort((a,b)=>b.rank-a.rank).map(v=>v.x);
+ const chosen=candidates.slice(0,3).map(x=>x.meaning);
+ const answers=[w.meaning,...chosen].sort(()=>Math.random()-.5);
  answers.forEach(a=>{const b=document.createElement('button');b.textContent=a;b.onclick=()=>vocabAnswer(a===w.meaning,b);$('vocabOptions').append(b)});
 }
 function vocabAnswer(ok,clicked){
