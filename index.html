@@ -1328,7 +1328,7 @@ async function fetchRonpyo(){
   $('loadStatus').textContent='問題データ読み込み完了';
  }catch(e){console.warn('論表データ:',e);$('loadStatus').textContent+=' / 論表: '+e.message;}
 }
-Promise.allSettled([fetchLessons(),fetchVocabulary()]).then(fetchRonpyo);
+const yoshiDataReady=Promise.allSettled([fetchLessons(),fetchVocabulary()]).then(fetchRonpyo);
 // v28: browser Back/Forward only. No reload restoration or interception of app buttons.
 (function setupBrowserBack(){
  const panels=['subjects','modePicker','units','parts','practice','vocabPractice'];
@@ -1336,8 +1336,10 @@ Promise.allSettled([fetchLessons(),fetchVocabulary()]).then(fetchRonpyo);
  const route=()=>({page:current(),subject:subject||'',mode:selectedStudyMode||'',lesson:selectedLessonId||'',part:unit?.name||selectedVocabulary?.name||''});
  const equal=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
  let restoring=false;
+ // Preserve the route already stored in this browser history entry on reload.
+ const reloadRoute=window.history.state?.yoshiScreen;
  // Always use window.history: this app already has a separate `history` array for answers.
- window.history.replaceState({...window.history.state,yoshiScreen:route()},'');
+ window.history.replaceState({...window.history.state,yoshiScreen:reloadRoute||route()},'');
  const navigators=['modeBack','toSubjects','toLessons','toUnits','vocabBack'];
  const isNavClick=el=>Boolean(el.closest('[data-subject],#pickText,#pickTyping,#pickVocab,#pickVocabTyping,#unitList button,#partList button,'+navigators.map(id=>'#'+id).join(',')+ ',#backToLessons'));
  document.addEventListener('click',event=>{
@@ -1371,6 +1373,17 @@ Promise.allSettled([fetchLessons(),fetchVocabulary()]).then(fetchRonpyo);
    chooseMode(part);
   }
  }
+ // Reload: restore only after all learning data has finished loading.
+ // This does not alter the existing Back/Forward implementation or button handlers.
+ yoshiDataReady.then(()=>{
+  if(!reloadRoute||reloadRoute.page==='subjects')return;
+  restoring=true;
+  try{
+   restore(reloadRoute);
+   window.history.replaceState({...window.history.state,yoshiScreen:route()},'');
+  }catch(err){console.error('更新後の画面復元に失敗:',err);home()}
+  finally{restoring=false}
+ });
  window.addEventListener('popstate',event=>{
   const r=event.state?.yoshiScreen;
   if(!r)return;
