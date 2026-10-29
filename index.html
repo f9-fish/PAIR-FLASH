@@ -1328,78 +1328,8 @@ async function fetchRonpyo(){
   $('loadStatus').textContent='問題データ読み込み完了';
  }catch(e){console.warn('論表データ:',e);$('loadStatus').textContent+=' / 論表: '+e.message;}
 }
-// Stable screen navigation: save only after user navigation, never observe DOM mutations.
-(function initLearningNavigation(){
- const key='yoshiLabCurrentScreenV26';
- const screens=['subjects','modePicker','units','parts','practice','vocabPractice'];
- const current=()=>screens.find(id=>!$(id).classList.contains('hidden'))||'subjects';
- const snapshot=()=>({page:current(),subject,mode:selectedStudyMode,lesson:selectedLessonId,part:unit?.name||selectedVocabulary?.name||''});
- const original={chooseSubject,chooseStudyMode,chooseLesson,chooseMode};
- let restoring=false;
- function persist(push){
-  if(restoring)return;
-  const route=snapshot();
-  const prev=history.state?.yoshiRoute;
-  if(prev&&JSON.stringify(prev)===JSON.stringify(route))return;
-  if(push)history.pushState({...history.state,yoshiRoute:route},'',location.href);
-  else history.replaceState({...history.state,yoshiRoute:route},'',location.href);
-  try{sessionStorage.setItem(key,JSON.stringify(route))}catch(e){}
- }
- // Wrap navigation functions: existing click handlers remain untouched.
- chooseSubject=function(...args){const result=original.chooseSubject(...args);persist(true);return result};
- chooseStudyMode=function(...args){const result=original.chooseStudyMode(...args);persist(true);return result};
- chooseLesson=function(...args){const result=original.chooseLesson(...args);persist(true);return result};
- chooseMode=function(...args){const result=original.chooseMode(...args);persist(true);return result};
- function home(){
-  subject='';unit=null;selectedLessonId='';selectedStudyMode='';
-  ['modePicker','vocabPractice','units','parts','lessonNav','practice'].forEach(id=>show(id,false));
-  show('subjects',true);
-  $('pageTitle').textContent='科目を選ぼう ⚡';
-  $('pageSub').textContent='英C・論表から学習をスタート！';
- }
- function restore(route){
-  if(!route?.subject||route.page==='subjects'){home();return}
-  original.chooseSubject(route.subject);
-  if(route.page==='modePicker')return;
-  if(!route.mode)return;
-  original.chooseStudyMode(route.mode);
-  if(route.page==='units')return;
-  if(!route.lesson)return;
-  original.chooseLesson(route.lesson);
-  if(route.page==='parts')return;
-  if(route.page==='practice'||route.page==='vocabPractice'){
-   original.chooseMode(route.part==='全部'?'__ALL_PARTS__':(route.part||'1'));
-  }
- }
- // Initialize a clean first entry on first visit; keep saved route on reload.
- let saved=history.state?.yoshiRoute;
- if(!saved){try{saved=JSON.parse(sessionStorage.getItem(key)||'null')}catch(e){}}
- history.replaceState({...history.state,yoshiRoute:saved||snapshot()},'',location.href);
- window.addEventListener('popstate',e=>{
-  const route=e.state?.yoshiRoute;
-  if(!route)return;
-  if((current()==='practice'&&running)||(current()==='vocabPractice'&&vocabSessionRunning)){
-   if(!confirm('学習中です。前の画面に戻りますか？')){history.go(1);return}
-  }
-  restoring=true;
-  try{
-   if(running)reset();
-   if(vocabSessionRunning)finishVocabularySession();
-   restore(route);
-   try{sessionStorage.setItem(key,JSON.stringify(route))}catch(e){}
-   window.scrollTo(0,0);
-  }catch(err){console.error(err);home()}
-  finally{restoring=false}
- });
- // Restore only after JSON data has loaded.
- Promise.allSettled([fetchLessons(),fetchVocabulary()]).then(fetchRonpyo).then(()=>{
-  if(!saved||saved.page==='subjects')return;
-  restoring=true;
-  try{restore(saved)}
-  catch(err){console.warn('画面復元:',err);home()}
-  finally{restoring=false}
- });
-})();
+Promise.allSettled([fetchLessons(),fetchVocabulary()]).then(fetchRonpyo);
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(console.warn))}
 </script><div id="xpCelebrationOverlay" role="dialog" aria-modal="true" aria-label="XP獲得">
 <div id="xpCelebrationCard"><div style="font-size:15px;color:#d8e4ff;font-weight:700">⚡ XP GET!</div>
 <div id="xpCelebrationEarned">+0 XP</div><div id="xpCelebrationLevel">LEVEL 1</div>
