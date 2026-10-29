@@ -127,10 +127,22 @@ a{color:#8BB5FF!important}
 .streak-fire{font-size:clamp(48px,12vw,66px);line-height:1.3}.streak-count{font-size:clamp(40px,10vw,63px);font-weight:1000;letter-spacing:-.045em;color:white;white-space:nowrap}.streak-count span{font-size:.62em;color:#FFB15E}.streak-praise{font-size:clamp(22px,6vw,30px);font-weight:950;color:#FFB15E;margin-top:5px}
 @keyframes streak-pop{from{transform:scale(.55);opacity:0}to{transform:scale(1);opacity:1}}@keyframes streak-fade{from{opacity:0}to{opacity:1}}
 @media(prefers-reduced-motion:reduce){.streak-celebration,.streak-celebration-card{animation:none}}
+
+/* 本文タイピング：英文の空欄ごとに入力 */
+.cloze-inline-input{display:inline-block!important;vertical-align:baseline!important;width:var(--blank-width,6ch)!important;min-width:3.6ch!important;max-width:90%!important;margin:3px 3px!important;padding:5px 7px!important;border:2px solid #71c5f0!important;border-radius:8px!important;background:#102b4a!important;color:#fff!important;font:inherit!important;font-size:.9em!important;text-align:center!important;box-sizing:content-box!important;line-height:1.3!important}
+.cloze-inline-input:focus{outline:2px solid #ffe08a!important;outline-offset:2px!important}
+.cloze-inline-input:disabled{opacity:.8!important}
+</style><style>
+.study-mode-choices .step-choice{border-width:2px!important;min-height:100px!important;font-size:clamp(20px,4.5vw,26px)!important;font-weight:900!important;line-height:1.4;text-shadow:0 1px 2px #0004}.study-mode-choices .step-choice small{font-size:14px!important;font-weight:650!important}
+.study-mode-choices .step-choice:nth-child(1){background:#176b88!important;border-color:#56c3e5!important}
+.study-mode-choices .step-choice:nth-child(2){background:#176b88!important;border-color:#56c3e5!important}
+.study-mode-choices .step-choice:nth-child(3){background:#a3384e!important;border-color:#ed8494!important}
+.study-mode-choices .step-choice:nth-child(4){background:#a3384e!important;border-color:#ed8494!important}
+.study-mode-choices .step-choice:hover:not(:disabled){filter:brightness(1.18)}
 </style></head><body><div class="wrap"><a href="./index.html">← 通常練習に戻る</a><h1 class="pair-brand">Yoshi<span class="brand-accent">.Lab</span><span class="pair-suffix">PAIR</span></h1><p class="sub">2台連動・口頭／タイピング・5問ごとに役割交代</p><div class="row" style="margin:10px 0"><button id="soundToggle" type="button" style="flex:0 0 auto">🔇 効果音をON</button><span class="muted">各スマホで一度押してね</span></div><div id="status" class="status">Firebaseに接続しています…</div>
 <section id="lobby" class="panel hidden"><div id="wizard"><div class="step-label" id="stepLabel">STEP 1 / 5</div><h2 id="stepTitle">科目を選ぼう</h2><button type="button" id="stepBack" class="step-back hidden">← 戻る</button><div id="stepChoices"></div><p class="status" id="stepMessage"></p></div><div class="join-area"><h2>参加コードを持っている人（生徒B）</h2><p class="muted">生徒Aが作った6桁のコードを入力して参加してね。</p><div class="row"><input id="joinCode" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" placeholder="6桁のコード" aria-label="参加コード"><button id="join">参加（生徒B）</button></div></div></section>
 <section id="waiting" class="panel hidden"><h2>相手の参加を待っています</h2><div class="code" id="roomCode"></div><p class="muted">この6桁を相手に伝えてね。相手は「参加」に入力します。</p><button id="cancel" class="red">待機を終了</button></section>
-<section id="game" class="hidden"><section class="panel"><div class="stat"><span id="role" class="tag"></span><span id="counter" class="tag"></span></div><div class="stat"><span>連続正解</span><span class="streak-chip" id="pairStreakChip">🔥 0 STREAK</span></div><div class="stat"><span>残り時間</span><strong id="timer">00:30</strong></div><div class="stat"><span>ペアの正解数</span><strong id="score">0 / 0</strong></div><div class="card"><div class="sub" id="instruction"></div><div id="english" class="english"></div><div id="pairTypingArea" class="hidden" style="margin:12px 0"><input id="pairTypingInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="穴埋めの英語を入力" style="width:100%;padding:13px"><button id="pairTypingSubmit" class="primary" style="width:100%;margin-top:8px">回答する</button><p id="pairTypingHint" class="muted"></p></div><div id="answerKey" class="answer-key hidden">黄色い文字が解答箇所</div><div id="japanese" class="japanese"></div></div><p id="roleHint" class="muted"></p><div id="grading" class="split hidden"><button id="correct" class="green">○ 正解</button><button id="wrong" class="red">× 不正解</button></div><div id="feedback" class="panel hidden"><div id="feedbackTitle" class="judgment" role="status">正答確認</div><div id="feedbackWordCard" class="hidden"><div class="feedback-word-label">正しい英単語</div><div id="feedbackWord" class="feedback-word"></div><div id="feedbackMeaning" class="feedback-meaning"></div></div><p id="feedbackAnswer" class="english"></p><button id="next" class="primary" style="width:100%">次の問題へ →</button><p id="nextHint" class="muted"></p></div></section><section id="change" class="panel hidden"><h2>🔄 役割交代！</h2><p>次の5問は出題者と回答者が入れ替わるよ。</p></section></section>
+<section id="game" class="hidden"><section class="panel"><div class="stat"><span id="role" class="tag"></span><span id="counter" class="tag"></span></div><div class="stat"><span>連続正解</span><span class="streak-chip" id="pairStreakChip">🔥 0 STREAK</span></div><div class="stat"><span>残り時間</span><strong id="timer">00:30</strong></div><div class="stat"><span>ペアの正解数</span><strong id="score">0 / 0</strong></div><div class="card"><div class="sub" id="instruction"></div><div id="english" class="english"></div><div id="pairChoices" class="hidden" style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:14px 0"></div><div id="pairTypingArea" class="hidden" style="margin:12px 0"><input id="pairTypingInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="穴埋めの英語を入力" style="width:100%;padding:13px"><button id="pairTypingSubmit" class="primary" style="width:100%;margin-top:8px">回答する</button><p id="pairTypingHint" class="muted"></p></div><div id="answerKey" class="answer-key hidden">黄色い文字が解答箇所</div><div id="japanese" class="japanese"></div></div><p id="roleHint" class="muted"></p><div id="grading" class="split hidden"><button id="correct" class="green">○ 正解</button><button id="wrong" class="red">× 不正解</button></div><div id="feedback" class="panel hidden"><div id="feedbackTitle" class="judgment" role="status">正答確認</div><div id="feedbackWordCard" class="hidden"><div class="feedback-word-label">正しい英単語</div><div id="feedbackWord" class="feedback-word"></div><div id="feedbackMeaning" class="feedback-meaning"></div></div><p id="feedbackAnswer" class="english"></p><button id="next" class="primary" style="width:100%">次の問題へ →</button><p id="nextHint" class="muted"></p></div></section><section id="change" class="panel hidden"><h2>🔄 役割交代！</h2><p>次の5問は出題者と回答者が入れ替わるよ。</p></section></section>
 <section id="done" class="panel hidden"><h2>🎉 おつかれさま！</h2><p class="big" id="result"></p><p class="muted" id="detail"></p><button id="back" class="primary">新しいペアワークへ</button></section></div>
 <script type="module">
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js';
@@ -236,7 +248,7 @@ function goStep(n){step=n;renderStep()}
 function renderStep(){
   $('stepLabel').textContent='STEP '+(step+1)+' / 5';$('stepTitle').textContent=steps[step];
   show('stepBack',step>0);$('stepBack').onclick=()=>goStep(step-1);
-  $('stepChoices').replaceChildren();$('stepMessage').textContent='';
+  $('stepChoices').replaceChildren();$('stepChoices').classList.toggle('study-mode-choices',step===1);$('stepMessage').textContent='';
   const all=catalog();
   if(step===0){
     for(const s of ['英C','論表',...new Set(all.map(g=>g.subject))].filter((v,i,a)=>a.indexOf(v)===i)){
@@ -244,17 +256,17 @@ function renderStep(){
       choice(s,()=>{selection.subject=s;goStep(1)},{detail:count+' Part',disabled:!count});
     }
   }else if(step===2){
-    const ids=[...new Set(all.filter(g=>g.subject===selection.subject&&(selection.mode==='vocab'?vocabCards(g).length:(g.text||[]).some(c=>blank(String(c[0]??''))))).map(g=>g.id))].sort(sortNatural);
+    const ids=[...new Set(all.filter(g=>g.subject===selection.subject&&(selection.mode.startsWith('vocab')?vocabCards(g).length:(g.text||[]).some(c=>blank(String(c[0]??''))))).map(g=>g.id))].sort(sortNatural);
     for(const id of ids)choice(lessonLabel(id),()=>{selection.lesson=id;goStep(3)});
   }else if(step===3){
-    const parts=all.filter(g=>g.subject===selection.subject&&g.id===selection.lesson&&(selection.mode==='vocab'?vocabCards(g).length:(g.text||[]).some(c=>blank(String(c[0]??''))))).sort((a,b)=>sortNatural(a.name,b.name));
+    const parts=all.filter(g=>g.subject===selection.subject&&g.id===selection.lesson&&(selection.mode.startsWith('vocab')?vocabCards(g).length:(g.text||[]).some(c=>blank(String(c[0]??''))))).sort((a,b)=>sortNatural(a.name,b.name));
     for(const g of parts)choice(partLabel(g.name),()=>{selection.part=g.name;goStep(4)},{detail:(g.text.length?'本文 '+g.text.length+'問':'本文未登録')+' ／ '+vocabCards(g).length+'語'});
   }else if(step===1){
     const entries=all.filter(g=>g.subject===selection.subject);
     const cloze=entries.flatMap(g=>(g.text||[]).filter(c=>Array.isArray(c)&&blank(String(c[0]??''))));
     const words=entries.flatMap(g=>vocabCards(g));
-    choice('📖 本文穴埋め（口頭）',()=>{selection.mode='cloze';goStep(2)},{detail:cloze.length?cloze.length+'問':'穴埋め問題は未登録',disabled:!cloze.length});choice('⌨️ 本文穴埋め（タイピング）',()=>{selection.mode='clozeTyping';goStep(2)},{detail:cloze.length?cloze.length+'問':'穴埋め問題は未登録',disabled:!cloze.length});
-    choice(selection.subject==='論表'?'🔤 単語・熟語チェック':'🔤 単語チェック',()=>{selection.mode='vocab';goStep(2)},{detail:words.length?words.length+'語・日本語を英語になおそう':'単語は未登録',disabled:!words.length});
+    choice('📖 本文穴埋め（チェック）',()=>{selection.mode='cloze';goStep(2)},{detail:cloze.length?cloze.length+'問':'穴埋め問題は未登録',disabled:!cloze.length});choice('⌨️ 本文穴埋め（タイピング）',()=>{selection.mode='clozeTyping';goStep(2)},{detail:cloze.length?cloze.length+'問':'穴埋め問題は未登録',disabled:!cloze.length});
+    choice(selection.subject==='論表'?'🔤 単語・熟語チェック（4択）':'🔤 単語チェック（4択）',()=>{selection.mode='vocabChoice';goStep(2)},{detail:words.length?words.length+'語':'単語は未登録',disabled:!words.length});choice(selection.subject==='論表'?'⌨️ 単語・熟語チェック（タイピング）':'⌨️ 単語チェック（タイピング）',()=>{selection.mode='vocabTyping';goStep(2)},{detail:words.length?words.length+'語':'単語は未登録',disabled:!words.length});
   }else{
     $('stepMessage').textContent='無制限がおすすめ！自分のペースで回答できるよ。';
     choice('∞ 無制限',()=>createRoom(0),{detail:'おすすめ・時間を気にせず練習',featured:true});
@@ -263,7 +275,7 @@ function renderStep(){
       const b=document.createElement('button');b.className='step-choice';b.textContent=label;b.onclick=()=>createRoom(seconds);row.append(b);
     }
     const summary=document.createElement('div');summary.className='step-summary';
-    summary.textContent=selection.subject+' / '+lessonLabel(selection.lesson)+' / '+partLabel(selection.part)+' / '+(selection.mode==='vocab'?'単語チェック':selection.mode==='clozeTyping'?'本文穴埋め（タイピング）':'本文穴埋め（口頭）');
+    summary.textContent=selection.subject+' / '+lessonLabel(selection.lesson)+' / '+partLabel(selection.part)+' / '+(selection.mode==='vocabChoice'?'単語チェック（4択）':selection.mode==='vocabTyping'?'単語チェック（タイピング）':selection.mode==='clozeTyping'?'本文穴埋め（タイピング）':'本文穴埋め（チェック）');
     $('stepChoices').append(summary);
   }
 }
@@ -288,13 +300,13 @@ async function init(){
  }catch(e){err(e)}
 }
 onValue(ref(db,'.info/serverTimeOffset'),snapshot=>{serverOffset=snapshot.val()||0;offsetReady=true;},e=>{console.warn('時刻補正の取得に失敗',e);});
-const getCards=r=>{let g=catalog().find(g=>g.subject===r.subject&&g.id===normLesson(r.lesson)&&g.name===normPart(r.part));return r.mode==='vocab'?vocabCards(g):(g?.text||[]).filter(c=>r.mode!=='cloze'||blank(String(c[0]??'')))};
+const getCards=r=>{let g=catalog().find(g=>g.subject===r.subject&&g.id===normLesson(r.lesson)&&g.name===normPart(r.part));return r.mode.startsWith('vocab')?vocabCards(g):(g?.text||[]).filter(c=>r.mode!=='cloze'||blank(String(c[0]??'')))};
 function watch(c){if(unsubscribe)unsubscribe();code=c;unsubscribe=onValue(ref(db,'rooms/'+c),snap=>{let r=snap.val();if(!r){msg('ペアが終了したか、部屋が見つかりません。');return}room=r;render()},err)}
 async function createRoom(duration){
  if(busy)return;busy=true;
  try{
   const g=currentEntry();if(!g)throw Error('Partを選び直してください');
-  const cards=selection.mode==='vocab'?vocabCards(g):(g.text||[]).filter(c=>blank(String(c[0]??'')));
+  const cards=selection.mode.startsWith('vocab')?vocabCards(g):(g.text||[]).filter(c=>blank(String(c[0]??'')));
   if(!cards.length)throw Error('このPartには該当する問題がありません');
   let created=false,c='';
   for(let attempt=0;attempt<8&&!created;attempt++){
@@ -323,12 +335,53 @@ function showStreakCelebration(count){
   clearTimeout(showStreakCelebration.timer);
   showStreakCelebration.timer=setTimeout(()=>{overlay.hidden=true;},1600);
 }
+
+function makeClozeInlineInputs(root,english,prefix){
+ root.replaceChildren();const re=/\(([^()]+)\)/g;let pos=0,m,n=0;
+ while((m=re.exec(english))){
+  root.append(document.createTextNode(english.slice(pos,m.index)));
+  const parts=m[1].trim().split(/\s+/).filter(Boolean);
+  parts.forEach((part,j)=>{
+   if(j)root.append(document.createTextNode(' '));
+   const field=document.createElement('input');field.type='text';field.className='cloze-inline-input';
+   field.autocomplete='off';field.autocapitalize='off';field.spellcheck=false;
+   field.dataset.expected=part;field.dataset.blank=String(n++);
+   field.style.setProperty('--blank-width',Math.max(4,Math.min(17,part.length+2))+'ch');
+   field.setAttribute('aria-label','空欄 '+n);root.append(field);
+  });pos=re.lastIndex;
+ }
+ root.append(document.createTextNode(english.slice(pos)));
+ const inputs=[...root.querySelectorAll('.cloze-inline-input')];
+ inputs.forEach((field,i)=>field.addEventListener('keydown',ev=>{
+  if(ev.key==='Enter'){ev.preventDefault();if(i<inputs.length-1)inputs[i+1].focus();else document.getElementById(prefix+'TypingSubmit').click()}
+ }));
+ return inputs;
+}
+function checkClozeInlineInputs(root){
+ const inputs=[...root.querySelectorAll('.cloze-inline-input')];
+ const normalize=s=>String(s).toLowerCase().replace(/[’‘]/g,"'").replace(/\s+/g,' ').trim();
+ if(!inputs.length||inputs.some(x=>!x.value.trim()))return null;
+ return inputs.every(x=>normalize(x.value)===normalize(x.dataset.expected));
+}
+
 function render(){if(!room)return;let joined=!!room.guestUid;show('lobby',false);show('waiting',!joined);$('roomCode').textContent=code;show('game',joined&&room.state.index<getCards(room).length);show('done',joined&&room.state.index>=getCards(room).length);if(!joined){msg('生徒Bの参加待ち');return}let cards=getCards(room);if(!cards.length){msg('この端末に該当する問題がありません。問題集の同期を確認してね。');return}let s=room.state,i=s.index;let revealed=room.reveal&&room.reveal.index===i;const currentAnswerer=(Math.floor(i/5)%2===0?'B':'A');const currentStreak=s['streak'+currentAnswerer]||0;const displayedStreak=revealed?(room.reveal.ok?currentStreak+1:0):currentStreak;$('pairStreakChip').textContent='🔥 '+displayedStreak+' STREAK（生徒'+currentAnswerer+'）';if(revealed&&room.reveal.ok&&streakLabel(displayedStreak)){const eventKey=code+':'+i+':'+displayedStreak;if(lastStreakEvent!==eventKey){lastStreakEvent=eventKey;showStreakCelebration(displayedStreak)}}
 if(revealed){
   const key=code+':'+i;
   if(lastSoundKey!==key){lastSoundKey=key;playJudgment(!!room.reveal.ok)}
 }
-msg('ペア接続中：'+code);if(i>=cards.length){$('result').textContent=s.right+' / '+s.total+' 問正解';$('detail').textContent='正答率 '+(s.total?Math.round(100*s.right/s.total):0)+'%';return}let asker=(Math.floor(i/5)%2===0?'A':'B'),answerer=asker==='A'?'B':'A',isAsker=side===asker;let [en,ja]=cards[i];$('role').textContent='あなた：生徒'+side+'（'+(isAsker?'出題者':'回答者')+'）';$('counter').textContent=(i+1)+' / '+cards.length+' 問';$('score').textContent=s.right+' / '+s.total;$('instruction').textContent=room.mode==='clozeTyping'?(isAsker?'回答者の入力を待とう':'空欄に入る英語を入力して回答しよう'):(isAsker?'正解を見ながら口頭で出題し、○×を判定':'相手の出題を聞いて口頭で回答');$('roleHint').textContent=room.mode==='clozeTyping'?(isAsker?'回答者：生徒'+answerer+'　回答は自動判定されます。':'出題者：生徒'+asker+'　回答すると両方に結果が表示されます。'):(isAsker?'回答者：生徒'+answerer+'　判定すると両方の画面が進みます。':'出題者：生徒'+asker+'　回答後は相手の判定を待ってね。');show('grading',isAsker&&!revealed&&room.mode!=='clozeTyping');show('pairTypingArea',room.mode==='clozeTyping'&&!isAsker&&!revealed);if(room.mode==='clozeTyping'&&!isAsker){if($('pairTypingInput').dataset.index!==String(i)){$('pairTypingInput').value='';$('pairTypingInput').dataset.index=String(i)}$('pairTypingInput').disabled=false;$('pairTypingSubmit').disabled=false;$('pairTypingHint').textContent='穴埋めが複数ある場合は、答えをカンマで区切って入力してね。'}show('feedback',!!revealed);$('feedbackTitle').textContent=revealed?(room.reveal.ok?'○ 正解！':'× 不正解'):'正答確認';$('feedbackTitle').className='judgment '+(revealed?(room.reveal.ok?'correct':'incorrect'):'');$('feedbackAnswer').textContent=revealed&&room.mode!=='vocab'?en.replace(/\(([^()]+)\)/g,'$1'):'';show('feedbackWordCard',!!revealed&&room.mode==='vocab');$('feedbackWord').textContent=revealed&&room.mode==='vocab'?en:'';$('feedbackMeaning').textContent=revealed&&room.mode==='vocab'?ja:'';show('next',!!revealed&&isAsker);$('nextHint').textContent=isAsker?'正答を確認したら次へ進もう':'出題者が「次の問題へ」を押すまで待ってね';show('change',i>0&&i%5===0&&i!==lastIndex);lastIndex=i;let text=(room.mode==='cloze'||room.mode==='clozeTyping')?(isAsker?en.replace(/\(([^()]+)\)/g,'$1'):en.replace(/\(([^()]+)\)/g,'______')):isAsker?en:en;$('english').textContent=text;show('answerKey',(room.mode==='cloze'||room.mode==='clozeTyping')&&isAsker);if((room.mode==='cloze'||room.mode==='clozeTyping')&&isAsker)showClozeForAsker($('english'),en);$('japanese').textContent=ja;if(room.mode==='cloze'||room.mode==='clozeTyping')showHighlightedJapanese($('japanese'),ja);const cardEl=$('english').closest('.card');cardEl.classList.toggle('vocab-card',room.mode==='vocab');cardEl.classList.toggle('vocab-answerer',room.mode==='vocab'&&!isAsker);if(room.mode==='vocab'){$('instruction').textContent=isAsker?'日本語を英語になおそう（出題者）':'日本語を英語になおそう';$('japanese').textContent=ja;$('english').textContent=isAsker?en:'';show('answerKey',false)}else if(room.mode==='normal'&&!isAsker){$('english').textContent='日本語を聞いて、英語で答えよう';$('japanese').textContent=ja}else if(room.mode==='normal'&&isAsker){$('instruction').textContent='日本語を読み上げ、相手の英語を採点'}updateTimer();}
+msg('ペア接続中：'+code);if(i>=cards.length){$('result').textContent=s.right+' / '+s.total+' 問正解';$('detail').textContent='正答率 '+(s.total?Math.round(100*s.right/s.total):0)+'%';return}let asker=(Math.floor(i/5)%2===0?'A':'B'),answerer=asker==='A'?'B':'A',isAsker=side===asker;let [en,ja]=cards[i];$('role').textContent='あなた：生徒'+side+'（'+(isAsker?'出題者':'回答者')+'）';$('counter').textContent=(i+1)+' / '+cards.length+' 問';$('score').textContent=s.right+' / '+s.total;$('instruction').textContent=(room.mode==='clozeTyping'||room.mode==='vocabTyping'||room.mode==='vocabChoice')?(isAsker?'回答者の入力を待とう':'空欄に入る英語を入力して回答しよう'):(isAsker?'正解を見ながら口頭で出題し、○×を判定':'相手の出題を聞いて口頭で回答');$('roleHint').textContent=(room.mode==='clozeTyping'||room.mode==='vocabTyping'||room.mode==='vocabChoice')?(isAsker?'回答者：生徒'+answerer+'　回答は自動判定されます。':'出題者：生徒'+asker+'　回答すると両方に結果が表示されます。'):(isAsker?'回答者：生徒'+answerer+'　判定すると両方の画面が進みます。':'出題者：生徒'+asker+'　回答後は相手の判定を待ってね。');show('grading',isAsker&&!revealed&&room.mode!=='clozeTyping'&&room.mode!=='vocabTyping'&&room.mode!=='vocabChoice');show('pairTypingArea',(room.mode==='clozeTyping'||room.mode==='vocabTyping')&&!isAsker&&!revealed);if((room.mode==='clozeTyping'||room.mode==='vocabTyping')&&!isAsker){if($('pairTypingInput').dataset.index!==String(i)){$('pairTypingInput').value='';$('pairTypingInput').dataset.index=String(i)}$('pairTypingInput').disabled=false;$('pairTypingSubmit').disabled=false;$('pairTypingHint').textContent=room.mode==='vocabTyping'?'日本語に合う英単語・熟語を入力してね。':'英文中の空欄をそれぞれ入力してね（Enterで次の欄へ）。'}show('feedback',!!revealed);$('feedbackTitle').textContent=revealed?(room.reveal.ok?'○ 正解！':'× 不正解'):'正答確認';$('feedbackTitle').className='judgment '+(revealed?(room.reveal.ok?'correct':'incorrect'):'');$('feedbackAnswer').textContent=revealed&&!room.mode.startsWith('vocab')?en.replace(/\(([^()]+)\)/g,'$1'):'';show('feedbackWordCard',!!revealed&&room.mode.startsWith('vocab'));$('feedbackWord').textContent=revealed&&room.mode.startsWith('vocab')?en:'';$('feedbackMeaning').textContent=revealed&&room.mode.startsWith('vocab')?ja:'';show('next',!!revealed&&isAsker);$('nextHint').textContent=isAsker?'正答を確認したら次へ進もう':'出題者が「次の問題へ」を押すまで待ってね';show('change',i>0&&i%5===0&&i!==lastIndex);lastIndex=i;let text=(room.mode==='cloze'||room.mode==='clozeTyping')?(isAsker?en.replace(/\(([^()]+)\)/g,'$1'):en.replace(/\(([^()]+)\)/g,'______')):isAsker?en:en;if(room.mode==='clozeTyping'&&!isAsker&&!revealed){if($('english').dataset.inlineIndex!==String(i)){makeClozeInlineInputs($('english'),en,'pair');$('english').dataset.inlineIndex=String(i)}}else{$('english').textContent=text;$('english').dataset.inlineIndex=''}show('answerKey',(room.mode==='cloze'||room.mode==='clozeTyping')&&isAsker);if((room.mode==='cloze'||room.mode==='clozeTyping')&&isAsker)showClozeForAsker($('english'),en);$('japanese').textContent=ja;if(room.mode==='cloze'||room.mode==='clozeTyping')showHighlightedJapanese($('japanese'),ja);const cardEl=$('english').closest('.card');cardEl.classList.toggle('vocab-card',room.mode.startsWith('vocab'));cardEl.classList.toggle('vocab-answerer',room.mode.startsWith('vocab')&&!isAsker);if(room.mode.startsWith('vocab')){$('instruction').textContent=isAsker?'日本語を英語になおそう（出題者）':'日本語を英語になおそう';$('japanese').textContent=ja;$('english').textContent=isAsker?en:'';show('answerKey',false)}
+show('pairChoices',room.mode==='vocabChoice'&&!isAsker&&!revealed);
+if(room.mode==='vocabChoice'&&!isAsker&&!revealed){
+ const holder=$('pairChoices');holder.replaceChildren();
+ const allWords=catalog().filter(g=>g.subject===room.subject).flatMap(g=>vocabCards(g)).map(c=>c[1]).filter(v=>v&&v!==ja);
+ const unique=[...new Set(allWords)].sort((a,b)=>String(a).localeCompare(String(b),'ja'));
+ let seed=(i+1)*7919;const distractors=[];
+ while(unique.length&&distractors.length<3){seed=(seed*1664525+1013904223)>>>0;const value=unique.splice(seed%unique.length,1)[0];distractors.push(value)}
+ const options=[ja,...distractors];let pos=((i+1)*7)%options.length;options.splice(0,1);options.splice(pos,0,ja);
+ options.forEach(label=>{const b=document.createElement('button');b.textContent=label;b.style.cssText='min-height:68px;background:#304f7a;border:1px solid #7196c8';b.onclick=async()=>{holder.querySelectorAll('button').forEach(x=>x.disabled=true);await grade(label===ja,false,true)};holder.append(b)});
+}
+$('pairTypingInput').classList.toggle('hidden',room.mode==='clozeTyping');if(room.mode==='vocabTyping'&&!isAsker&&!revealed){$('pairTypingInput').placeholder='英単語・熟語を入力';}
+else if(room.mode==='normal'&&!isAsker){$('english').textContent='日本語を聞いて、英語で答えよう';$('japanese').textContent=ja}else if(room.mode==='normal'&&isAsker){$('instruction').textContent='日本語を読み上げ、相手の英語を採点'}updateTimer();}
 function updateTimer(){
   if(!room||!room.guestUid)return;
   const s=room.state,secs=room.duration;
@@ -346,7 +399,7 @@ function updateTimer(){
 async function grade(ok,timeout=false,allowAnswerer=false){
   if(busy||revealBusy||!room)return;
   const asker=Math.floor(room.state.index/5)%2===0?'A':'B';
-  if(side!==asker&&!(allowAnswerer&&room.mode==='clozeTyping'&&side!==asker))return;
+  if(side!==asker&&!(allowAnswerer&&(room.mode==='clozeTyping'||room.mode==='vocabTyping'||room.mode==='vocabChoice')&&side!==asker))return;
   revealBusy=true;
   try{
     await set(ref(db,'rooms/'+code+'/reveal'),{index:room.state.index,ok:!!ok});
@@ -368,7 +421,7 @@ async function nextQuestion(){
   }catch(e){err(e)}
   finally{busy=false;timeoutPendingIndex=-1}
 }
-$('pairTypingSubmit').onclick=async()=>{if(!room||room.mode!=='clozeTyping'||room.reveal?.index===room.state.index)return;const i=room.state.index,answerer=Math.floor(i/5)%2===0?'B':'A';if(side!==answerer)return;const en=getCards(room)[i]?.[0]||'';const expected=[...String(en).matchAll(/\(([^()]*)\)/g)].map(m=>m[1].trim());const typed=$('pairTypingInput').value.trim();if(!typed||!expected.length)return;const normalize=v=>v.toLowerCase().replace(/[’‘]/g,"'").replace(/\s+/g,' ').trim();const answers=typed.split(/\s*[,、;；]\s*/);const ok=expected.length===1?normalize(typed)===normalize(expected[0]):answers.length===expected.length&&answers.every((a,j)=>normalize(a)===normalize(expected[j]));$('pairTypingSubmit').disabled=true;await grade(ok,false,true)};$('pairTypingInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('pairTypingSubmit').click()});$('correct').onclick=()=>grade(true);
+$('pairTypingSubmit').onclick=async()=>{if(!room||room.mode!=='clozeTyping'&&room.mode!=='vocabTyping'&&room.mode!=='vocabChoice'||room.reveal?.index===room.state.index)return;const i=room.state.index,answerer=Math.floor(i/5)%2===0?'B':'A';if(side!==answerer)return;const en=getCards(room)[i]?.[0]||'';const expected=room.mode==='vocabTyping'?[en.trim()]:[...String(en).matchAll(/\(([^()]*)\)/g)].map(m=>m[1].trim());const inlineOk=room.mode==='clozeTyping'?checkClozeInlineInputs($('english')):null;const typed=$('pairTypingInput').value.trim();if((room.mode==='clozeTyping'&&inlineOk===null)||(room.mode==='vocabTyping'&&!typed)||!expected.length)return;const normalize=v=>v.toLowerCase().replace(/[’‘]/g,"'").replace(/\s+/g,' ').trim();const answers=typed.split(/\s*[,、;；]\s*/);const ok=room.mode==='clozeTyping'?inlineOk:(expected.length===1?normalize(typed)===normalize(expected[0]):answers.length===expected.length&&answers.every((a,j)=>normalize(a)===normalize(expected[j])));$('english').querySelectorAll('.cloze-inline-input').forEach(x=>x.disabled=true);$('pairTypingSubmit').disabled=true;await grade(ok,false,true)};$('pairTypingInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('pairTypingSubmit').click()});$('correct').onclick=()=>grade(true);
 $('wrong').onclick=()=>grade(false);
 $('next').onclick=nextQuestion;
 localTimer=setInterval(updateTimer,300);
