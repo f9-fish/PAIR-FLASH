@@ -223,8 +223,8 @@ body.welcome-active #welcomeCover{display:block}
 .cloze-typing-wrap{position:relative;display:inline-flex;vertical-align:baseline;align-items:center;margin:3px 3px;padding-top:18px}
 .cloze-typing-wrap .cloze-inline-input{margin:0!important}
 .cloze-typing-hint{position:absolute;left:5px;top:0;color:#ffe066;font-size:13px;font-weight:900;line-height:16px;pointer-events:none}
-.cloze-typed-correction{position:absolute;left:0;top:-5px;color:#ffe066;font-size:18px;font-weight:900;letter-spacing:.02em;white-space:nowrap;line-height:22px;margin:0!important;z-index:2;text-shadow:0 1px 5px rgba(0,0,0,.85)}
-.cloze-typing-wrap:has(.cloze-typed-correction){padding-top:26px}
+.cloze-typed-correction{position:absolute;left:0;top:0;color:#ffe066;font-size:clamp(25px,5.2vw,32px);font-weight:1000;letter-spacing:.015em;white-space:nowrap;line-height:1.2;margin:0!important;z-index:2;text-shadow:0 2px 5px rgba(0,0,0,.95),0 0 12px rgba(255,214,64,.45);pointer-events:none}
+.cloze-typing-wrap:has(.cloze-typed-correction){padding-top:44px;margin-top:8px;margin-bottom:6px}
 </style></style><style>
 /* Navigation palette: home = MY PAGE blue; deeper screens = back-button navy. */
 #subjects .choice,
@@ -628,6 +628,7 @@ $('soloTypingSubmit').onclick=()=>{
    correction.textContent=expected;
    const hint=field.parentElement.querySelector('.cloze-typing-hint');if(hint)hint.textContent='';
    field.parentElement.appendChild(correction);
+   field.parentElement.style.minWidth=Math.max(field.offsetWidth,Math.ceil(expected.length*18+12))+'px';
   }
  });
  const ok=correctCount===inputs.length;
