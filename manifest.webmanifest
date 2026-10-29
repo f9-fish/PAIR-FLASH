@@ -9,16 +9,22 @@
   "theme_color": "#06132f",
   "icons": [
     {
-      "src": "./yoshilab-icon-v37-192.png",
+      "src": "./yoshilab-v39-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./yoshilab-icon-v37-512.png",
+      "src": "./yoshilab-v39-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
+    },
+    {
+      "src": "./yoshilab-v39-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
