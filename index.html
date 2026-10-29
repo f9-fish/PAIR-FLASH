@@ -428,6 +428,7 @@ const activeTimer=(()=>{
    seconds(){flush();return Math.round(accumulated/1000)}
  };
 })();
+function yoshiLevel(xp){xp=Math.max(0,Number(xp)||0);let level=1,need=100;while(xp>=need&&level<10000){xp-=need;level++;need+=50}return {level,progress:xp,next:need}}
 function showXPCelebration(earned,level,leveledUp){
  const overlay=document.getElementById('xpCelebrationOverlay');if(!overlay)return;
  document.getElementById('xpCelebrationEarned').textContent='+'+earned+' XP';
@@ -451,7 +452,7 @@ async function saveSoloRecord(mode,right,total,best,durationSeconds){
   const before=await a.leaderboard().then(all=>Number(all[a.user.uid]?.totalXP||0)).catch(()=>0);
   const updated=await a.syncXP();
   if(updated){
-   const earned=Math.max(0,updated.totalXP-before),level=Math.floor(updated.totalXP/200)+1,previousLevel=Math.floor(before/200)+1;
+   const earned=Math.max(0,updated.totalXP-before),level=yoshiLevel(updated.totalXP).level,previousLevel=yoshiLevel(before).level;
    showXPCelebration(earned,level,level>previousLevel);
   }else{
    $('accountDetail').textContent='学習記録は保存しました。XPの反映にはMY PAGEでプロフィール登録が必要です。';
