@@ -12,7 +12,7 @@ function yoshiRecordXP(r){
  const mode=String(r.xpMode||r.mode||'');
  // Legacy records lack xpMode: award no XP to old cloze check records;
  // legacy vocab cannot be reliably separated into 4-choice and typing.
- const rate=mode==='textTyping'?7:mode==='vocabTyping'?2:mode==='vocab'?1:0;
+ const rate=mode==='textTyping'?7:mode==='vocabTyping'?4:mode==='vocab'?1:0;
  return Math.min(30,Math.floor(correct)*rate);
 }
 const api={get user(){return current},subscribe(fn){listeners.add(fn);fn(current);return()=>listeners.delete(fn)},async login(){await setPersistence(auth,browserLocalPersistence);try{return await signInWithPopup(auth,provider)}catch(e){if(['auth/popup-blocked','auth/operation-not-supported-in-this-environment'].includes(e.code))return signInWithRedirect(auth,provider);throw e}},async logout(){return signOut(auth)},async save(entry){if(!current)throw Error('Googleログインが必要です');const u=current;const token=await u.getIdTokenResult();if(token.signInProvider!=='google.com'||!u.emailVerified)throw Error('確認済みのGoogleアカウントでログインしてください');const row={...entry,createdAt:Date.now(),source:'solo'};await set(push(ref(db,'learningRecords/'+u.uid)),row);return row},async profile(){if(!current)return null;const snap=await get(ref(db,'studentProfiles/'+current.uid));return snap.val()},
