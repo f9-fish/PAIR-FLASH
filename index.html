@@ -341,6 +341,14 @@ body:has(#subjects.hidden) .pair-feature .pair-start:hover {
 #modePicker #pickVocab.vocab-long-label{font-size:clamp(12px,3.1vw,17px)!important;letter-spacing:-.045em!important;line-height:1.35!important;padding-inline:3px!important;overflow:visible!important}
 #modePicker #pickVocab.vocab-long-label .vocab-main-line{white-space:nowrap!important;display:inline!important}
 #modePicker #pickVocab.vocab-long-label .mode-typing-line{display:block!important;white-space:nowrap!important;margin-top:3px!important;font-size:1.08em!important}
+</style><style id="xpCelebrationStyle">
+#xpCelebrationOverlay{position:fixed;inset:0;z-index:99999;background:rgba(4,10,25,.77);display:none;align-items:center;justify-content:center;padding:20px}
+#xpCelebrationOverlay.open{display:flex}
+#xpCelebrationCard{width:min(100%,390px);background:linear-gradient(150deg,#1a315d,#101a33);border:2px solid #ffcb65;border-radius:25px;padding:28px 20px;text-align:center;color:white;box-shadow:0 0 55px #e4a83c66;animation:xpPop .35s ease-out}
+@keyframes xpPop{from{opacity:0;transform:scale(.78) translateY(25px)}to{opacity:1;transform:scale(1) translateY(0)}}
+#xpCelebrationEarned{font-size:clamp(42px,11vw,64px);font-weight:950;color:#ffca57;text-shadow:0 0 20px #ffa51e66}
+#xpCelebrationLevel{font-size:24px;font-weight:900;margin:8px}
+#xpCelebrationOverlay button{background:#ffc34e;color:#172039;border:0;border-radius:12px;padding:12px 25px;font-weight:900;margin-top:16px;cursor:pointer}
 </style></head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
   <div class="welcome-hero"><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
   <section aria-label="使い方"><h2 class="welcome-how">HOW TO USE ━━━</h2><div class="welcome-steps">
@@ -420,7 +428,19 @@ const activeTimer=(()=>{
    seconds(){flush();return Math.round(accumulated/1000)}
  };
 })();
-async function saveSoloRecord(mode,right,total,best,durationSeconds){if(!total||!window.YoshiAccount?.user)return;try{await window.YoshiAccount.save({subject:String(subject||''),lesson:String(selectedLessonId||''),part:normalizedPart(unit?.name||selectedVocabulary?.name||''),mode,right,total,bestStreak:best,durationSeconds:Math.max(0,Math.round(Number(durationSeconds)||0))});console.info('[Yoshi.Lab] study time saved:',durationSeconds,'seconds')}catch(e){console.warn('学習記録を保存できませんでした',e);$('accountDetail').textContent='学習記録の保存に失敗しました。Firebaseの設定を確認してください'}}
+function showXPCelebration(earned,level,leveledUp){
+ const overlay=document.getElementById('xpCelebrationOverlay');if(!overlay)return;
+ document.getElementById('xpCelebrationEarned').textContent='+'+earned+' XP';
+ document.getElementById('xpCelebrationLevel').textContent=leveledUp?'🎉 LEVEL UP!  LV. '+level:'LEVEL '+level;
+ document.getElementById('xpCelebrationMessage').textContent=earned?'学習記録がXPに反映されたよ！':'XPは反映済み（新たな獲得はありません）';
+ overlay.classList.add('open');
+}
+document.addEventListener('click',e=>{if(e.target?.id==='xpCelebrationClose'||e.target?.id==='xpCelebrationOverlay')document.getElementById('xpCelebrationOverlay').classList.remove('open')});
+async function saveSoloRecord(mode,right,total,best,durationSeconds){if(!total||!window.YoshiAccount?.user)return;try{await window.YoshiAccount.save({subject:String(subject||''),lesson:String(selectedLessonId||''),part:normalizedPart(unit?.name||selectedVocabulary?.name||''),mode,right,total,bestStreak:best,durationSeconds:Math.max(0,Math.round(Number(durationSeconds)||0))});
+const before=await window.YoshiAccount.leaderboard().then(all=>Number(all[window.YoshiAccount.user.uid]?.totalXP||0)).catch(()=>0);
+const updated=await window.YoshiAccount.syncXP();
+if(updated){const earned=Math.max(0,updated.totalXP-before),level=Math.floor(updated.totalXP/200)+1,previousLevel=Math.floor(before/200)+1;showXPCelebration(earned,level,level>previousLevel)}
+console.info('[Yoshi.Lab] study time saved:',durationSeconds,'seconds')}catch(e){console.warn('学習記録を保存できませんでした',e);$('accountDetail').textContent='学習記録の保存に失敗しました。Firebaseの設定を確認してください'}}
 
 
 const streakMilestones={3:'NICE!',5:'AWESOME!',10:'INCREDIBLE!',20:'LEGENDARY!'};
@@ -1022,4 +1042,8 @@ async function fetchRonpyo(){
 }
 Promise.allSettled([fetchLessons(),fetchVocabulary()]).then(fetchRonpyo);
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(console.warn))}
-</script></body></html>
+</script><div id="xpCelebrationOverlay" role="dialog" aria-modal="true" aria-label="XP獲得">
+<div id="xpCelebrationCard"><div style="font-size:15px;color:#d8e4ff;font-weight:700">⚡ XP GET!</div>
+<div id="xpCelebrationEarned">+0 XP</div><div id="xpCelebrationLevel">LEVEL 1</div>
+<div id="xpCelebrationMessage" style="color:#c7d7f2;font-size:14px"></div>
+<button id="xpCelebrationClose" type="button">つづける →</button></div></div></body></html>
