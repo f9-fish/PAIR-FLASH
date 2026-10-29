@@ -283,7 +283,61 @@ body:has(#subjects.hidden) .pair-feature .pair-start:hover {
 #modePicker #pickVocabTyping{background:#a3384e!important;border-color:#ed8494!important}
 #modePicker .mode-choice:hover:not(:disabled){filter:brightness(1.18)}
 @media(max-width:540px){#modePicker .mode-grid{grid-template-columns:1fr 1fr;gap:8px}#modePicker .mode-choice{min-height:100px;padding:10px 5px;font-size:clamp(15px,3.7vw,19px)!important;font-weight:900!important}}
-</style><style>#modePicker .mode-typing-line{display:block;white-space:nowrap}#modePicker #pickTyping,#modePicker #pickVocabTyping{overflow-wrap:normal;word-break:keep-all}@media(max-width:540px){#modePicker #pickTyping,#modePicker #pickVocabTyping{font-size:clamp(13px,3.4vw,18px)!important;letter-spacing:-.025em}}</style></head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
+</style><style>#modePicker .mode-typing-line{display:block;white-space:nowrap}#modePicker #pickText,#modePicker #pickTyping,#modePicker #pickVocabTyping{overflow-wrap:normal;word-break:keep-all}@media(max-width:540px){#modePicker #pickTyping,#modePicker #pickVocabTyping{font-size:clamp(13px,3.4vw,18px)!important;letter-spacing:-.025em}}</style>
+<style>
+/* 本文の語順・改行を維持しながら、入力欄の上にヒントと正答を重ねる */
+#question .cloze-english:has(.cloze-typing-wrap){
+  line-height:2.25!important;
+  white-space:normal!important;
+  word-break:normal!important;
+  overflow-wrap:normal!important;
+  text-align:left!important;
+}
+#question .cloze-typing-wrap{
+  display:inline-block!important;
+  position:relative!important;
+  vertical-align:baseline!important;
+  padding:0!important;
+  margin:0 2px!important;
+  line-height:normal!important;
+  white-space:nowrap!important;
+}
+#question .cloze-typing-wrap:has(.cloze-typed-correction){
+  padding:0!important;
+  margin:0 2px!important;
+}
+#question .cloze-typing-wrap .cloze-inline-input{
+  display:inline-block!important;
+  vertical-align:baseline!important;
+  margin:0!important;
+  padding:3px 5px!important;
+  font-size:.88em!important;
+  line-height:1.25!important;
+  min-width:2.8ch!important;
+  max-width:15ch!important;
+  box-sizing:border-box!important;
+  width:var(--blank-width,6ch)!important;
+}
+#question .cloze-typing-hint{
+  position:absolute!important;
+  left:4px!important;
+  top:-17px!important;
+  line-height:1!important;
+  font-size:13px!important;
+}
+#question .cloze-typed-correction{
+  position:absolute!important;
+  left:0!important;
+  bottom:calc(100% + 3px)!important;
+  top:auto!important;
+  display:block!important;
+  font-size:clamp(21px,4.8vw,30px)!important;
+  line-height:1!important;
+  white-space:nowrap!important;
+  pointer-events:none!important;
+}
+</style>
+</head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
   <div class="welcome-hero"><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
   <section aria-label="使い方"><h2 class="welcome-how">HOW TO USE ━━━</h2><div class="welcome-steps">
     <div class="welcome-step"><div class="welcome-symbol" aria-hidden="true">▣</div><div class="welcome-step-content"><div class="welcome-step-title">単語を勉強したい</div><div class="welcome-path"><span class="welcome-chip">科目</span><span class="welcome-chevron">›</span><span class="welcome-chip">Lesson</span><span class="welcome-chevron">›</span><span class="welcome-chip">Part</span><span class="welcome-chevron">›</span><span class="welcome-chip end">単語チェック</span></div></div></div>
@@ -664,7 +718,7 @@ function chooseSubject(s){
  subject=s;unit=null;selectedLessonId='';selectedStudyMode='';
  show('modePicker',true);show('vocabPractice',false);show('subjects',false);show('units',false);show('parts',false);show('lessonNav',false);show('practice',false);
  $('modeHeading').textContent=s+'｜学習内容を選ぼう';
- $('pickText').textContent='📖 本文穴埋め（チェック）';$('pickTyping').innerHTML='⌨️ 本文穴埋め<span class="mode-typing-line">（タイピング）</span>';$('pickVocab').textContent=s==='論表'?'🔤 単語・熟語チェック（4択）':'🔤 単語チェック（4択）';$('pickVocabTyping').innerHTML=s==='論表'?'⌨️ 単語・熟語チェック<span class="mode-typing-line">（タイピング）</span>':'⌨️ 単語チェック<span class="mode-typing-line">（タイピング）</span>';
+ $('pickText').innerHTML='📖 本文穴埋め<span class="mode-typing-line">（チェック）</span>';$('pickTyping').innerHTML='⌨️ 本文穴埋め<span class="mode-typing-line">（タイピング）</span>';$('pickVocab').textContent=s==='論表'?'🔤 単語・熟語チェック（4択）':'🔤 単語チェック（4択）';$('pickVocabTyping').innerHTML=s==='論表'?'⌨️ 単語・熟語チェック<span class="mode-typing-line">（タイピング）</span>':'⌨️ 単語チェック<span class="mode-typing-line">（タイピング）</span>';
  $('pickText').disabled=![...groups].some(g=>g.subject===s&&(g.cards||[]).length);$('pickTyping').disabled=$('pickText').disabled;
  $('pickVocab').disabled=![...vocabularyGroups].some(g=>g.subject===s&&(g.words||[]).length);$('pickVocabTyping').disabled=$('pickVocab').disabled;
  $('modeBack').textContent='← 科目選択に戻る';$('modeNotice').textContent='';
