@@ -441,9 +441,13 @@ function makeClozeInlineInputs(root,english,prefix){
  }));
  return inputs;
 }
+function normalizeYoshiAnswer(value){
+ return String(value||'').toLowerCase().replace(/[’‘]/g,"'")
+  .replace(/[〜～~]/g,'').replace(/\s+/g,' ').trim();
+}
 function checkClozeInlineInputs(root){
  const inputs=[...root.querySelectorAll('.cloze-inline-input')];
- const normalize=s=>String(s).toLowerCase().replace(/[’‘]/g,"'").replace(/\s+/g,' ').trim();
+ const normalize=normalizeYoshiAnswer;
  if(!inputs.length||inputs.some(x=>!x.value.trim()))return null;
  return inputs.every(x=>normalize(x.value)===normalize(x.dataset.expected));
 }
@@ -585,7 +589,7 @@ $('vocabInitialHint').onclick=()=>{
  }
  $('vocabInitialHint').disabled=true;
 };
-$('soloTypingSubmit').onclick=()=>{if(!running||paused||soloNextPending||flipped)return;const expected=[...String(terms[current]?.[0]||'').matchAll(/\(([^()]*)\)/g)].map(m=>m[1].trim());const inlineOk=checkClozeInlineInputs($('question'));if(inlineOk===null)return;const typed=$('soloTypingInput').value.trim();if(!expected.length)return;const normalize=v=>v.toLowerCase().replace(/[’‘]/g,"'").replace(/\s+/g,' ').trim();const answers=typed.split(/\s*[,、;；]\s*/);const ok=inlineOk;$('soloTypingFeedback').textContent=(ok?'○ 正解！':'× 不正解　正解：'+expected.join(' / '));$('question').querySelectorAll('.cloze-inline-input').forEach(x=>x.disabled=true);$('soloTypingInput').disabled=true;$('soloTypingSubmit').disabled=true;show('answer',true);mark(ok)};$('soloTypingInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('soloTypingSubmit').click()});$('reveal').onclick=()=>{if(!running||paused)return;flipped=true;show('answer',true);$('reveal').disabled=true;$('correct').disabled=selectedStudyMode==='textTyping';$('wrong').disabled=selectedStudyMode==='textTyping';show('clozeSpeechControls',true);if($('mode').value==='cloze')speakClozeSentence()};$('correct').onclick=()=>mark(true);$('wrong').onclick=()=>mark(false);$('skip').onclick=()=>{if(running&&!paused)next()};$('switch').onclick=()=>{};$('duration').onchange=()=>{if(!running){remaining=selectedSeconds();display()}};
+$('soloTypingSubmit').onclick=()=>{if(!running||paused||soloNextPending||flipped)return;const expected=[...String(terms[current]?.[0]||'').matchAll(/\(([^()]*)\)/g)].map(m=>m[1].trim());const inlineOk=checkClozeInlineInputs($('question'));if(inlineOk===null){$('soloTypingFeedback').textContent='すべての空欄に入力してね。';return;}const typed=$('soloTypingInput').value.trim();if(!expected.length)return;const normalize=normalizeYoshiAnswer;const answers=typed.split(/\s*[,、;；]\s*/);const ok=inlineOk;$('soloTypingFeedback').textContent=(ok?'○ 正解！':'× 不正解　正解：'+expected.join(' / '));$('question').querySelectorAll('.cloze-inline-input').forEach(x=>x.disabled=true);$('soloTypingInput').disabled=true;$('soloTypingSubmit').disabled=true;show('answer',true);flipped=true;mark(ok)};$('soloTypingInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('soloTypingSubmit').click()});$('reveal').onclick=()=>{if(!running||paused)return;flipped=true;show('answer',true);$('reveal').disabled=true;$('correct').disabled=selectedStudyMode==='textTyping';$('wrong').disabled=selectedStudyMode==='textTyping';show('clozeSpeechControls',true);if($('mode').value==='cloze')speakClozeSentence()};$('correct').onclick=()=>mark(true);$('wrong').onclick=()=>mark(false);$('skip').onclick=()=>{if(running&&!paused)next()};$('switch').onclick=()=>{};$('duration').onchange=()=>{if(!running){remaining=selectedSeconds();display()}};
 function download(name,content,type){let blob=new Blob([content],{type});let url=URL.createObjectURL(blob);let a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000)}
 $('export').onclick=()=>{let rows=[['回答者','英語','日本語','結果'],...history.map(x=>[x.role,x.english,x.japanese,x.correct])];let csv='\ufeff'+rows.map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\r\n');download('pairflash_results.csv',csv,'text/csv;charset=utf-8')};
 function lessonLabel(id){const v=String(id??'').trim();return /^lesson\b/i.test(v)?v:'Lesson '+v}
@@ -801,7 +805,7 @@ $('vocabSubmit').onclick=()=>{
  if(vocabAnswered)return;
  const answer=$('vocabInput').value.trim();if(!answer)return;
  const expected=vocabDeck[vocabIndex].word.trim();
- vocabAnswer(answer.toLocaleLowerCase()===expected.toLocaleLowerCase(),null);
+ vocabAnswer(normalizeYoshiAnswer(answer)===normalizeYoshiAnswer(expected),null);
 };
 $('vocabInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('vocabSubmit').click()});
 $('vocabNext').onclick=()=>{vocabIndex++;vocabQuestion()};

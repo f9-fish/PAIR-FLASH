@@ -357,9 +357,13 @@ function makeClozeInlineInputs(root,english,prefix){
  }));
  return inputs;
 }
+function normalizeYoshiAnswer(value){
+ return String(value||'').toLowerCase().replace(/[’‘]/g,"'")
+  .replace(/[〜～~]/g,'').replace(/\s+/g,' ').trim();
+}
 function checkClozeInlineInputs(root){
  const inputs=[...root.querySelectorAll('.cloze-inline-input')];
- const normalize=s=>String(s).toLowerCase().replace(/[’‘]/g,"'").replace(/\s+/g,' ').trim();
+ const normalize=normalizeYoshiAnswer;
  if(!inputs.length||inputs.some(x=>!x.value.trim()))return null;
  return inputs.every(x=>normalize(x.value)===normalize(x.dataset.expected));
 }
@@ -421,7 +425,7 @@ async function nextQuestion(){
   }catch(e){err(e)}
   finally{busy=false;timeoutPendingIndex=-1}
 }
-$('pairTypingSubmit').onclick=async()=>{if(!room||room.mode!=='clozeTyping'&&room.mode!=='vocabTyping'&&room.mode!=='vocabChoice'||room.reveal?.index===room.state.index)return;const i=room.state.index,answerer=Math.floor(i/5)%2===0?'B':'A';if(side!==answerer)return;const en=getCards(room)[i]?.[0]||'';const expected=room.mode==='vocabTyping'?[en.trim()]:[...String(en).matchAll(/\(([^()]*)\)/g)].map(m=>m[1].trim());const inlineOk=room.mode==='clozeTyping'?checkClozeInlineInputs($('english')):null;const typed=$('pairTypingInput').value.trim();if((room.mode==='clozeTyping'&&inlineOk===null)||(room.mode==='vocabTyping'&&!typed)||!expected.length)return;const normalize=v=>v.toLowerCase().replace(/[’‘]/g,"'").replace(/\s+/g,' ').trim();const answers=typed.split(/\s*[,、;；]\s*/);const ok=room.mode==='clozeTyping'?inlineOk:(expected.length===1?normalize(typed)===normalize(expected[0]):answers.length===expected.length&&answers.every((a,j)=>normalize(a)===normalize(expected[j])));$('english').querySelectorAll('.cloze-inline-input').forEach(x=>x.disabled=true);$('pairTypingSubmit').disabled=true;await grade(ok,false,true)};$('pairTypingInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('pairTypingSubmit').click()});$('correct').onclick=()=>grade(true);
+$('pairTypingSubmit').onclick=async()=>{if(!room||room.mode!=='clozeTyping'&&room.mode!=='vocabTyping'&&room.mode!=='vocabChoice'||room.reveal?.index===room.state.index)return;const i=room.state.index,answerer=Math.floor(i/5)%2===0?'B':'A';if(side!==answerer)return;const en=getCards(room)[i]?.[0]||'';const expected=room.mode==='vocabTyping'?[en.trim()]:[...String(en).matchAll(/\(([^()]*)\)/g)].map(m=>m[1].trim());const inlineOk=room.mode==='clozeTyping'?checkClozeInlineInputs($('english')):null;const typed=$('pairTypingInput').value.trim();if((room.mode==='clozeTyping'&&inlineOk===null)||(room.mode==='vocabTyping'&&!typed)||!expected.length){$('pairTypingHint').textContent='すべての空欄に入力してから回答してね。';return;}const normalize=normalizeYoshiAnswer;const answers=typed.split(/\s*[,、;；]\s*/);const ok=room.mode==='clozeTyping'?inlineOk:(expected.length===1?normalize(typed)===normalize(expected[0]):answers.length===expected.length&&answers.every((a,j)=>normalize(a)===normalize(expected[j])));$('english').querySelectorAll('.cloze-inline-input').forEach(x=>x.disabled=true);$('pairTypingSubmit').disabled=true;await grade(ok,false,true)};$('pairTypingInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('pairTypingSubmit').click()});$('correct').onclick=()=>grade(true);
 $('wrong').onclick=()=>grade(false);
 $('next').onclick=nextQuestion;
 localTimer=setInterval(updateTimer,300);
