@@ -1329,6 +1329,61 @@ async function fetchRonpyo(){
  }catch(e){console.warn('論表データ:',e);$('loadStatus').textContent+=' / 論表: '+e.message;}
 }
 Promise.allSettled([fetchLessons(),fetchVocabulary()]).then(fetchRonpyo);
+// v28: browser Back/Forward only. No reload restoration or interception of app buttons.
+(function setupBrowserBack(){
+ const panels=['subjects','modePicker','units','parts','practice','vocabPractice'];
+ const current=()=>panels.find(id=>!$(id).classList.contains('hidden'))||'subjects';
+ const route=()=>({page:current(),subject:subject||'',mode:selectedStudyMode||'',lesson:selectedLessonId||'',part:unit?.name||selectedVocabulary?.name||''});
+ const equal=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+ let restoring=false;
+ // Always use window.history: this app already has a separate `history` array for answers.
+ window.history.replaceState({...window.history.state,yoshiScreen:route()},'');
+ const navigators=['modeBack','toSubjects','toLessons','toUnits','vocabBack'];
+ const isNavClick=el=>Boolean(el.closest('[data-subject],#pickText,#pickTyping,#pickVocab,#pickVocabTyping,#unitList button,#partList button,'+navigators.map(id=>'#'+id).join(',')+ ',#backToLessons'));
+ document.addEventListener('click',event=>{
+  if(restoring||!event.target.closest||!isNavClick(event.target))return;
+  // Run after the existing button onclick; do not replace or block it.
+  setTimeout(()=>{
+   if(restoring)return;
+   const next=route(),prev=window.history.state?.yoshiScreen;
+   if(!equal(prev,next))window.history.pushState({...window.history.state,yoshiScreen:next},'');
+  },0);
+ },true);
+ function home(){
+  subject='';selectedStudyMode='';selectedLessonId='';unit=null;selectedVocabulary=null;
+  ['modePicker','vocabPractice','units','parts','lessonNav','practice'].forEach(id=>show(id,false));
+  show('subjects',true);
+  $('pageTitle').textContent='科目を選ぼう ⚡';
+  $('pageSub').textContent='英C・論表から学習をスタート！';
+ }
+ function restore(r){
+  if(!r?.subject||r.page==='subjects'){home();return}
+  chooseSubject(r.subject);
+  if(r.page==='modePicker')return;
+  if(!r.mode)return;
+  chooseStudyMode(r.mode);
+  if(r.page==='units')return;
+  if(!r.lesson)return;
+  chooseLesson(r.lesson);
+  if(r.page==='parts')return;
+  if(r.page==='practice'||r.page==='vocabPractice'){
+   const part=r.part.startsWith('全部')?'__ALL_PARTS__':(r.part||'1');
+   chooseMode(part);
+  }
+ }
+ window.addEventListener('popstate',event=>{
+  const r=event.state?.yoshiScreen;
+  if(!r)return;
+  restoring=true;
+  try{
+   if(running)reset();
+   if(vocabSessionRunning)finishVocabularySession();
+   restore(r);
+   window.scrollTo(0,0);
+  }catch(err){console.error('戻る操作の復元に失敗:',err);home()}
+  finally{restoring=false}
+ });
+})();
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(console.warn))}
 </script><div id="xpCelebrationOverlay" role="dialog" aria-modal="true" aria-label="XP獲得">
 <div id="xpCelebrationCard"><div style="font-size:15px;color:#d8e4ff;font-weight:700">⚡ XP GET!</div>
