@@ -219,6 +219,12 @@ body.welcome-active #welcomeCover{display:block}
 .cloze-inline-input.cloze-typed-correct{border-color:#3bda94!important;background:#143d34!important}
 .cloze-inline-input.cloze-typed-wrong{border-color:#ff7777!important;background:#542331!important}
 .cloze-typed-correction{display:inline-block;color:#ffb3b3;font-size:.76em;font-weight:700;margin:0 3px;vertical-align:baseline}
+
+.cloze-typing-wrap{position:relative;display:inline-flex;vertical-align:baseline;align-items:center;margin:3px 3px;padding-top:18px}
+.cloze-typing-wrap .cloze-inline-input{margin:0!important}
+.cloze-typing-hint{position:absolute;left:5px;top:0;color:#ffe066;font-size:13px;font-weight:900;line-height:16px;pointer-events:none}
+.cloze-typed-correction{position:absolute;left:0;top:-5px;color:#ffe066;font-size:18px;font-weight:900;letter-spacing:.02em;white-space:nowrap;line-height:22px;margin:0!important;z-index:2;text-shadow:0 1px 5px rgba(0,0,0,.85)}
+.cloze-typing-wrap:has(.cloze-typed-correction){padding-top:26px}
 </style></style><style>
 /* Navigation palette: home = MY PAGE blue; deeper screens = back-button navy. */
 #subjects .choice,
@@ -435,7 +441,10 @@ function makeClozeInlineInputs(root,english,prefix){
    field.autocomplete='off';field.autocapitalize='off';field.spellcheck=false;
    field.dataset.expected=part;field.dataset.blank=String(n++);
    field.style.setProperty('--blank-width',Math.max(4,Math.min(17,part.length+2))+'ch');
-   field.setAttribute('aria-label','空欄 '+n);root.append(field);
+   field.setAttribute('aria-label','空欄 '+n);
+   const wrap=document.createElement('span');wrap.className='cloze-typing-wrap';
+   const hint=document.createElement('span');hint.className='cloze-typing-hint';hint.textContent='';
+   wrap.append(field,hint);root.append(wrap);
   });pos=re.lastIndex;
  }
  root.append(document.createTextNode(english.slice(pos)));
@@ -536,11 +545,12 @@ function next(){
  }
  show('answer',false);$('cardLabel').textContent='ROUND '+round+' • QUESTION '+seen;
  $('cardHint').textContent=cloze?'（　　　）に入る英語を答えよう':dir==='en'?'日本語で答えよう':'英語で答えよう';
- show('soloTypingArea',selectedStudyMode==='textTyping'&&cloze);$('soloTypingInput').value='';$('soloTypingInput').disabled=false;$('soloTypingSubmit').disabled=false;$('soloTypingFeedback').textContent='';show('soloTypingNext',false);$('reveal').disabled=selectedStudyMode==='textTyping';$('correct').disabled=true;$('wrong').disabled=true;display()
+ show('soloTypingArea',selectedStudyMode==='textTyping'&&cloze);$('soloTypingInput').value='';$('soloTypingInput').disabled=false;$('soloTypingSubmit').disabled=false;$('soloTypingFeedback').textContent='';show('soloTypingNext',false);show('reveal',selectedStudyMode!=='textTyping');$('reveal').disabled=selectedStudyMode==='textTyping';$('correct').disabled=true;$('wrong').disabled=true;display()
 }
 function selectedSeconds(){const n=Number($('duration').value);return n===0?Infinity:n}
 function lockSettings(b){['direction','duration','order','mode','start'].forEach(x=>$(x).disabled=b)}
 function start(){
+ show('reveal',selectedStudyMode!=='textTyping');
  if(running||!availableIndices.length)return;
  clearInterval(tick);tick=null;running=true;paused=false;activeTimer.start();
  active='A';stats={A:{right:0,total:0},B:{right:0,total:0}};
@@ -550,7 +560,7 @@ function start(){
  $('message').textContent='各問題ごとにタイマーがリセットされます。時間切れは不正解として次の問題へ進みます。';
 }
 function updateClock(){
- if(!running||paused||soloNextPending||remaining===Infinity)return;
+ if(!running||paused||soloNextPending||remaining===Infinity||(selectedStudyMode==='textTyping'&&flipped))return;
  remaining=Math.max(0,Math.ceil((deadline-Date.now())/1000));display();
  if(remaining===0){
   soloStreak[active]=0;stats[active].total++;
@@ -571,7 +581,12 @@ function mark(ok){if(!running||!flipped||soloNextPending)return;soloNextPending=
 $('finishSession').onclick=finish;
 $('mode').onchange=()=>{if(!running){reset();updateMode()}};$('start').onclick=start;$('reset').onclick=reset;$('pause').onclick=()=>{if(!running)return;if(!paused){updateClock();paused=true;$('pause').textContent='▶ 再開';$('reveal').disabled=true;$('correct').disabled=true;$('wrong').disabled=true;$('skip').disabled=true}else{paused=false;deadline=Date.now()+remaining*1000;$('pause').textContent='一時停止';$('reveal').disabled=flipped;$('correct').disabled=!flipped;$('wrong').disabled=!flipped;$('skip').disabled=false}};
 function firstLetter(text){const m=String(text||'').trim().match(/[A-Za-z\u3040-\u30ff\u3400-\u9fff]/u);return m?m[0]:''}
-$('soloInitialHint').onclick=()=>{if(!running||paused||current==null)return;if($('mode').value==='cloze'){const gaps=$('question').querySelectorAll('.cloze-gap');gaps.forEach(g=>{g.textContent=g.dataset.initial||'？';g.classList.add('cloze-hint-shown')});$('soloInitialText').textContent='';return;}const english=String(terms[current]?.[0]||'');const cloze=$('mode').value==='cloze';const target=cloze?(english.match(/\(([^()]+)\)/)||[])[1]:(dir==='ja'?english:'');$('soloInitialText').textContent=target?'💡 頭文字：'+firstLetter(target):'💡 英語の頭文字：'+firstLetter(english)};
+$('soloInitialHint').onclick=()=>{if(!running||paused||current==null)return;if($('mode').value==='cloze'){if(selectedStudyMode==='textTyping'){
+ const fields=$('question').querySelectorAll('.cloze-inline-input');
+ fields.forEach(field=>{const label=field.parentElement.querySelector('.cloze-typing-hint');if(label)label.textContent=firstLetter(field.dataset.expected||'')||'？'});
+ $('soloInitialText').textContent='';return;
+ }
+ const gaps=$('question').querySelectorAll('.cloze-gap');gaps.forEach(g=>{g.textContent=g.dataset.initial||'？';g.classList.add('cloze-hint-shown')});$('soloInitialText').textContent='';return;}const english=String(terms[current]?.[0]||'');const cloze=$('mode').value==='cloze';const target=cloze?(english.match(/\(([^()]+)\)/)||[])[1]:(dir==='ja'?english:'');$('soloInitialText').textContent=target?'💡 頭文字：'+firstLetter(target):'💡 英語の頭文字：'+firstLetter(english)};
 // Independent katakana reading control (4-choice vocabulary only).
 $('vocabReadingToggle').onclick=()=>{
  const label=$('vocabReadingText');
@@ -606,17 +621,19 @@ $('soloTypingSubmit').onclick=()=>{
   if(ok)correctCount++;
   field.classList.add(ok?'cloze-typed-correct':'cloze-typed-wrong');
   field.disabled=true;
+  const hintLabel=field.parentElement.querySelector('.cloze-typing-hint');if(hintLabel)hintLabel.textContent='';
   if(!ok){
    const correction=document.createElement('span');
    correction.className='cloze-typed-correction';
-   correction.textContent='→ '+expected;
-   field.insertAdjacentElement('afterend',correction);
+   correction.textContent=expected;
+   const hint=field.parentElement.querySelector('.cloze-typing-hint');if(hint)hint.textContent='';
+   field.parentElement.appendChild(correction);
   }
  });
  const ok=correctCount===inputs.length;
  $('soloTypingFeedback').textContent=ok
   ?'○ 全部正解！'
-  :'× '+inputs.length+'か所中'+correctCount+'か所正解。赤い欄が間違いで、横に正解を表示しているよ。';
+  :'× '+inputs.length+'か所中'+correctCount+'か所正解。赤い欄が間違いで、空欄の上に正解を表示しているよ。';
  $('soloTypingSubmit').disabled=true;
  flipped=true;
  stats[active].total++;
