@@ -418,13 +418,23 @@ function renderRotationSetup(){
   button.style.cssText='width:100%;padding:15px;text-align:left;line-height:1.6';
   button.textContent=label+'　｜　'+desc;
   button.onclick=async()=>{
-   if(busy||side!=='A'||room.state.started)return;
-   busy=true;holder.querySelectorAll('button').forEach(b=>b.disabled=true);
-   try{await runTransaction(ref(db,'rooms/'+code),old=>{
-    if(!old||!old.guestUid||old.state?.started||old.rotation)return;
-    return {...old,rotation:value};
-   },{applyLocally:false});}
-   catch(e){err(e)}finally{busy=false;holder.querySelectorAll('button').forEach(b=>b.disabled=false)}
+   if(busy||side!=='A'||!room||!room.guestUid||room.rotation||room.state?.started)return;
+   busy=true;
+   holder.querySelectorAll('button').forEach(b=>b.disabled=true);
+   msg('交代ルールを保存しています…');
+   try{
+    // Save only the rotation field. A parent-node transaction can be denied
+    // by database rules that allow writes to individual room fields.
+    await set(ref(db,'rooms/'+code+'/rotationStep'),value==='one'?1:value==='two'?2:Math.max(1,Math.ceil(count/2)));
+    await set(ref(db,'rooms/'+code+'/rotation'),value);
+    msg('交代ルールを保存したよ。役割確認画面に進もう！');
+   }catch(e){
+    msg('⚠️ 交代ルールを保存できませんでした：'+(e?.message||String(e)));
+    console.error('rotation save failed',e);
+   }finally{
+    busy=false;
+    holder.querySelectorAll('button').forEach(b=>b.disabled=false);
+   }
   };
   holder.append(button);
  }
