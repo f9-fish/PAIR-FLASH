@@ -317,8 +317,8 @@ body:has(#subjects:not(.hidden)) .pair-feature .pair-start:active{
 }
 
 /* v15: bilingual growth slogan */
-.growth-motivation-copy{display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-width:0}
-.growth-motivation-en{display:block;color:#ffdb83;font-size:clamp(19px,5.1vw,29px);font-weight:900;letter-spacing:.025em;line-height:1.2;text-shadow:0 2px 12px #f7b84b44}
+.growth-motivation-copy{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-width:0}
+.growth-motivation-en{display:block;color:#ffdb83;font-size:clamp(13px,3.6vw,16px);font-weight:800;letter-spacing:.035em;line-height:1.45}
 .growth-motivation-ja{display:block;color:#f3f7ff;font-size:clamp(12px,3.1vw,15px);font-weight:700;line-height:1.5}
 </style></style><style>
 /* Navigation palette: home = MY PAGE blue; deeper screens = back-button navy. */
@@ -500,7 +500,44 @@ body:has(#subjects.hidden) .pair-feature .pair-start:hover {
 }
 #modePicker .mode-card-xp {font-size:clamp(11px,3.1vw,15px)!important}
 @media(max-width:370px){#modePicker .mode-grid-xp .mode-choice{padding-inline:3px!important}}
-</style></head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
+</style>
+<style id="xpRewardTierV18">
+/* Reward badges: progressively richer appearance by XP tier. */
+#modePicker .mode-grid-xp .mode-choice .mode-card-xp{
+  border-radius:12px!important;
+  min-height:31px;box-sizing:border-box;
+  display:inline-flex!important;align-items:center;justify-content:center;
+  padding:6px 9px!important;
+  text-shadow:none!important;
+}
+#modePicker #pickText .mode-card-xp{
+  background:linear-gradient(135deg,#34455f,#283951)!important;
+  border:1px solid #7f91ab!important;color:#d4dfec!important;
+  box-shadow:inset 0 1px #ffffff14!important;
+}
+#modePicker #pickVocab .mode-card-xp{
+  background:linear-gradient(135deg,#173e56,#15556a)!important;
+  border:1px solid #68c9e6!important;color:#b8f5ff!important;
+  box-shadow:inset 0 1px #ffffff2c,0 0 10px #38cfff21!important;
+}
+#modePicker #pickVocabTyping .mode-card-xp{
+  background:linear-gradient(135deg,#3b3271,#5c3e92)!important;
+  border:1px solid #c6a0ff!important;color:#f2dfff!important;
+  box-shadow:inset 0 1px #ffffff40,0 0 14px #b684ff4d!important;
+}
+#modePicker #pickTyping .mode-card-xp{
+  background:linear-gradient(110deg,#70491a,#9b641b 52%,#664115)!important;
+  border:2px solid #ffdf7a!important;color:#fff2bd!important;
+  font-weight:1000!important;
+  box-shadow:inset 0 1px #ffffff85,0 0 16px #ffbf4d77,0 3px 8px #09112677!important;
+  text-shadow:0 1px 3px #4a2508!important;
+}
+#modePicker #pickTyping .mode-card-xp::before{content:"✦";margin-right:4px;color:#fff5a4}
+@media(max-width:390px){
+ #modePicker .mode-grid-xp .mode-choice .mode-card-xp{font-size:clamp(10px,2.9vw,13px)!important;padding:6px 5px!important}
+}
+</style>
+</head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
   <div class="welcome-hero"><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
   <section aria-label="使い方"><h2 class="welcome-how">HOW TO USE ━━━</h2><div class="welcome-steps">
     <div class="welcome-step"><div class="welcome-symbol" aria-hidden="true">▣</div><div class="welcome-step-content"><div class="welcome-step-title">単語を勉強したい</div><div class="welcome-path"><span class="welcome-chip">科目</span><span class="welcome-chevron">›</span><span class="welcome-chip">Lesson</span><span class="welcome-chevron">›</span><span class="welcome-chip">Part</span><span class="welcome-chevron">›</span><span class="welcome-chip end">単語チェック</span></div></div></div>
@@ -528,7 +565,7 @@ body:has(#subjects.hidden) .pair-feature .pair-start:hover {
 <section class="panel hidden" id="parts"><button class="outline back" id="toLessons">← Lesson選択に戻る</button><h2 id="partTitle">Partを選ぼう</h2><div id="partList"></div></section>
 <section class="panel hidden" id="modePicker"><button class="outline back" id="modeBack">← Part選択に戻る</button><div class="growth-section-label">SELECT YOUR CHALLENGE <span>02 / 02</span></div><h2 id="modeHeading">学習モードを選ぼう</h2><p class="growth-subcopy">自分に合った難易度を選ぼう。難しいほど経験値アップ！</p><div class="mode-grid mode-grid-xp">
 <button class="mode-choice" id="pickText"><span class="mode-card-icon">📖</span><span class="mode-card-name">本文穴埋め<span class="mode-typing-line">（チェック）</span></span><span class="mode-card-desc">Read and check the text</span><span class="mode-card-xp mode-card-xp-zero">NO XP</span></button>
-<button class="mode-choice" id="pickTyping"><span class="mode-card-icon">⚡</span><span class="mode-card-name">本文穴埋め<span class="mode-typing-line">（タイピング）</span></span><span class="mode-card-desc">Type the missing words</span><span class="mode-card-xp">1問クリア +5 XP</span></button>
+<button class="mode-choice" id="pickTyping"><span class="mode-card-icon">⚡</span><span class="mode-card-name">本文穴埋め<span class="mode-typing-line">（タイピング）</span></span><span class="mode-card-desc">Type the missing words</span><span class="mode-card-xp">1問クリア +7 XP</span></button>
 <button class="mode-choice" id="pickVocab"><span class="mode-card-icon">🔤</span><span class="mode-card-name">単語チェック<span class="mode-typing-line">（4択）</span></span><span class="mode-card-desc">Choose the correct word</span><span class="mode-card-xp">1問クリア +1 XP</span></button>
 <button class="mode-choice" id="pickVocabTyping"><span class="mode-card-icon">⌨️</span><span class="mode-card-name">単語チェック<span class="mode-typing-line">（タイピング）</span></span><span class="mode-card-desc">Type the correct word</span><span class="mode-card-xp">1問クリア +2 XP</span></button>
 </div><p class="xp-mode-foot">✨ 難しいモードほどXPアップ！ 1回の学習で最大30XP。</p><p class="notice" id="modeNotice"></p></section>
