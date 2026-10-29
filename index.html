@@ -601,6 +601,9 @@ body:has(#subjects:not(.hidden)) #subjects .growth-subject-cta{width:100%;box-si
 body:has(#subjects:not(.hidden)) .pair-feature{background:linear-gradient(120deg,#056d76,#063e62)!important;border:2px solid #23e1d7!important;border-radius:25px!important;box-shadow:0 0 18px #00d5d64a!important}
 body:has(#subjects:not(.hidden)) .pair-feature .pair-start{background:linear-gradient(110deg,#068f9e,#0d628b)!important;border:1px solid #29e4dc!important;box-shadow:0 0 10px #00d8cb66!important}
 @media(max-width:560px){.quest-rank{flex-wrap:wrap}.quest-rank a{margin-left:auto}.quest-rewards{padding:7px;gap:5px}.quest-reward{font-size:9px;padding:8px 2px}.quest-reward b{font-size:clamp(11px,2.8vw,15px)}}
+</style><style id="rankHomeOnlyV23">
+/* Show XP encouragement and ranking link only on the subject-selection screen. */
+body:has(#subjects.hidden) .quest-rank{display:none!important}
 </style></head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
   <div class="welcome-hero"><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
   <section aria-label="使い方"><h2 class="welcome-how">HOW TO USE ━━━</h2><div class="welcome-steps">
