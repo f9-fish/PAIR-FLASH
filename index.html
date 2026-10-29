@@ -349,6 +349,38 @@ body:has(#subjects.hidden) .pair-feature .pair-start:hover {
 #xpCelebrationEarned{font-size:clamp(42px,11vw,64px);font-weight:950;color:#ffca57;text-shadow:0 0 20px #ffa51e66}
 #xpCelebrationLevel{font-size:24px;font-weight:900;margin:8px}
 #xpCelebrationOverlay button{background:#ffc34e;color:#172039;border:0;border-radius:12px;padding:12px 25px;font-weight:900;margin-top:16px;cursor:pointer}
+</style><style id="growthRpgStyles">
+/* Growth-themed selection screens, preserve original click targets. */
+.growth-eyebrow{display:inline-block;color:#fbd27a;font-weight:900;letter-spacing:.13em;font-size:11px;margin:8px 0 4px;padding:7px 12px;border:1px solid #d9a94770;border-radius:999px;background:#b5852020}
+.growth-motivation{margin:14px 0 18px;padding:14px 17px;border:1px solid #5672a2;border-radius:15px;background:linear-gradient(100deg,#1c345b,#1d2d4d);display:flex;justify-content:space-between;align-items:center;gap:10px;color:#f3f7ff;font-weight:750;font-size:14px}
+.growth-mini{color:#ffd274;font-size:10px;letter-spacing:.1em;white-space:nowrap}
+.growth-section-label{display:flex;align-items:center;justify-content:space-between;gap:10px;color:#fbd27a;letter-spacing:.14em;font-size:11px;font-weight:900;margin-bottom:9px}
+.growth-section-label span{color:#a7bddf;letter-spacing:.08em}
+.growth-subcopy{color:#c0d1ee;font-size:13px;line-height:1.6;margin:0 0 16px}
+#subjects.subjects-panel{background:linear-gradient(155deg,#1c345e,#14233f)!important;border:1px solid #486da0!important;box-shadow:0 16px 42px #0002}
+#subjects .subject-grid{gap:14px}
+#subjects .choice{position:relative;min-height:186px!important;padding:22px 14px!important;display:flex!important;flex-direction:column;justify-content:center;align-items:flex-start;text-align:left!important;gap:6px;border:1px solid #5d8cc8!important;border-radius:19px!important;background:linear-gradient(140deg,#245d91,#184272)!important;box-shadow:inset 0 1px 0 #ffffff30,0 9px 20px #08152938;transition:transform .2s,filter .2s}
+#subjects .choice:nth-child(2){background:linear-gradient(140deg,#644b9d,#3b376f)!important;border-color:#9d83d5!important}
+#subjects .choice:hover{transform:translateY(-3px);filter:brightness(1.12)}
+#subjects .growth-subject-emoji{font-size:28px;line-height:1.2}
+#subjects .growth-subject-name{font-size:clamp(28px,6vw,38px);font-weight:950;line-height:1.1}
+#subjects .choice small{font-size:12px!important;color:#e2eaff!important}
+#subjects .growth-subject-cta{margin-top:12px;font-size:10px;font-weight:900;letter-spacing:.13em;color:#ffdc90}
+#modePicker{background:linear-gradient(155deg,#1c345e,#14233f)!important;border:1px solid #486da0!important}
+#modePicker .mode-choice{position:relative;box-shadow:inset 0 1px 0 #ffffff24,0 5px 14px #0002;border-radius:15px!important}
+#modePicker #pickTyping{background:#196c8b!important;border-color:#54b4d2!important}
+#modePicker #pickVocabTyping{background:#854d9f!important;border-color:#b38ad7!important}
+.xp-mode-legend{margin-top:20px;display:grid;gap:8px}
+.xp-mode-row{display:flex;align-items:center;gap:10px;background:#20385c;border:1px solid #47638e;border-radius:12px;padding:10px 12px;color:#f1f6ff;font-size:12px;font-weight:800}
+.xp-mode-row>span:nth-child(2){flex:1;min-width:0}
+.xp-mode-row small{display:block;font-size:10px;font-weight:500;color:#c0d1e9;margin-top:2px}
+.xp-mode-row strong{white-space:nowrap;color:#ffcf72;font-size:14px}
+.xp-mode-row strong small{display:inline;color:#e3d7bc;font-size:10px}
+.xp-mode-row .xp-none{color:#bac8de}
+.xp-mode-row.xp-mode-top{background:linear-gradient(100deg,#2a486e,#344066);border-color:#d7a84f}
+.xp-mode-icon{font-size:20px}
+.xp-mode-foot{color:#aebfda;font-size:11px;line-height:1.6;margin:10px 3px 0}
+@media(max-width:550px){.growth-mini{display:none}#subjects .choice{min-height:158px!important;padding:16px 11px!important}#subjects .growth-subject-name{font-size:30px}.xp-mode-row{padding:9px 8px;gap:7px}.xp-mode-row strong{font-size:12px}}
 </style></head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
   <div class="welcome-hero"><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
   <section aria-label="使い方"><h2 class="welcome-how">HOW TO USE ━━━</h2><div class="welcome-steps">
@@ -371,11 +403,16 @@ body:has(#subjects.hidden) .pair-feature .pair-start:hover {
   }
   if (!directSubjects && !visited) document.body.classList.add('welcome-active');
 })();document.getElementById('welcomeStart').addEventListener('click',function(){document.body.classList.remove('welcome-active');document.getElementById('welcomeCover').remove();window.scrollTo(0,0);});</script>
-<div class="wrap"><header><div><div class="brand">Yoshi<span class="brand-accent">.Lab</span></div><div class="sub">英語表現 × ペアワーク</div></div><span class="pill" id="bankSize">8 expressions</span></header><h1 id="pageTitle">科目を選ぼう ✦</h1><p class="sub" id="pageSub">英C・論表から学習をスタート！</p>
-<div class="account-strip"><div class="account-msg"><strong id="accountStatus">学習記録を保存するにはGoogleログイン</strong><small id="accountDetail">Googleアカウントを使用</small></div><button id="googleLogin" type="button">Googleでログイン</button><a href="./mypage.html">📊 MY PAGE →</a></div><section class="panel subjects-panel" id="subjects"><h2>📚 科目を選択（一人用）</h2><div class="subject-grid"><button class="choice" data-subject="英C">英C<br><small>英語コミュニケーション</small></button><button class="choice" data-subject="論表">論表<br><small>論理・表現</small></button></div><p class="status" id="loadStatus">問題集を読み込み中…</p></section>
+<div class="wrap"><header><div><div class="brand">Yoshi<span class="brand-accent">.Lab</span></div><div class="sub">英語表現 × ペアワーク</div></div><span class="pill" id="bankSize">8 expressions</span></header><div class="growth-eyebrow" id="growthEyebrow">⚡ LEARN · EARN · LEVEL UP</div><h1 id="pageTitle">科目を選ぼう ✦</h1><p class="sub" id="pageSub">英C・論表から学習をスタート！</p><div class="growth-motivation" id="growthMotivation"><span>🎯 今日の学習が、明日のレベルにつながる。</span><span class="growth-mini">TRAIN YOUR ENGLISH</span></div>
+<div class="account-strip"><div class="account-msg"><strong id="accountStatus">学習記録を保存するにはGoogleログイン</strong><small id="accountDetail">Googleアカウントを使用</small></div><button id="googleLogin" type="button">Googleでログイン</button><a href="./mypage.html">📊 MY PAGE →</a></div><section class="panel subjects-panel" id="subjects"><div class="growth-section-label">CHOOSE YOUR PATH <span>01 / 02</span></div><h2>🎮 挑戦する科目を選ぼう</h2><p class="growth-subcopy">科目を選んで、レッスンに挑戦。難しいモードほどXPを獲得できる！</p><div class="subject-grid"><button class="choice" data-subject="英C"><span class="growth-subject-emoji">📘</span><span class="growth-subject-name">英C</span><small>英語コミュニケーション</small><span class="growth-subject-cta">CHALLENGE <span aria-hidden="true">→</span></span></button><button class="choice" data-subject="論表"><span class="growth-subject-emoji">✍️</span><span class="growth-subject-name">論表</span><small>論理・表現</small><span class="growth-subject-cta">CHALLENGE <span aria-hidden="true">→</span></span></button></div><p class="status" id="loadStatus">問題集を読み込み中…</p></section>
 <section class="panel pair-feature"><h2>📱📱 ペアワーク</h2><p class="muted">2人がそれぞれのスマホで参加。交代のタイミングは開始前に選べます。</p><a href="./pair.html?v=20261029-role-sync" class="pair-start">ペアワーク →</a></section><section class="panel hidden" id="units"><button class="outline back" id="toSubjects">← 学習内容選択に戻る</button><h2 id="unitTitle">Lessonを選ぼう</h2><div id="unitList"></div></section>
 <section class="panel hidden" id="parts"><button class="outline back" id="toLessons">← Lesson選択に戻る</button><h2 id="partTitle">Partを選ぼう</h2><div id="partList"></div></section>
-<section class="panel hidden" id="modePicker"><button class="outline back" id="modeBack">← Part選択に戻る</button><h2 id="modeHeading">学習モードを選ぼう</h2><div class="mode-grid"><button class="mode-choice" id="pickText">📖 本文穴埋め<small>今までの本文練習</small></button><button class="mode-choice" id="pickTyping">⌨️ 本文穴埋め（タイピング）</button><button class="mode-choice" id="pickVocab">🔤 単語チェック<span class="mode-typing-line">（4択）</span></button><button class="mode-choice" id="pickVocabTyping">⌨️ 単語チェック（タイピング）</button></div><p class="notice" id="modeNotice"></p></section>
+<section class="panel hidden" id="modePicker"><button class="outline back" id="modeBack">← Part選択に戻る</button><div class="growth-section-label">SELECT YOUR CHALLENGE <span>02 / 02</span></div><h2 id="modeHeading">学習モードを選ぼう</h2><p class="growth-subcopy">自分に合った難易度を選ぼう。難しいほど経験値アップ！</p><div class="mode-grid"><button class="mode-choice" id="pickText">📖 本文穴埋め<small>今までの本文練習</small></button><button class="mode-choice" id="pickTyping">⌨️ 本文穴埋め（タイピング）</button><button class="mode-choice" id="pickVocab">🔤 単語チェック<span class="mode-typing-line">（4択）</span></button><button class="mode-choice" id="pickVocabTyping">⌨️ 単語チェック（タイピング）</button></div><div class="xp-mode-legend" aria-label="学習モードごとのXP獲得量">
+<div class="xp-mode-row"><span class="xp-mode-icon">📖</span><span>本文穴埋め（チェック）<small>ウォーミングアップ</small></span><strong class="xp-none">XPなし</strong></div>
+<div class="xp-mode-row"><span class="xp-mode-icon">🔤</span><span>単語チェック（4択）<small>意味を選んで覚える</small></span><strong>+1 XP <small>/正解</small></strong></div>
+<div class="xp-mode-row"><span class="xp-mode-icon">⌨️</span><span>単語チェック（タイピング）<small>自分で英単語を入力</small></span><strong>+2 XP <small>/正解</small></strong></div>
+<div class="xp-mode-row xp-mode-top"><span class="xp-mode-icon">⚡</span><span>本文穴埋め（タイピング）<small>最高難度・最大XP</small></span><strong>+5 XP <small>/正解</small></strong></div>
+</div><p class="xp-mode-foot">1回の学習で最大30XP。正解数に応じて獲得できます。</p><p class="notice" id="modeNotice"></p></section>
 <section class="panel hidden" id="vocabPractice"><button class="outline back" id="vocabBack">← 学習モードに戻る</button><h2 id="vocabHeading">英単語チャレンジ</h2><div class="controls"><select id="vocabType" class="hidden" aria-label="問題形式"><option value="choice">意味を選ぶ（4択）</option><option value="typing">英単語を入力する</option></select><button class="primary" id="vocabStart">▶ ゲームスタート！</button></div><div id="vocabGame" class="hidden"><div style="margin-top:15px;text-align:right"><span class="streak-chip" id="vocabStreakChip">🔥 0 STREAK</span></div><div class="statrow" style="margin-top:18px"><div class="stat"><strong id="vocabProgress">0 / 0</strong><span>進行状況</span></div><div class="stat"><strong id="vocabScore">0</strong><span>正解数</span></div><div class="stat"><strong id="vocabStreak">0</strong><span>連続正解</span></div><div class="stat"><strong id="vocabPoints">0</strong><span>ポイント</span></div></div><div class="card" style="margin-top:16px;min-height:180px"><div class="hint" id="vocabPrompt">英単語の意味は？</div><div class="question-hint-row"><div class="vocab-word-wrap"><button type="button" id="vocabReadingToggle" class="vocab-reading-toggle hidden">🔊 読み方表示</button><div id="vocabReadingText" class="vocab-reading-text hidden" aria-live="polite"></div><div class="vocab-word" id="vocabWord"></div></div><div class="hint-button-stack"><button type="button" class="question-hint-button" id="vocabInitialHint">💡 ヒント</button><small class="hint-button-caption" id="vocabHintCaption">選択肢を2つにする</small></div></div><div id="vocabInitialText" class="question-hint-output" aria-live="polite"></div></div><div class="space"></div><div id="vocabOptions" class="vocab-options"></div><div id="vocabInputArea" class="hidden"><input id="vocabInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="英単語を入力" style="width:100%"><button id="vocabSubmit" class="primary" style="width:100%;margin-top:10px">回答する</button></div><div class="vocab-feedback" id="vocabFeedback" aria-live="polite"></div><div id="vocabPronunciation" class="hidden" style="margin:12px 0;padding:12px;background:#253E6D;border:1px solid #45659B;border-radius:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap"><strong id="vocabPronunciationWord" style="font-size:21px;color:#FFE066;overflow-wrap:anywhere;flex:1"></strong><button type="button" id="vocabSpeak" class="primary" aria-label="英単語の発音を聞き直す">🔊 もう一度聞く</button><button type="button" id="vocabSpeechSpeed" aria-label="発音速度を切り替える">通常速度</button></div><p class="muted" id="vocabHint"></p><button class="primary hidden" id="vocabNext" style="width:100%">次の問題へ →</button></div></section>
 <section class="panel hidden" id="lessonNav"><button class="outline back" id="toUnits">← Part選択に戻る</button><h2 id="selectedLesson"></h2></section>
 <div id="practice" class="hidden">
@@ -441,7 +478,7 @@ async function saveSoloRecord(mode,right,total,best,durationSeconds){
  if(!total||!window.YoshiAccount?.user)return;
  const a=window.YoshiAccount;
  try{
-  await a.save({subject:String(subject||''),lesson:String(selectedLessonId||''),part:normalizedPart(unit?.name||selectedVocabulary?.name||''),mode,right,total,bestStreak:best,durationSeconds:Math.max(0,Math.round(Number(durationSeconds)||0))});
+  await a.save({subject:String(subject||''),lesson:String(selectedLessonId||''),part:normalizedPart(unit?.name||selectedVocabulary?.name||''),mode,xpMode:selectedStudyMode,right,total,bestStreak:best,durationSeconds:Math.max(0,Math.round(Number(durationSeconds)||0))});
   console.info('[Yoshi.Lab] 学習記録を保存しました');
  }catch(e){
   console.error('[Yoshi.Lab] 学習記録の保存に失敗:',e.code||'',e);
