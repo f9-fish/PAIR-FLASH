@@ -238,6 +238,88 @@ body.welcome-active #welcomeCover{display:block}
 #modePicker .mode-card-xp-zero{color:#d6e0f0;border-color:#9bafc66b;font-size:13px}
 #modePicker .xp-mode-foot{text-align:center;margin:16px 0 4px;font-size:12px}
 @media(max-width:390px){#modePicker .mode-grid-xp .mode-choice{min-height:174px;padding:12px 5px}#modePicker .mode-card-desc{font-size:10px}#modePicker .mode-card-xp{font-size:15px;padding:5px 9px}}
+
+/* v14: vivid quest-style subject selection; matched card/button sizing */
+body:has(#subjects:not(.hidden)) .growth-eyebrow{
+  background:linear-gradient(100deg,#43366b,#223d71 65%,#364b7e)!important;
+  border:1px solid #d4aa5a!important;box-shadow:0 0 20px #e4b65e27,inset 0 1px #ffffff24!important;
+}
+body:has(#subjects:not(.hidden)) .growth-motivation{
+  background:linear-gradient(110deg,#1a3765,#263e71 55%,#422f69)!important;
+  border:1px solid #6987bf!important;box-shadow:0 8px 26px #070f2a55!important;
+}
+body:has(#subjects:not(.hidden)) .subjects-panel{
+  background:linear-gradient(145deg,#1b3158,#182747 72%,#282b59)!important;
+  border:1px solid #5879b4!important;box-shadow:0 18px 42px #060f2c99,0 0 28px #568cff19!important;
+}
+body:has(#subjects:not(.hidden)) .growth-section-label{color:#ffd783!important}
+body:has(#subjects:not(.hidden)) .subject-grid{align-items:stretch!important;gap:12px!important}
+body:has(#subjects:not(.hidden)) .subjects-panel .choice{
+  position:relative;overflow:hidden;display:flex!important;flex-direction:column!important;
+  align-items:flex-start!important;justify-content:space-between!important;
+  width:100%!important;height:220px!important;min-height:220px!important;
+  padding:16px 14px!important;text-align:left!important;
+  border-radius:20px!important;box-sizing:border-box!important;
+  box-shadow:inset 0 1px #ffffff45,0 7px 0 #0b1936,0 13px 25px #060e2766!important;
+  transition:transform .18s ease,filter .18s ease,box-shadow .18s ease!important;
+}
+body:has(#subjects:not(.hidden)) .subjects-panel .choice::before{
+  content:"";position:absolute;inset:0 0 auto 0;height:48%;
+  background:linear-gradient(160deg,#ffffff26,transparent);pointer-events:none;
+}
+body:has(#subjects:not(.hidden)) .subjects-panel .choice[data-subject="英C"]{
+  background:linear-gradient(155deg,#246cb2,#163b7a)!important;border:2px solid #6dc9ff!important;
+}
+body:has(#subjects:not(.hidden)) .subjects-panel .choice[data-subject="論表"]{
+  background:linear-gradient(155deg,#8554b8,#513782)!important;border:2px solid #d4a2ff!important;
+}
+body:has(#subjects:not(.hidden)) .subjects-panel .choice:active{
+  transform:translateY(5px)!important;box-shadow:inset 0 1px #ffffff45,0 2px 0 #0b1936!important;
+}
+body:has(#subjects:not(.hidden)) .subjects-panel .growth-subject-emoji{
+  font-size:28px!important;line-height:1.1!important;filter:drop-shadow(0 2px 4px #0006);
+}
+body:has(#subjects:not(.hidden)) .subjects-panel .growth-subject-name{
+  font-size:clamp(31px,8vw,43px)!important;line-height:1!important;text-shadow:0 3px 8px #09182c99;
+}
+body:has(#subjects:not(.hidden)) .subjects-panel .choice small{
+  color:#e8f3ff!important;font-size:clamp(10px,2.6vw,13px)!important;
+  margin:0!important;line-height:1.4!important;
+}
+body:has(#subjects:not(.hidden)) .subjects-panel .growth-subject-cta{
+  color:#ffe18b!important;font-size:12px!important;font-weight:900!important;
+  letter-spacing:.09em!important;margin:0!important;
+}
+body:has(#subjects:not(.hidden)) .pair-feature{
+  background:linear-gradient(135deg,#192d50,#253765)!important;
+  border:1px solid #5976a9!important;box-shadow:0 10px 28px #06102e66!important;
+}
+body:has(#subjects:not(.hidden)) .pair-feature .pair-start{
+  height:58px!important;min-height:58px!important;box-sizing:border-box!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  padding:0 18px!important;margin-top:15px!important;
+  border:1px solid #80b4ff!important;border-radius:15px!important;
+  background:linear-gradient(100deg,#3779ed,#5c9bff)!important;
+  box-shadow:0 5px 0 #173c80,0 9px 18px #08163366!important;
+  font-size:20px!important;transition:transform .15s,box-shadow .15s!important;
+}
+body:has(#subjects:not(.hidden)) .pair-feature .pair-start:active{
+  transform:translateY(4px);box-shadow:0 1px 0 #173c80!important;
+}
+@media(max-width:380px){
+  body:has(#subjects:not(.hidden)) .subjects-panel .choice{
+    height:205px!important;min-height:205px!important;padding:13px 11px!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  body:has(#subjects:not(.hidden)) .subjects-panel .choice,
+  body:has(#subjects:not(.hidden)) .pair-feature .pair-start{transition:none!important}
+}
+
+/* v15: bilingual growth slogan */
+.growth-motivation-copy{display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-width:0}
+.growth-motivation-en{display:block;color:#ffdb83;font-size:clamp(19px,5.1vw,29px);font-weight:900;letter-spacing:.025em;line-height:1.2;text-shadow:0 2px 12px #f7b84b44}
+.growth-motivation-ja{display:block;color:#f3f7ff;font-size:clamp(12px,3.1vw,15px);font-weight:700;line-height:1.5}
 </style></style><style>
 /* Navigation palette: home = MY PAGE blue; deeper screens = back-button navy. */
 #subjects .choice,
@@ -440,7 +522,7 @@ body:has(#subjects.hidden) .pair-feature .pair-start:hover {
   }
   if (!directSubjects && !visited) document.body.classList.add('welcome-active');
 })();document.getElementById('welcomeStart').addEventListener('click',function(){document.body.classList.remove('welcome-active');document.getElementById('welcomeCover').remove();window.scrollTo(0,0);});</script>
-<div class="wrap"><header><div><div class="brand">Yoshi<span class="brand-accent">.Lab</span></div><div class="sub">英語表現 × ペアワーク</div></div><span class="pill" id="bankSize">8 expressions</span></header><div class="growth-eyebrow" id="growthEyebrow">⚡ LEARN · EARN · LEVEL UP</div><h1 id="pageTitle">科目を選ぼう ✦</h1><p class="sub" id="pageSub">英C・論表から学習をスタート！</p><div class="growth-motivation" id="growthMotivation"><span>🎯 今日の学習が、明日のレベルにつながる。</span><span class="growth-mini">TRAIN YOUR ENGLISH</span></div>
+<div class="wrap"><header><div><div class="brand">Yoshi<span class="brand-accent">.Lab</span></div><div class="sub">英語表現 × ペアワーク</div></div><span class="pill" id="bankSize">8 expressions</span></header><div class="growth-eyebrow" id="growthEyebrow">⚡ LEARN · EARN · LEVEL UP</div><h1 id="pageTitle">科目を選ぼう ✦</h1><p class="sub" id="pageSub">英C・論表から学習をスタート！</p><div class="growth-motivation" id="growthMotivation"><div class="growth-motivation-copy"><span class="growth-motivation-en">TODAY’S EFFORT. TOMORROW’S POWER.</span><span class="growth-motivation-ja">🎯 今日の努力が、明日の力になる。</span></div></div>
 <div class="account-strip"><div class="account-msg"><strong id="accountStatus">学習記録を保存するにはGoogleログイン</strong><small id="accountDetail">Googleアカウントを使用</small></div><button id="googleLogin" type="button">Googleでログイン</button><a href="./mypage.html">📊 MY PAGE →</a></div><section class="panel subjects-panel" id="subjects"><div class="growth-section-label">CHOOSE YOUR PATH <span>01 / 02</span></div><h2>🎮 挑戦する科目を選ぼう</h2><p class="growth-subcopy">科目を選んで、レッスンに挑戦。難しいモードほどXPを獲得できる！</p><div class="subject-grid"><button class="choice" data-subject="英C"><span class="growth-subject-emoji">📘</span><span class="growth-subject-name">英C</span><small>英語コミュニケーション</small><span class="growth-subject-cta">CHALLENGE <span aria-hidden="true">→</span></span></button><button class="choice" data-subject="論表"><span class="growth-subject-emoji">✍️</span><span class="growth-subject-name">論表</span><small>論理・表現</small><span class="growth-subject-cta">CHALLENGE <span aria-hidden="true">→</span></span></button></div><p class="status" id="loadStatus">問題集を読み込み中…</p></section>
 <section class="panel pair-feature"><h2>📱📱 ペアワーク</h2><p class="muted">2人がそれぞれのスマホで参加。交代のタイミングは開始前に選べます。</p><a href="./pair.html?v=20261029-role-sync" class="pair-start">ペアワーク →</a></section><section class="panel hidden" id="units"><button class="outline back" id="toSubjects">← 学習内容選択に戻る</button><h2 id="unitTitle">Lessonを選ぼう</h2><div id="unitList"></div></section>
 <section class="panel hidden" id="parts"><button class="outline back" id="toLessons">← Lesson選択に戻る</button><h2 id="partTitle">Partを選ぼう</h2><div id="partList"></div></section>
