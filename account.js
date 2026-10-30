@@ -20,8 +20,8 @@ function yoshiRecordXP(r){
 const seasonWindows=[
  {id:'2026-S1',label:'SEASON 1',start:'2026-04-01T00:00:00+09:00',end:'2026-06-30T23:59:59+09:00'},
  {id:'2026-S2',label:'SEASON 2',start:'2026-07-01T00:00:00+09:00',end:'2026-09-30T23:59:59+09:00'},
- {id:'2026-S3',label:'SEASON 3',start:'2026-10-01T00:00:00+09:00',end:'2026-11-30T23:59:59+09:00'},
- {id:'2026-S4',label:'SEASON 4',start:'2026-12-01T00:00:00+09:00',end:'2027-02-28T23:59:59+09:00'}
+ {id:'2026-S3',label:'SEASON 1',start:'2026-10-01T00:00:00+09:00',end:'2026-11-27T23:59:59+09:00'},
+ {id:'2026-S4',label:'SEASON 2',start:'2026-11-28T00:00:00+09:00',end:'2027-02-25T23:59:59+09:00'}
 ];
 function activeSeason(ts=Date.now()){return seasonWindows.find(s=>ts>=Date.parse(s.start)&&ts<=Date.parse(s.end))||null}
 
