@@ -320,5 +320,84 @@
         "reading": "アノイド"
       }
     ]
+  },
+  {
+    "subject": "英C",
+    "id": "7",
+    "name": "PUS",
+    "words": [
+      {
+        "word": "wastewater",
+        "meaning": "排水",
+        "hint": "",
+        "reading": "ウェイストウォーター"
+      },
+      {
+        "word": "temporarily",
+        "meaning": "一時的に",
+        "hint": "",
+        "reading": "テンポラリリー"
+      },
+      {
+        "word": "ban",
+        "meaning": "～を禁止する",
+        "hint": "",
+        "reading": "バン"
+      },
+      {
+        "word": "peak season",
+        "meaning": "繁忙期",
+        "hint": "",
+        "reading": "ピークシーズン"
+      },
+      {
+        "word": "historic",
+        "meaning": "歴史的な",
+        "hint": "",
+        "reading": "ヒストリック"
+      },
+      {
+        "word": "freely",
+        "meaning": "自由に",
+        "hint": "",
+        "reading": "フリーリー"
+      },
+      {
+        "word": "Therefore",
+        "meaning": "それゆえ",
+        "hint": "",
+        "reading": "ゼアフォア"
+      },
+      {
+        "word": "crowd",
+        "meaning": "群がる",
+        "hint": "",
+        "reading": "クラウド"
+      },
+      {
+        "word": "serve",
+        "meaning": "～を提供する",
+        "hint": "",
+        "reading": "サーヴ"
+      },
+      {
+        "word": "attract",
+        "meaning": "～を魅了する",
+        "hint": "",
+        "reading": "アトラクト"
+      },
+      {
+        "word": "reduce",
+        "meaning": "～を減らす",
+        "hint": "",
+        "reading": "リデュース"
+      },
+      {
+        "word": "daytime",
+        "meaning": "日中",
+        "hint": "",
+        "reading": "デイタイム"
+      }
+    ]
   }
 ]
