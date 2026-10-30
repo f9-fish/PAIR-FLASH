@@ -1,0 +1,59 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#071831"><title>Yoshi.Lab | RANKING</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;color:#f3f8ff;background:#06152c}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% 0,#164d8d 0,transparent 45%),#06152c;min-height:100vh}.wrap{max-width:1000px;margin:auto;padding:20px 16px 60px}a{color:#8dd5ff;text-decoration:none}.top{display:flex;justify-content:space-between;align-items:center;gap:10px}.brand{font-size:25px;font-weight:950;letter-spacing:-1px}.brand span{color:#35b6ff}.nav{display:flex;gap:8px}.nav a{padding:10px 14px;border:1px solid #3474a9;border-radius:20px;background:#0a2445;font-size:13px;font-weight:800}.hero{position:relative;margin:18px -16px 0;min-height:245px;background:linear-gradient(90deg,#05142fdc 0%,#06142f88 52%,#06142f20),url("./welcome-header-v35.jpg") center 50%/cover;border-bottom:1px solid #2c6da6;padding:35px max(18px,calc((100vw - 1000px)/2 + 16px))}.hero h1{font-size:clamp(35px,7vw,65px);letter-spacing:.07em;margin:0;text-shadow:0 3px 20px #000}.hero p{font-size:16px;color:#b9dbff}.hero em{color:#ffd375;font-style:normal;font-weight:900}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.tabs button{flex:1;min-width:115px;background:#0b2446;border:1px solid #3979b4;color:#c7e4ff;border-radius:14px;padding:13px 8px;font-weight:850;cursor:pointer}.tabs button.active{background:linear-gradient(100deg,#1466d2,#229fef);color:white;box-shadow:0 5px 18px #168cff44}.section-title{font-size:19px;margin:25px 0 12px}.podium{display:grid;grid-template-columns:1fr 1.13fr 1fr;gap:10px;align-items:end;margin:20px 0}.winner{position:relative;text-align:center;padding:23px 8px 20px;background:linear-gradient(160deg,#192a51,#0a1d3b);border:1px solid #5775ad;border-radius:20px;min-width:0;box-shadow:0 8px 20px #0004}.winner.first{padding-top:36px;padding-bottom:29px;border-color:#e4b34c;background:linear-gradient(165deg,#51401d,#132340 65%);box-shadow:0 0 28px #e4b34c33}.winner.third{border-color:#b87553}.medal{font-size:42px;line-height:1}.winner .name{font-size:clamp(12px,2.7vw,20px);font-weight:900;overflow-wrap:anywhere;margin:12px 0 5px}.winner .score{font-size:clamp(17px,3.5vw,27px);font-weight:950;color:#ffda83}.winner .sub{font-size:11px;color:#a7c4e6}.winner.first .score{color:#ffe08c}.panel{border:1px solid #2e6fa8;border-radius:19px;background:linear-gradient(140deg,#0c2747,#071a34);padding:18px;margin-top:15px}.list{display:grid;gap:7px}.entry{display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:10px;padding:13px 12px;border-radius:12px;background:#153054;font-size:14px}.entry.me{border:1px solid #f7d46e;background:#28344b}.entry strong{color:#cde6ff}.mebox{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center}.mebox .position{font-size:clamp(29px,6vw,45px);font-weight:950;color:#ffd177}.muted{color:#abc7e4;font-size:13px}.bar{height:12px;background:#142d50;border-radius:10px;overflow:hidden;margin-top:12px}.bar>div{height:100%;background:linear-gradient(90deg,#1fc8ff,#3e7bff);width:0}.message{padding:13px;border-radius:12px;background:#123459;color:#bfe8ff;margin-top:12px}.grid{display:grid;grid-template-columns:1.15fr 1fr;gap:15px}.login{padding:14px;border:1px solid #57b6ff;border-radius:12px;background:#126bd2;color:white;font-weight:850;cursor:pointer}.hidden{display:none!important}.foot{text-align:center;color:#6b9ec4;margin-top:35px}.badge{display:inline-block;padding:7px 12px;border:1px solid #5087be;border-radius:25px;color:#a9dcff;font-size:12px}@media(max-width:640px){.grid{grid-template-columns:1fr}.hero{min-height:210px}.winner{padding:18px 5px}.winner.first{padding:25px 5px}.medal{font-size:32px}.entry{grid-template-columns:28px 1fr auto;font-size:13px}.nav a{padding:8px}.wrap{padding-left:12px;padding-right:12px}.hero{margin-left:-12px;margin-right:-12px}.panel{padding:13px}} 
+</style></head><body>
+<div class="wrap"><div class="top"><a href="./index.html" class="brand">♛ Yoshi<span>.Lab</span></a><div class="nav"><a href="./mypage.html">📊 MY PAGE</a><a href="./index.html?view=subjects">⌂ HOME</a></div></div></div>
+<div class="hero"><div class="badge">🏆 LEARN · EARN · LEVEL UP</div><h1>RANKING</h1><p>小さな積み重ねが、大きな成長に。</p><p><em>昨日の自分を超えていこう！</em></p></div>
+<main class="wrap"><div class="tabs" id="scopeTabs"><button id="rankClass" class="active">🏫 クラス別</button><button id="rankAll">🌐 全体</button></div><div class="tabs" id="periodTabs"><button id="rankWeek" class="active">🔥 今週</button><button id="rankTotal">⭐ 累計</button></div><p class="muted" id="rankLabel">ランキングを読み込んでいます…</p><div id="authNotice" class="panel"><p id="authMessage">ログイン情報を確認しています…</p><button class="login hidden" id="login">Googleでログイン</button></div>
+<h2 class="section-title">👑 TOP 3</h2><div class="podium" id="podium"><div class="winner"><div class="medal">🥈</div><div class="muted">集計中</div></div><div class="winner first"><div class="medal">🥇</div><div class="muted">集計中</div></div><div class="winner"><div class="medal">🥉</div><div class="muted">集計中</div></div></div>
+<div class="grid"><section class="panel"><h2 class="section-title" style="margin-top:0">🏅 4〜10位</h2><div class="list" id="rankList"></div></section><section class="panel"><h2 class="section-title" style="margin-top:0">🎯 あなたの順位</h2><div id="myRank" class="muted">読み込み中…</div><div id="myProgress"></div><div id="myMessage" class="message">学んでXPを獲得しよう！</div><p class="muted" style="margin-top:18px">⚡ XPは保存済みの学習記録から集計されます。週間ランキングは日本時間の週単位です。</p></section></div>
+<p class="muted" style="margin-top:18px">※ ランキングには登録された氏名が表示されます。クラス別は所属クラス、全体は登録者全員が対象です。連続学習日数やバッジは、正確なデータを取得できるようになってから追加します。</p><div class="foot">♛ Yoshi.Lab · SMALL STEPS, BIG PROGRESS</div></main>
+<script type="module" src="./account.js"></script><script>
+const $=id=>document.getElementById(id);
+let leaderboardRows={},myProfile=null,rankScope='class',rankPeriod='week',loading=false;
+function xpWeekKey(ts){const d=new Date(ts+9*3600000),t=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate()));t.setUTCDate(t.getUTCDate()+4-(t.getUTCDay()||7));const year=t.getUTCFullYear(),jan=new Date(Date.UTC(year,0,1));return year+'-W'+String(Math.ceil((((t-jan)/86400000)+1)/7)).padStart(2,'0')}
+const number=x=>Math.max(0,Number(x)||0);
+function render(){
+ const uid=window.YoshiAccount?.user?.uid,week=xpWeekKey(Date.now());
+ const arr=Object.entries(leaderboardRows).filter(([id,r])=>r&&(!myProfile||rankScope==='all'||Number(r.classNumber)===Number(myProfile.classNumber))).map(([id,r])=>({id,name:String(r.name||r.nickname||'Player'),xp:rankPeriod==='week'&&r.weekKey!==week?0:number(rankPeriod==='week'?r.weeklyXP:r.totalXP)})).sort((a,b)=>b.xp-a.xp||a.name.localeCompare(b.name));
+ $('rankLabel').textContent=(rankScope==='class'?(myProfile?.classNumber||'—')+'組':'登録者全体')+' ／ '+(rankPeriod==='week'?'今週のXP':'累計XP')+' ／ '+arr.length+'人';
+ for(const [id,v] of [['rankClass','class'],['rankAll','all'],['rankWeek','week'],['rankTotal','total']])$(id).classList.toggle('active',(id==='rankClass'||id==='rankAll'?rankScope:rankPeriod)===v);
+ $('podium').replaceChildren();
+ for(const i of [1,0,2]){
+  const r=arr[i],el=document.createElement('div');el.className='winner'+(i===0?' first':i===2?' third':'');
+  const medal=document.createElement('div');medal.className='medal';medal.textContent=['🥇','🥈','🥉'][i];el.append(medal);
+  const name=document.createElement('div');name.className='name';name.textContent=r?r.name+(r.id===uid?'（あなた）':''):'まだ記録なし';
+  const score=document.createElement('div');score.className='score';score.textContent=r?r.xp.toLocaleString()+' XP':'—';
+  el.append(name,score);$('podium').append(el);
+ }
+ $('rankList').replaceChildren();
+ for(let i=3;i<Math.min(10,arr.length);i++){
+  const r=arr[i],el=document.createElement('div');el.className='entry'+(r.id===uid?' me':'');
+  for(const [tag,value] of [['b',String(i+1)],['span',r.name+(r.id===uid?'（あなた）':'')],['strong',r.xp.toLocaleString()+' XP']]){const c=document.createElement(tag);c.textContent=value;el.append(c)}
+  $('rankList').append(el);
+ }
+ if(arr.length<4)$('rankList').textContent='まだ4位以下の記録はありません。';
+ const pos=arr.findIndex(r=>r.id===uid),mine=arr[pos];
+ $('myRank').replaceChildren();$('myProgress').replaceChildren();
+ if(pos<0){$('myRank').textContent='ランキング参加後にあなたの順位が表示されます。';$('myMessage').textContent='学習を完了して、XPを獲得しよう！';return}
+ const box=document.createElement('div');box.className='mebox';box.innerHTML='<span class="muted">現在の順位</span><span class="muted">獲得XP</span>';
+ const rank=document.createElement('span');rank.className='position';rank.textContent=(pos+1)+'位 / '+arr.length+'人';
+ const xp=document.createElement('strong');xp.textContent=mine.xp.toLocaleString()+' XP';box.append(rank,xp);$('myRank').append(box);
+ if(pos>0){const target=arr[pos-1].xp;const gap=Math.max(0,target-mine.xp+1);const p=document.createElement('p');p.className='muted';p.textContent='ひとつ上の順位まであと '+gap+' XP';$('myProgress').append(p);const bar=document.createElement('div');bar.className='bar';const fill=document.createElement('div');fill.style.width=(target>0?Math.min(100,100*mine.xp/target):0)+'%';bar.append(fill);$('myProgress').append(bar);$('myMessage').textContent=pos>=10?'🔥 TOP 10を目指そう！一問ずつ積み重ねよう。':'🔥 あと少しでランクアップ！'}
+ else $('myMessage').textContent='👑 現在1位！この調子で学習を続けよう！';
+}
+$('rankClass').onclick=()=>{rankScope='class';render()};$('rankAll').onclick=()=>{rankScope='all';render()};$('rankWeek').onclick=()=>{rankPeriod='week';render()};$('rankTotal').onclick=()=>{rankPeriod='total';render()};
+async function refresh(){
+ const a=window.YoshiAccount;if(!a||loading)return;
+ const user=a.user;$('login').classList.toggle('hidden',!!user);
+ if(!user){$('authNotice').classList.remove('hidden');$('authMessage').textContent='ランキングを見るには学校のGoogleアカウントでログインしてね。';return}
+ loading=true;
+ try{const profile=await a.profile();if(!profile){$('authNotice').classList.remove('hidden');$('authMessage').textContent='まずMY PAGEでプロフィールを登録してね。';return}
+ myProfile=profile;await a.syncXP();leaderboardRows=await a.leaderboard();$('authNotice').classList.add('hidden');render()
+ }catch(e){$('authNotice').classList.remove('hidden');$('authMessage').textContent='読み込みに失敗しました：'+e.message}
+ finally{loading=false}
+}
+$('login').onclick=async()=>{try{await window.YoshiAccount.login()}catch(e){$('authMessage').textContent=e.message}};
+let attached=false;function attach(){if(attached||!window.YoshiAccount)return;attached=true;window.YoshiAccount.subscribe(()=>refresh());refresh()}
+document.addEventListener('yoshi-auth-ready',attach);if(window.YoshiAccount)attach();
+</script></body></html>
