@@ -872,6 +872,27 @@ body { background-color:#04132e!important; background-image:linear-gradient(180d
 #welcomeCover { background: radial-gradient(ellipse at 50% 75%,#09295a 0%,transparent 65%),#05142f !important; background-image: none !important; }
 #welcomeCover .welcome-hero { background-image: url('./welcome-header-v35.jpg?v=11') !important; background-position:center top !important; background-size:100% 100% !important; background-repeat:no-repeat !important; }
 </style>
+
+<style id="yoshilab-red-flag-background-v1">
+/* Background-only override. Keep the welcome screen artwork untouched. */
+body {
+  background-color:#04132e!important;
+  background-image:linear-gradient(180deg,rgba(3,14,34,.12),rgba(3,14,34,.25)),url('./mountain-red-flag.png')!important;
+  background-position:center center!important;
+  background-size:cover!important;
+  background-repeat:no-repeat!important;
+  background-attachment:fixed!important;
+}
+.daily-hero-link {
+  background-image:linear-gradient(90deg,rgba(3,14,32,.78),rgba(4,19,42,.12)),url('./mountain-red-flag.png')!important;
+  background-size:cover!important;
+  background-position:center center!important;
+}
+@media(max-width:700px){
+  body {background-position:center top!important;background-size:auto 100vh!important;background-attachment:scroll!important;}
+  .daily-hero-link {background-size:cover!important;background-position:center center!important;}
+}
+</style>
 </head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
   <div class="welcome-hero"><a class="welcome-hero-link welcome-hero-link-mypage" href="mypage.html" aria-label="MY PAGE"></a><a class="welcome-hero-link welcome-hero-link-home" href="./" aria-label="HOME"></a><div class="welcome-crown" aria-hidden="true">♕</div><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
   <section aria-label="使い方"><h2 class="welcome-how">🎮 HOW TO USE <span>学び方を選ぼう！</span></h2><div class="welcome-steps">
