@@ -131,6 +131,27 @@ body { background-image:url('./yoshilab-unified-mountain.png') !important; backg
 body::before { content:none !important; display:none !important; }
 @media(max-width:700px) { body { background-position:center center !important; background-size:cover !important; background-attachment:fixed !important; } }
 </style>
+
+<style id="yoshi-bg-darken-v7">
+/* Page background only. Do not change daily challenge card artwork. */
+body { background-image: linear-gradient(rgba(0, 8, 24, .25), rgba(0, 8, 24, .25)), url('./yoshilab-unified-mountain.png') !important; }
+</style>
+<style>
+/* v9: wider, less cropped mountain backdrop; daily tile deliberately untouched */
+html body:not(.unused-yoshilab-selector) {
+ background-image:linear-gradient(rgba(0,8,24,.25),rgba(0,8,24,.25)),url('./yoshilab-unified-mountain.png') !important;
+ background-size:100% 100%,100% auto !important;
+ background-position:center center !important;
+ background-repeat:no-repeat !important;
+ background-attachment:fixed !important;
+ background-color:#04132e !important;
+}
+@media(max-width:700px){html body:not(.unused-yoshilab-selector){
+ background-size:100% 100%,100% auto !important;
+ background-position:center center !important;
+ background-attachment:fixed !important;
+}}
+</style>
 </head><body><header class="topbar"><div class="wrap top"><a class="brand" href="./index.html"><span class="crown">♛</span> Yoshi.Lab<small>LEARN × BATTLE × LEVEL UP</small></a><nav class="nav"><a href="./index.html?view=subjects">⌂ ホーム</a><a href="./index.html?view=subjects">▣ 学習する</a><a href="./mypage.html">▥ 記録</a><a class="current" href="./ranking.html">🏆 ランキング</a><button id="headerLogin" type="button">🌐 ログイン</button><span id="headerSignedIn" class="muted hidden">✓ ログイン中</span></nav></div></header>
 <main class="wrap">
 <div class="season-cards"><div class="season-card" id="seasonCard1"><h2>Season 1</h2><div class="date">〜 11月27日</div><div class="sub">（後期中間試験終了日）</div></div><div class="season-card gold" id="seasonCard2"><h2>Season 2</h2><div class="date">〜 2月25日</div><div class="sub">（後期期末試験終了日）</div></div></div>
