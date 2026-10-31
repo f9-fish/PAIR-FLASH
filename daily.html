@@ -1,5 +1,5 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DAILY CHALLENGE | Yoshi.Lab</title><style>
-:root{color-scheme:dark;font-family:system-ui,'Noto Sans JP',sans-serif}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0,#164d8d 0,transparent 45%),#06152c;color:#f2f7ff}main{max-width:760px;margin:auto;padding:24px 18px 80px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.top a{color:#d7e9ff;text-decoration:none}.brand{font-size:23px;font-weight:900}.brand span{color:#70c4ff}.panel{background:linear-gradient(145deg,#102b51,#0a1c37);border:1px solid #335781;border-radius:20px;padding:24px;margin-top:22px;box-shadow:0 15px 40px #0004}h1{font-size:clamp(28px,7vw,44px);margin:10px 0}.sub{color:#b9cbe0;line-height:1.8}.pill{display:inline-block;padding:7px 12px;border:1px solid #557cad;border-radius:30px;color:#b7e2ff;font-size:12px;font-weight:800}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:22px 0}.stat{padding:15px 8px;background:#071a35;border-radius:14px;text-align:center}.stat b{display:block;font-size:23px;color:#f5d38c}.stat small{color:#b6c9df}button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:14px 18px;font-weight:800;background:#3d9df3;color:#06152c}button:disabled{opacity:.5;cursor:not-allowed}.option{width:100%;text-align:left;display:block;margin:9px 0;background:#143963;color:#fff;border:1px solid #436c98}.option:hover:not(:disabled){background:#1c518b}.option.correct{background:#17654d;border-color:#62d7a7}.option.wrong{background:#683043;border-color:#f19cab}.hidden{display:none!important}#typingInput{width:100%;padding:14px;border-radius:12px;background:#071a35;color:#fff;border:1px solid #557cad;font:inherit;font-size:18px}.question.sentence{font-size:clamp(18px,4.5vw,26px);line-height:1.8}.question small{display:block;color:#b9cbe0;font-size:15px;font-weight:500;margin-top:12px}.blank{color:#f5d38c;border-bottom:2px solid #f5d38c;padding:0 8px}.question{font-size:clamp(25px,6vw,36px);font-weight:800;margin:18px 0}.progress{height:9px;background:#07162e;border-radius:10px;overflow:hidden}.progress>div{height:100%;background:#4bb8ff;transition:width .2s}.result-item{padding:11px 0;border-bottom:1px solid #2b4a70;line-height:1.6}.muted{color:#aebfd4;font-size:13px}.warn{border-left:3px solid #e9bf65;padding:12px 14px;background:#6b4d182b;color:#ffe0a4;line-height:1.6;margin-top:15px}@media(max-width:420px){.panel{padding:17px}.stats{gap:6px}.stat b{font-size:20px}}
+:root{color-scheme:dark;font-family:system-ui,'Noto Sans JP',sans-serif}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0,#164d8d 0,transparent 45%),#06152c;color:#f2f7ff}main{max-width:760px;margin:auto;padding:24px 18px 80px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.top a{color:#d7e9ff;text-decoration:none}.brand{font-size:23px;font-weight:900}.brand span{color:#70c4ff}.panel{background:linear-gradient(145deg,#102b51,#0a1c37);border:1px solid #335781;border-radius:20px;padding:24px;margin-top:22px;box-shadow:0 15px 40px #0004}h1{font-size:clamp(28px,7vw,44px);margin:10px 0}.sub{color:#b9cbe0;line-height:1.8}.pill{display:inline-block;padding:7px 12px;border:1px solid #557cad;border-radius:30px;color:#b7e2ff;font-size:12px;font-weight:800}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:22px 0}.stat{padding:15px 8px;background:#071a35;border-radius:14px;text-align:center}.stat b{display:block;font-size:23px;color:#f5d38c}.stat small{color:#b6c9df}button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:14px 18px;font-weight:800;background:#3d9df3;color:#06152c}button:disabled{opacity:.5;cursor:not-allowed}.option{width:100%;text-align:left;display:block;margin:9px 0;background:#143963;color:#fff;border:1px solid #436c98}.option:hover:not(:disabled){background:#1c518b}.option.correct{background:#17654d;border-color:#62d7a7}.option.wrong{background:#683043;border-color:#f19cab}.hidden{display:none!important}#typingInput{width:100%;padding:14px;border-radius:12px;background:#071a35;color:#fff;border:1px solid #557cad;font:inherit;font-size:18px}.inline-blank{display:inline-block;vertical-align:middle;margin:3px 4px}.sentence-input{width:clamp(92px,24vw,180px);max-width:100%;padding:9px 10px;border:1px solid #557cad;border-radius:9px;background:#071a35;color:#fff;font:inherit;font-size:17px;font-weight:600}.sentence-input.input-correct{border-color:#62d7a7}.sentence-input.input-wrong{border-color:#f19cab}.question.sentence{font-size:clamp(18px,4.5vw,26px);line-height:1.8}.question small{display:block;color:#b9cbe0;font-size:15px;font-weight:500;margin-top:12px}.blank{color:#f5d38c;border-bottom:2px solid #f5d38c;padding:0 8px}.question{font-size:clamp(25px,6vw,36px);font-weight:800;margin:18px 0}.progress{height:9px;background:#07162e;border-radius:10px;overflow:hidden}.progress>div{height:100%;background:#4bb8ff;transition:width .2s}.result-item{padding:11px 0;border-bottom:1px solid #2b4a70;line-height:1.6}.muted{color:#aebfd4;font-size:13px}.warn{border-left:3px solid #e9bf65;padding:12px 14px;background:#6b4d182b;color:#ffe0a4;line-height:1.6;margin-top:15px}@media(max-width:420px){.panel{padding:17px}.stats{gap:6px}.stat b{font-size:20px}}
 </style></head><body><main><div class="top"><a class="brand" href="./index.html">♛ Yoshi<span>.Lab</span></a><a href="./ranking.html">🏆 ランキング</a></div><section class="panel" id="welcome"><span class="pill">⚡ DAILY CHALLENGE · 試用版</span><h1>今日の10問に挑戦！</h1><p class="sub">単語4択3問 → 単語タイピング3問 → 本文タイピング4問。各形式の問題はランダム出題。全問正解を目指そう！</p><div class="stats"><div class="stat"><b>10</b><small>出題数</small></div><div class="stat"><b>2回</b><small>予定挑戦枠／日</small></div><div class="stat"><b>500</b><small>予定XP報酬</small></div></div><p id="status" class="sub">問題データを読み込み中…</p><button id="start" disabled>▶ チャレンジ開始</button><div class="warn">この版は<strong>問題と結果画面の動作確認用</strong>です。挑戦回数の制限・500 XP付与はまだ有効化していません。不正なXP獲得を防ぐため、サーバー側の検証を追加してから公開します。</div></section><section class="panel hidden" id="quiz"><span class="pill" id="count">QUESTION 1 / 10</span><div class="progress" style="margin:16px 0"><div id="bar" style="width:0%"></div></div><p class="sub"><span id="questionType">問題形式を読み込み中…</span></p><div class="question" id="word"></div><div id="options"></div><div id="typingArea" class="hidden"><input id="typingInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="英語で入力"><button id="typingSubmit" style="width:100%;margin-top:10px">回答する</button></div><p id="feedback" class="sub" aria-live="polite"></p><button id="next" class="hidden">次の問題へ →</button></section><section class="panel hidden" id="result"><span class="pill">MISSION RESULT</span><h1 id="score"></h1><p id="reward" class="sub"></p><h2>10問の振り返り</h2><div id="review"></div><button id="retry">もう一度挑戦</button><p class="muted">試用版では挑戦回数・XPは変化しません。</p></section></main><script>
 
 const $=id=>document.getElementById(id);
@@ -27,8 +27,8 @@ async function load(){
       const english=String(card[0]||'').trim(),japanese=String(card[1]||'').trim();
       const gaps=[...english.matchAll(/\(([^()]+)\)/g)].map(m=>m[1].trim());
       const valid=gaps.filter(g=>/^[a-zA-Z][a-zA-Z\s'-]*$/.test(g));
-      if(english&&japanese&&valid.length){
-       // One entry per source sentence; at quiz creation, choose one of its valid blanks.
+      if(english&&japanese&&gaps.length&&valid.length===gaps.length){
+       // Preserve every original blank; each sentence counts as one quiz question.
        const key=normalize(english.replace(/[()]/g,''));
        if(!sentenceMap.has(key))sentenceMap.set(key,{english,japanese,gaps:valid});
       }
@@ -49,15 +49,8 @@ function makeQuestion(type, item){
   return {type,prompt:item.word,correct:item.meaning,options:shuffle([item.meaning,...distractors])};
  }
  if(type==='word')return {type,prompt:item.meaning,correct:item.word};
- const matches=[...item.english.matchAll(/\(([^()]+)\)/g)];
- const candidates=matches.filter(m=>/^[a-zA-Z][a-zA-Z\s'-]*$/.test(m[1].trim()));
- const chosen=candidates[Math.floor(Math.random()*candidates.length)];
- let cursor=0;
- const prompt=item.english.replace(/\(([^()]+)\)/g,(_,value)=>{
-  const match=matches[cursor++];
-  return match.index===chosen.index?'（　　　）':value;
- });
- return {type,prompt,translation:item.japanese,correct:chosen[1].trim()};
+ const gaps=[...item.english.matchAll(/\(([^()]+)\)/g)].map(m=>m[1].trim());
+ return {type,prompt:item.english,translation:item.japanese,correct:gaps,blankCount:gaps.length};
 }
 function start(){
  // Fixed sequence: 3 vocabulary choices, 3 vocabulary typing, 4 sentence typing.
@@ -83,33 +76,64 @@ function render(){
  $('options').replaceChildren();$('word').replaceChildren();
  $('word').classList.toggle('sentence',q.type==='sentence');
  $('typingArea').classList.toggle('hidden',q.type==='choice');
- $('questionType').textContent=q.type==='choice'?'🔘 単語4択：英単語の意味を選ぼう':q.type==='word'?'⌨️ 単語タイピング：日本語に合う英単語を入力しよう':'⚡ 本文タイピング：空欄に入る英語を入力しよう';
+ $('questionType').textContent=q.type==='choice'?'🔘 単語4択：英単語の意味を選ぼう':q.type==='word'?'⌨️ 単語タイピング：日本語に合う英単語を入力しよう':'⚡ 本文タイピング：元の英文の空欄をすべて埋めよう';
  if(q.type==='sentence'){
-  const parts=q.prompt.split('（　　　）');
-  $('word').append(document.createTextNode(parts[0]));
-  const blank=document.createElement('span');blank.className='blank';blank.textContent='（　　　　）';$('word').append(blank);
-  $('word').append(document.createTextNode(parts.slice(1).join('（　　　）')));
-  const translation=document.createElement('small');translation.textContent=q.translation;$('word').append(translation);
+  const parts=q.prompt.split(/\([^()]+\)/);
+  const container=$('word');
+  for(let i=0;i<parts.length;i++){
+   container.append(document.createTextNode(parts[i]));
+   if(i<q.blankCount){
+    const slot=document.createElement('span');slot.className='inline-blank';
+    const field=document.createElement('input');field.type='text';field.className='sentence-input';
+    field.autocomplete='off';field.autocapitalize='off';field.spellcheck=false;
+    field.setAttribute('aria-label','空欄 '+(i+1));
+    field.placeholder='('+ (i+1) +')';
+    field.addEventListener('keydown',e=>{if(e.key==='Enter'&&!chosen){e.preventDefault();const inputs=[...document.querySelectorAll('.sentence-input')];const next=inputs[i+1];if(next)next.focus();else submitTyping()}});
+    slot.append(field);container.append(slot);
+   }
+  }
+  const translation=document.createElement('small');translation.textContent=q.translation;container.append(translation);
  }else $('word').textContent=q.prompt;
  if(q.type==='choice')q.options.forEach(option=>{
   const b=document.createElement('button');b.className='option';b.textContent=option;b.onclick=()=>select(option);$('options').append(b);
  });
- else {$('typingInput').value='';$('typingInput').disabled=false;$('typingSubmit').disabled=false;$('typingInput').placeholder=q.type==='word'?'英単語を入力':'空欄に入る英語を入力';$('typingInput').focus()}
+ else {$('typingInput').value='';$('typingInput').disabled=false;$('typingSubmit').disabled=false;
+  $('typingInput').classList.toggle('hidden',q.type==='sentence');
+  $('typingInput').placeholder='英単語を入力';
+  if(q.type==='sentence')document.querySelector('.sentence-input')?.focus();else $('typingInput').focus();
+ }
+}
+function submitTyping(){
+ const q=deck[index];
+ if(q.type==='sentence')select([...document.querySelectorAll('.sentence-input')].map(el=>el.value));
+ else select($('typingInput').value);
 }
 function select(value){
  if(chosen)return;
- const q=deck[index];if(q.type!=='choice'&&!String(value).trim())return;
+ const q=deck[index];
+ if(q.type==='sentence'&&(!Array.isArray(value)||value.length!==q.correct.length||value.some(v=>!String(v).trim())))return;
+ if(q.type==='word'&&!String(value).trim())return;
  chosen=true;
- const ok=q.type==='choice'?value===q.correct:normalize(value)===normalize(q.correct);
- answers.push({type:q.type,prompt:q.prompt,translation:q.translation||'',correct:q.correct,selected:value,ok});
+ const ok=q.type==='sentence'?value.every((v,i)=>normalize(v)===normalize(q.correct[i])):
+  q.type==='choice'?value===q.correct:normalize(value)===normalize(q.correct);
+ const expected=Array.isArray(q.correct)?q.correct.join(' / '):q.correct;
+ const response=Array.isArray(value)?value.join(' / '):value;
+ answers.push({type:q.type,prompt:q.prompt,translation:q.translation||'',correct:expected,selected:response,ok});
  if(q.type==='choice')for(const b of $('options').children){
   b.disabled=true;if(b.textContent===q.correct)b.classList.add('correct');
   else if(b.textContent===value)b.classList.add('wrong');
- }else{$('typingInput').disabled=true;$('typingSubmit').disabled=true}
- $('feedback').textContent=ok?'✓ 正解！':'✕ 正解：'+q.correct;
+ }else{
+  $('typingInput').disabled=true;$('typingSubmit').disabled=true;
+  document.querySelectorAll('.sentence-input').forEach((field,i)=>{
+   field.disabled=true;
+   field.classList.add(normalize(value[i])===normalize(q.correct[i])?'input-correct':'input-wrong');
+  });
+ }
+ $('feedback').textContent=ok?'✓ 正解！':'✕ 正解：'+expected;
  $('next').textContent=index===9?'結果を見る →':'次の問題へ →';
  $('next').classList.remove('hidden');
 }
+
 function next(){
  index++;if(index<10)return render();
  $('quiz').classList.add('hidden');$('result').classList.remove('hidden');
@@ -119,14 +143,14 @@ function next(){
  $('review').replaceChildren();
  answers.forEach((a,i)=>{
   const d=document.createElement('div');d.className='result-item';
-  const t=document.createElement('strong');t.textContent=(a.ok?'✓ ':'✕ ')+(i+1)+'. '+(a.type==='sentence'?a.prompt:a.prompt);
+  const t=document.createElement('strong');t.textContent=(a.ok?'✓ ':'✕ ')+(i+1)+'. '+(a.prompt);
   const kind=document.createElement('div');kind.className='muted';kind.textContent=({choice:'単語4択',word:'単語タイピング',sentence:'本文タイピング'})[a.type];
   const info=document.createElement('div');info.className='muted';info.textContent='君の回答：'+a.selected+' ／ 正解：'+a.correct;
   d.append(t,kind,info);$('review').append(d);
  });
 }
 $('start').onclick=start;$('retry').onclick=start;$('next').onclick=next;
-$('typingSubmit').onclick=()=>select($('typingInput').value);
+$('typingSubmit').onclick=submitTyping;
 $('typingInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!chosen)select($('typingInput').value)});
 load();
 
