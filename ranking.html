@@ -40,6 +40,20 @@
   .rank-steps:focus-visible{outline:2px solid #54b7ff;outline-offset:2px}
 }
 .history-panel{margin-top:18px}.history-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:10px}.history-card{display:flex;align-items:center;gap:14px;border:1px solid #28537d;background:#0b2543;border-radius:12px;padding:13px}.history-card .gem{flex-shrink:0;transform:scale(.8)}.history-card strong{display:block;font-size:15px}.history-card small{display:block;color:#a9c4e6;margin-top:4px}.history-list>p{grid-column:1/-1;margin:3px 0}@media(max-width:660px){.history-list{grid-template-columns:1fr 1fr;gap:7px}.history-card{gap:6px;padding:9px 6px}.history-card .gem{transform:scale(.62);margin:-5px}.history-card strong{font-size:11px}.history-card small{font-size:10px}}
+</style><style id="mountain-theme-v2">
+/* Yoshi.Lab mountain theme v2 — intentionally loaded last */
+html{background:#041126!important;}
+body{background-color:#041126!important;background-image:linear-gradient(180deg,rgba(2,11,28,.23) 0%,rgba(3,16,37,.72) 42%,#041126 100%),url('./mountain-bg-v2.jpg')!important;background-position:center top!important;background-size:cover!important;background-attachment:fixed!important;background-repeat:no-repeat!important;color:#f1f7ff!important;min-height:100vh;}
+/* Keep the original structure and all navigation/actions intact. */
+.panel,.card,.stat,.mode-card,.subject-card,.lesson-card,.part-card,.welcome-step{border-color:rgba(74,167,255,.55)!important;box-shadow:0 9px 27px rgba(0,8,26,.32),inset 0 1px 0 rgba(170,218,255,.08)!important;}
+button.primary,.primary:not(input),.btn.primary,.start-btn,.next-btn,.daily-action{background:linear-gradient(115deg,#12c9ff,#0564fa)!important;border:1px solid #40d7ff!important;color:white!important;box-shadow:0 5px 20px rgba(0,127,255,.43),inset 0 1px 0 rgba(255,255,255,.25)!important;border-radius:15px!important;}
+button:not(.primary):not(.outline):not(.option):not(.correct):not(.wrong){transition:box-shadow .2s,border-color .2s;}
+button:focus-visible,a:focus-visible{outline:2px solid #6bd9ff;outline-offset:3px;}
+/* Existing welcome cover used a separate opaque image, so override it too. */
+#welcomeCover{background:linear-gradient(180deg,rgba(3,15,35,.20),#041126 92%),url('./mountain-bg-v2.jpg') center top/cover fixed no-repeat!important;}
+#welcomeCover .welcome-hero{background:linear-gradient(180deg,rgba(4,17,38,.12),rgba(4,17,38,.5)),url('./mountain-bg-v2.jpg') center center/cover no-repeat!important;}
+.daily-hero-link,.daily-intro-art{background-image:linear-gradient(90deg,rgba(3,14,32,.75),rgba(4,19,42,.13)),url('./mountain-bg-v2.jpg')!important;background-size:cover!important;background-position:center center!important;}
+@media(max-width:650px){body{background-attachment:scroll!important;background-position:center top!important;background-size:auto 100vh!important;}#welcomeCover{background-attachment:scroll!important;}}
 </style></head><body><header class="topbar"><div class="wrap top"><a class="brand" href="./index.html"><span class="crown">♛</span> Yoshi.Lab<small>LEARN × BATTLE × LEVEL UP</small></a><nav class="nav"><a href="./index.html?view=subjects">⌂ ホーム</a><a href="./index.html?view=subjects">▣ 学習する</a><a href="./mypage.html">▥ 記録</a><a class="current" href="./ranking.html">🏆 ランキング</a><button id="headerLogin" type="button">🌐 ログイン</button><span id="headerSignedIn" class="muted hidden">✓ ログイン中</span></nav></div></header>
 <main class="wrap">
 <div class="season-cards"><div class="season-card" id="seasonCard1"><h2>Season 1</h2><div class="date">〜 11月27日</div><div class="sub">（後期中間試験終了日）</div></div><div class="season-card gold" id="seasonCard2"><h2>Season 2</h2><div class="date">〜 2月25日</div><div class="sub">（後期期末試験終了日）</div></div></div>
