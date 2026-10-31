@@ -1055,20 +1055,7 @@ html body:not(.unused-yoshilab-selector) {
 /* Hide the daily challenge entry only during an active learning game. */
 body.yoshi-game-started .daily-hero-link{display:none!important}
 </style>
-<style id="yoshi-rank-icons-v19-style">
-.gem.yoshi-v19-gem{clip-path:none!important;background:none!important;border:0!important;filter:none!important;overflow:visible!important;display:inline-flex!important;align-items:center;justify-content:center}
-.gem.yoshi-v19-gem::before,.gem.yoshi-v19-gem::after,.gem.yoshi-v19-gem i{display:none!important}
-.gem.yoshi-v19-gem img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 2px 4px #0008)}
-.yoshi-home-rank .yoshi-rank-gem.yoshi-v19-home-icon{clip-path:none!important;background:none!important;filter:none!important;overflow:visible}
-.yoshi-home-rank .yoshi-rank-gem.yoshi-v19-home-icon::before,.yoshi-home-rank .yoshi-rank-gem.yoshi-v19-home-icon::after{display:none!important}
-.yoshi-v19-home-icon img{width:100%;height:100%;object-fit:contain}
-.student-rank .yoshi-v19-inline-icon{width:16px;height:18px;object-fit:contain;flex:none}
-.winner .medal.yoshi-v19-winner-emblem{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none!important;box-shadow:none!important;font-size:inherit!important;height:auto!important}
-.yoshi-v19-winner-emblem img{display:block;width:46px;height:49px;object-fit:contain;filter:drop-shadow(0 4px 5px #0008)}
-.yoshi-v19-position{font-size:12px;font-weight:900;color:#fff;letter-spacing:.02em}
-.yoshi-v19-mypage-icon{display:block;width:47px;height:54px;object-fit:contain;margin:5px auto}
-@media(max-width:660px){.yoshi-v19-winner-emblem img{width:35px;height:38px}.yoshi-v19-position{font-size:10px}}
-</style></head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
+</head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
   <div class="welcome-hero"><a class="welcome-hero-link welcome-hero-link-mypage" href="mypage.html" aria-label="MY PAGE"></a><a class="welcome-hero-link welcome-hero-link-home" href="./" aria-label="HOME"></a><div class="welcome-crown" aria-hidden="true">♕</div><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN × LEVEL UP</div><div class="welcome-line"></div></div>
   <section aria-label="使い方"><h2 class="welcome-how">🎮 HOW TO USE <span>学び方を選ぼう！</span></h2><div class="welcome-steps">
     <div class="welcome-step"><div class="welcome-symbol welcome-symbol-word" aria-hidden="true"></div><div class="welcome-step-content"><div class="welcome-step-title">単語を勉強したい</div><div class="welcome-desc">重要単語を覚えて英語の土台をつくろう！</div><div class="welcome-path"><span class="welcome-chip">科目</span><span class="welcome-chevron">›</span><span class="welcome-chip">Lesson</span><span class="welcome-chevron">›</span><span class="welcome-chip">Part</span><span class="welcome-chevron">›</span><span class="welcome-chip end">単語チェック</span></div></div></div>
@@ -1168,14 +1155,32 @@ function showXPCelebration(earned,level,leveledUp){
 }
 document.addEventListener('click',e=>{if(e.target?.id==='xpCelebrationClose'||e.target?.id==='xpCelebrationOverlay')document.getElementById('xpCelebrationOverlay').classList.remove('open')});
 async function saveSoloRecord(mode,right,total,best,durationSeconds){
- if(!total||!window.YoshiAccount?.user)return;
+ if(!total)return;
+ // Firebase may still be restoring the previous Google session when a game ends.
+ if(!window.YoshiAccount?.user){
+  await new Promise(resolve=>{
+   const timer=setTimeout(()=>{document.removeEventListener('yoshi-auth-ready',ready);resolve()},4000);
+   function ready(){clearTimeout(timer);resolve()}
+   document.addEventListener('yoshi-auth-ready',ready,{once:true});
+  });
+ }
  const a=window.YoshiAccount;
+ if(!a?.user){
+  const msg='XPを保存できませんでした。Googleログイン状態を確認し、再度学習してください。';
+  console.warn('[Yoshi.Lab]',msg);
+  $('accountDetail').textContent=msg;
+  showXPCelebration(0,1,false);
+  document.getElementById('xpCelebrationMessage').textContent=msg;
+  return;
+ }
  try{
   await a.save({subject:String(subject||''),lesson:String(selectedLessonId||''),part:normalizedPart(unit?.name||selectedVocabulary?.name||''),mode,xpMode:selectedStudyMode,right,total,bestStreak:best,durationSeconds:Math.max(0,Math.round(Number(durationSeconds)||0))});
   console.info('[Yoshi.Lab] 学習記録を保存しました');
  }catch(e){
   console.error('[Yoshi.Lab] 学習記録の保存に失敗:',e.code||'',e);
   $('accountDetail').textContent='学習記録の保存に失敗しました：'+(e.code||e.message||'不明なエラー');
+  showXPCelebration(0,1,false);
+  document.getElementById('xpCelebrationMessage').textContent=$('accountDetail').textContent;
   return;
  }
  try{
@@ -1186,10 +1191,14 @@ async function saveSoloRecord(mode,right,total,best,durationSeconds){
    showXPCelebration(earned,level,level>previousLevel);
   }else{
    $('accountDetail').textContent='学習記録は保存しました。XPの反映にはMY PAGEでプロフィール登録が必要です。';
+   showXPCelebration(0,1,false);
+   document.getElementById('xpCelebrationMessage').textContent=$('accountDetail').textContent;
   }
  }catch(e){
   console.error('[Yoshi.Lab] XP更新エラー（学習記録は保存済み）:',e.code||'',e);
   $('accountDetail').textContent='学習記録は保存済みです。XPの更新に失敗：'+(e.code||e.message||'不明なエラー')+'。MY PAGEから再同期できます。';
+  showXPCelebration(0,1,false);
+  document.getElementById('xpCelebrationMessage').textContent=$('accountDetail').textContent;
  }
 }
 
@@ -1915,4 +1924,4 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
  document.addEventListener('click',e=>{if(e.target.closest('#xpCelebrationClose'))setTimeout(update,500)});
 })();
 </script>
-<script src="./yoshi-rank-icons-v19.js" defer></script></body></html>
+</body></html>
