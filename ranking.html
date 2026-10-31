@@ -39,6 +39,7 @@
   .legend-head p{font-size:11px}
   .rank-steps:focus-visible{outline:2px solid #54b7ff;outline-offset:2px}
 }
+.history-panel{margin-top:18px}.history-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:10px}.history-card{display:flex;align-items:center;gap:14px;border:1px solid #28537d;background:#0b2543;border-radius:12px;padding:13px}.history-card .gem{flex-shrink:0;transform:scale(.8)}.history-card strong{display:block;font-size:15px}.history-card small{display:block;color:#a9c4e6;margin-top:4px}.history-list>p{grid-column:1/-1;margin:3px 0}@media(max-width:660px){.history-list{grid-template-columns:1fr 1fr;gap:7px}.history-card{gap:6px;padding:9px 6px}.history-card .gem{transform:scale(.62);margin:-5px}.history-card strong{font-size:11px}.history-card small{font-size:10px}}
 </style></head><body><header class="topbar"><div class="wrap top"><a class="brand" href="./index.html"><span class="crown">♛</span> Yoshi.Lab<small>LEARN × BATTLE × LEVEL UP</small></a><nav class="nav"><a href="./index.html?view=subjects">⌂ ホーム</a><a href="./index.html?view=subjects">▣ 学習する</a><a href="./mypage.html">▥ 記録</a><a class="current" href="./ranking.html">🏆 ランキング</a><button id="headerLogin" type="button">🌐 ログイン</button><span id="headerSignedIn" class="muted hidden">✓ ログイン中</span></nav></div></header>
 <main class="wrap">
 <div class="season-cards"><div class="season-card" id="seasonCard1"><h2>Season 1</h2><div class="date">〜 11月27日</div><div class="sub">（後期中間試験終了日）</div></div><div class="season-card gold" id="seasonCard2"><h2>Season 2</h2><div class="date">〜 2月25日</div><div class="sub">（後期期末試験終了日）</div></div></div>
@@ -46,7 +47,7 @@
 <div class="main-grid"><section class="panel"><div class="panel-head"><span class="symbol">👑</span><div><h2>シーズンランク</h2><p>シーズンXPでランクアップを目指そう！ <span id="seasonName" class="muted"></span></p></div></div>
 <div class="season-inner"><div class="rank-banner" id="rankBanner"><div class="muted">あなたのランク</div><div class="rank-emblem" id="rankEmblem"></div><div class="rank-title" id="rankTitle">集計中…</div><div class="muted" id="rankXP"></div><div class="bar"><div id="rankBar"></div></div><p class="muted" id="rankNext"></p></div>
 <div class="rank-right"><div class="rank-section-label">👑 レディアントランキング</div><p class="mode-desc" id="modeDescription">レディアント＝学年マスター内上位10名（シーズン１）</p><p class="muted" id="seasonDates"></p><div id="radiantRows" class="list"><div class="muted">読み込み中…</div></div></div></div>
-<p class="note">※ レディアントは各学年でマスター（1,500 XP以上）に到達した上位10名。順位によって昇格・降格します。</p></section>
+<p class="note">※ レディアントは各学年でマスター（12,000 XP以上）に到達した上位10名。順位によって昇格・降格します。</p></section>
 <section class="panel side-panel"><div class="panel-head"><span class="symbol">🏆</span><div><h2>XPランキング</h2><p>今週・累計のXPを競おう！</p></div></div>
 <div class="mode-switch hidden" aria-hidden="true"><button id="modeSeason" class="active">👑 シーズンランク</button><button id="modeClassic">🏆 XPランキング</button></div>
 <div class="tabs" id="scopeTabs"><button id="rankGrade" class="hidden">学年別</button><button id="rankClass" class="active">クラス別</button><button id="rankAll">全体</button></div>
@@ -54,30 +55,32 @@
 <div class="hidden" id="seasonOverview"></div><div class="hidden" id="rankingSectionLabel"></div><p class="muted" id="rankLabel"></p>
 <div id="authNotice" class="auth-notice"><p id="authMessage">ログイン情報を確認しています…</p><button class="login hidden" id="login">Googleでログイン</button></div>
 <div class="podium" id="podium"></div><div class="list" id="rankList"></div><div class="compact-panel" style="margin-top:10px"><h3 class="section-title">🎯 あなたの順位</h3><div id="myRank" class="muted"></div><div id="myProgress"></div><div id="myMessage" class="message">学んでXPを獲得しよう！</div></div></section></div>
-<div class="foot">♛ Yoshi.Lab · SMALL STEPS, BIG PROGRESS</div></main><script type="module" src="./account.js"></script><script>
+<section class="panel history-panel"><div class="panel-head"><span class="symbol">🎖️</span><div><h2>シーズンのあゆみ</h2><p>これまで積み重ねた努力の記録</p></div></div><div id="seasonHistory" class="history-list muted">ログインすると過去の成績が表示されます。</div></section><div class="foot">♛ Yoshi.Lab · SMALL STEPS, BIG PROGRESS</div></main><script type="module" src="./account.js"></script><script>
 const $=id=>document.getElementById(id);
 let leaderboardRows={},myProfile=null,gradeRows={},myGrade=null,rankScope='class',rankPeriod='week',rankingMode='classic',loading=false;
 function xpWeekKey(ts){const d=new Date(ts+9*3600000),t=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate()));t.setUTCDate(t.getUTCDate()+4-(t.getUTCDay()||7));const year=t.getUTCFullYear(),jan=new Date(Date.UTC(year,0,1));return year+'-W'+String(Math.ceil((((t-jan)/86400000)+1)/7)).padStart(2,'0')}
 const number=x=>Math.max(0,Number(x)||0);
-const tiers=[{name:'ブロンズ',min:0,icon:'🥉',color:'#c98c60'},{name:'シルバー',min:150,icon:'🥈',color:'#c3d5ea'},{name:'ゴールド',min:350,icon:'🥇',color:'#f4c04d'},{name:'プラチナ',min:650,icon:'🔷',color:'#7ad5e8'},{name:'ダイヤモンド',min:1000,icon:'💎',color:'#7aafff'},{name:'マスター',min:1500,icon:'💜',color:'#bb89ff'},{name:'レディアント',min:1500,icon:'👑',color:'#ffd779'}];
-function rankOf(xp,pos){if(xp>=1500&&pos>=0&&pos<10)return 6;for(let i=5;i>=0;i--)if(xp>=tiers[i].min)return i;return 0}
+const tiers=[{name:'ブロンズ',min:0,color:'#c98c60'},{name:'シルバー',min:500,color:'#c3d5ea'},{name:'ゴールド',min:1500,color:'#f4c04d'},{name:'プラチナ',min:3500,color:'#7ad5e8'},{name:'ダイヤモンド',min:7000,color:'#7aafff'},{name:'マスター',min:12000,color:'#bb89ff'},{name:'レディアント',min:12000,color:'#ffd779'}];
+function rankOf(xp,pos){if(xp>=12000&&pos>=0&&pos<10)return 6;for(let i=5;i>=0;i--)if(xp>=tiers[i].min)return i;return 0}
+function recordXP(r){const n=Number(r.total),c=Number(r.right);if(!Number.isFinite(n)||!Number.isFinite(c)||n<=0||c<0||c>n)return 0;const m=String(r.xpMode||r.mode||'');return Math.min(30,Math.floor(c)*(m==='textTyping'?7:m==='vocabTyping'?4:m==='vocab'?1:0))}
+function renderHistory(records){const el=$('seasonHistory');el.replaceChildren();const seasons=window.YoshiAccount?.getSeasons?.()||[];const now=Date.now();const past=seasons.filter(s=>Date.parse(s.end)<now).reverse();if(!past.length){el.textContent='最初のシーズン終了後に、ここへ成績が残ります。';return}for(const s of past){const xp=records.reduce((sum,r)=>{const ts=Number(r.createdAt);return sum+(ts>=Date.parse(s.start)&&ts<=Date.parse(s.end)?recordXP(r):0)},0);const t=tiers[rankOf(xp,-1)];const card=document.createElement('div');card.className='history-card';const gem=document.createElement('span');gem.className='gem gem-'+rankOf(xp,-1);gem.append(document.createElement('i'));const body=document.createElement('div');const title=document.createElement('strong');title.textContent=(s.id==='2026-S1'||s.id==='2026-S2'?'2026年前期 '+s.label:s.label)+' · '+t.name;const desc=document.createElement('small');desc.textContent=xp.toLocaleString()+' XP ／ '+new Date(s.end).toLocaleDateString('ja-JP')+'終了';body.append(title,desc);card.append(gem,body);el.append(card)}const note=document.createElement('p');note.className='muted';note.textContent='過去の学習記録から再計算したXPランクです。レディアントの最終順位は保存されていないため表示しません。';el.append(note)}
 function render(){
  const uid=window.YoshiAccount?.user?.uid,week=xpWeekKey(Date.now()),season=window.YoshiAccount?.getSeason();
  $('seasonName').textContent=season?season.label:'シーズン期間外';$('seasonCard1').classList.toggle('selected',season?.label==='SEASON 1');$('seasonCard2').classList.toggle('selected',season?.label==='SEASON 2');$('modeDescription').textContent='レディアント＝学年マスター内上位10名（'+(season?.label==='SEASON 2'?'シーズン２':'シーズン１')+'）';$('seasonDates').textContent=season?new Date(season.start).toLocaleDateString('ja-JP')+' 〜 '+new Date(season.end).toLocaleDateString('ja-JP'):'次のシーズンの設定待ち';
  const all=Object.entries(leaderboardRows).filter(([id,r])=>r).map(([id,r])=>({id,name:String(r.name||r.nickname||'Player'),grade:Number(gradeRows[id])||0,cls:Number(r.classNumber),seasonXP:r.seasonId===season?.id?number(r.seasonXP):0,weekXP:r.weekKey===week?number(r.weeklyXP):0,totalXP:number(r.totalXP)}));
  const gradeSorted=all.filter(r=>myGrade&&r.grade===myGrade).sort((a,b)=>b.seasonXP-a.seasonXP||a.name.localeCompare(b.name));
  const gradePos=new Map(gradeSorted.map((r,i)=>[r.id,i]));
- const radiant=gradeSorted.filter(r=>r.seasonXP>=1500).slice(0,10);$('radiantRows').replaceChildren();if(!radiant.length){$('radiantRows').textContent='マスター到達者はまだいません。'}else for(let i=0;i<radiant.length;i++){const r=radiant[i],row=document.createElement('div');row.className='entry'+(r.id===uid?' me':'');for(const [tag,val] of [['b',i<3?['👑','🥈','🥉'][i]:String(i+1)],['span',r.name+(r.id===uid?'（あなた）':'')],['strong',r.seasonXP.toLocaleString()+' XP']]){const cell=document.createElement(tag);cell.textContent=val;row.append(cell)}$('radiantRows').append(row)};
+ const radiant=gradeSorted.filter(r=>r.seasonXP>=12000).slice(0,10);$('radiantRows').replaceChildren();if(!radiant.length){$('radiantRows').textContent='マスター到達者はまだいません。'}else for(let i=0;i<radiant.length;i++){const r=radiant[i],row=document.createElement('div');row.className='entry'+(r.id===uid?' me':'');for(const [tag,val] of [['b',i<3?['👑','🥈','🥉'][i]:String(i+1)],['span',r.name+(r.id===uid?'（あなた）':'')],['strong',r.seasonXP.toLocaleString()+' XP']]){const cell=document.createElement(tag);cell.textContent=val;row.append(cell)}$('radiantRows').append(row)};
 const mine=all.find(r=>r.id===uid),gpos=gradePos.get(uid)??-1;
  const myTier=mine?rankOf(mine.seasonXP,gpos):0,tier=tiers[myTier];
- $('rankBanner').style.setProperty('--rank-color',tier.color);$('rankTitle').textContent=myGrade?tier.name:'学年情報が未登録です';$('rankEmblem').innerHTML='<span class="gem gem-'+myTier+'"><i></i></span>';$('rankXP').textContent=(mine?.seasonXP||0).toLocaleString()+' シーズンXP'+(myGrade?' · 学年 '+(gpos+1)+'位':'');
+ $('rankBanner').style.setProperty('--rank-color',tier.color);$('rankTitle').textContent=tier.name;$('rankEmblem').innerHTML='<span class="gem gem-'+myTier+'"><i></i></span>';$('rankXP').textContent=(mine?.seasonXP||0).toLocaleString()+' シーズンXP'+(myGrade?' · 学年 '+(gpos+1)+'位':'');
  let next='';let progress=0;
- if(!myGrade)next='学年情報が未登録のため、レディアントの判定ができません。管理者に確認してください。';
+ if(!myGrade&&myTier===5)next='マスター達成！ レディアント判定には学年登録が必要です。';
  else if(myTier===6){next='👑 学年TOP 10をキープしてレディアントを守ろう！';progress=100}
  else if(myTier===5){const tenth=gradeSorted[9];next=tenth?'👑 レディアント昇格ライン：'+Math.max(0,tenth.seasonXP-mine.seasonXP+1)+' XP差（現在 '+(gpos+1)+'位）':'👑 学年上位10名でレディアント！';progress=100}
  else {const target=tiers[myTier+1].min;progress=Math.min(100,100*(mine?.seasonXP||0)/target);next='次の'+tiers[myTier+1].name+'まであと '+Math.max(0,target-(mine?.seasonXP||0))+' XP'}
  $('rankBar').style.width=progress+'%';$('rankNext').textContent=next;
- $('rankSteps').replaceChildren();for(let i=0;i<tiers.length;i++){const t=tiers[i],el=document.createElement('div');el.className='rank-step'+(i===myTier&&myGrade?' current':'');const ico=document.createElement('b');ico.innerHTML='<span class="gem gem-'+i+'"><i></i></span>';const name=document.createElement('span');name.textContent=t.name;el.append(ico,name);const range=document.createElement('small');range.textContent=i===6?'学年マスター上位10名':i===5?'1,500 XP〜':t.min.toLocaleString()+' XP〜';el.append(range);$('rankSteps').append(el)}
+ $('rankSteps').replaceChildren();for(let i=0;i<tiers.length;i++){const t=tiers[i],el=document.createElement('div');el.className='rank-step'+(i===myTier?' current':'');const ico=document.createElement('b');ico.innerHTML='<span class="gem gem-'+i+'"><i></i></span>';const name=document.createElement('span');name.textContent=t.name;el.append(ico,name);const range=document.createElement('small');range.textContent=i===6?'学年マスター上位10名':i===5?'12,000 XP〜':t.min.toLocaleString()+' XP〜';el.append(range);$('rankSteps').append(el)}
  const arr=all.filter(r=>rankScope==='all'||(rankScope==='class'?myProfile&&r.cls===Number(myProfile.classNumber):myGrade&&r.grade===myGrade)).map(r=>({...r,xp:rankPeriod==='season'?r.seasonXP:rankPeriod==='week'?r.weekXP:r.totalXP})).sort((a,b)=>b.xp-a.xp||a.name.localeCompare(b.name));
  $('rankLabel').textContent=(rankScope==='grade'?(myGrade?myGrade+'年生':'学年未登録'):rankScope==='class'?(myProfile?.classNumber||'—')+'組':'登録者全体')+' ／ '+({season:'シーズンXP',week:'今週のXP',total:'累計XP'}[rankPeriod])+' ／ '+arr.length+'人';
  for(const [id,v] of [['rankGrade','grade'],['rankClass','class'],['rankAll','all'],['rankSeason','season'],['rankWeek','week'],['rankTotal','total']])$(id).classList.toggle('active',(id==='rankGrade'||id==='rankClass'||id==='rankAll'?rankScope:rankPeriod)===v);
@@ -109,7 +112,7 @@ async function refresh(){
  if(!user){$('authNotice').classList.remove('hidden');$('authMessage').textContent='ランキングを見るには学校のGoogleアカウントでログインしてね。';return}
  loading=true;
  try{const profile=await a.profile();if(!profile){$('authNotice').classList.remove('hidden');$('authMessage').textContent='まずMY PAGEでプロフィールを登録してね。';return}
- myProfile=profile;await a.syncXP();[leaderboardRows,gradeRows,myGrade]=await Promise.all([a.leaderboard(),a.grades(),a.grade()]);$('authNotice').classList.add('hidden');render()
+ myProfile=profile;await a.syncXP();renderHistory(await a.records());[leaderboardRows,gradeRows,myGrade]=await Promise.all([a.leaderboard(),a.grades(),a.grade()]);$('authNotice').classList.add('hidden');render()
  }catch(e){$('authNotice').classList.remove('hidden');$('authMessage').textContent='読み込みに失敗しました：'+e.message}
  finally{loading=false}
 }
@@ -117,5 +120,5 @@ async function doLogin(){try{await window.YoshiAccount.login()}catch(e){$('authN
 let attached=false;function attach(){if(attached||!window.YoshiAccount)return;attached=true;window.YoshiAccount.subscribe(()=>refresh());refresh()}
 document.addEventListener('yoshi-auth-ready',attach);if(window.YoshiAccount)attach();
 
-$('rankHelp').onclick=()=>alert('ブロンズ 0XP／シルバー 150XP／ゴールド 350XP／プラチナ 650XP／ダイヤモンド 1,000XP／マスター 1,500XP。レディアントは各学年のマスター到達者のうち上位10名です。');render();
+$('rankHelp').onclick=()=>alert('ブロンズ 0XP／シルバー 500XP／ゴールド 1,500XP／プラチナ 3,500XP／ダイヤモンド 7,000XP／マスター 12,000XP。レディアントは各学年のマスター到達者のうち上位10名です。');render();
 </script></body></html>
