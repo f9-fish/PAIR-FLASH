@@ -107,6 +107,23 @@ body {
  .daily-hero-link,.daily-intro-art { background-size:contain !important; }
 }
 </style>
+<style id="yoshi-background-viewport-fix-v4">
+/* Fixed viewport artwork on every non-opening page. Prevent top-only image on long mobile pages. */
+html { background:#04132e !important; }
+body { background-color:#04132e !important; background-image:none !important; position:relative; }
+body::before { content:""; position:fixed; z-index:-1; inset:0; pointer-events:none;
+ background-color:#04132e; background-image:url('./yoshilab-unified-mountain.png');
+ background-position:center center; background-size:100% auto; background-repeat:no-repeat; }
+/* Keep artwork visible even when the viewport is taller than the original landscape. */
+@media(max-width:700px){body::before {background-position:center center; background-size:100% auto;}}
+/* Banner fills the complete rounded rectangle without left/right empty strips. */
+.daily-hero-link,.daily-intro-art {background-color:#04132e !important;
+ background-image:linear-gradient(90deg,rgba(3,14,32,.78),rgba(4,19,42,.10)),url('./yoshilab-unified-mountain.png') !important;
+ background-position:center center !important; background-size:100% 100%,cover !important;
+ background-repeat:no-repeat !important;}
+/* Opening artwork remains the original illustration. */
+#welcomeCover {background:radial-gradient(ellipse at 50% 75%,#09295a 0%,transparent 65%),#05142f !important;}
+</style>
 </head><body><header class="topbar"><div class="wrap top"><a class="brand" href="./index.html"><span class="crown">♛</span> Yoshi.Lab<small>LEARN × BATTLE × LEVEL UP</small></a><nav class="nav"><a href="./index.html?view=subjects">⌂ ホーム</a><a href="./index.html?view=subjects">▣ 学習する</a><a href="./mypage.html">▥ 記録</a><a class="current" href="./ranking.html">🏆 ランキング</a><button id="headerLogin" type="button">🌐 ログイン</button><span id="headerSignedIn" class="muted hidden">✓ ログイン中</span></nav></div></header>
 <main class="wrap">
 <div class="season-cards"><div class="season-card" id="seasonCard1"><h2>Season 1</h2><div class="date">〜 11月27日</div><div class="sub">（後期中間試験終了日）</div></div><div class="season-card gold" id="seasonCard2"><h2>Season 2</h2><div class="date">〜 2月25日</div><div class="sub">（後期期末試験終了日）</div></div></div>

@@ -929,6 +929,35 @@ body {
  .daily-hero-link,.daily-intro-art { background-size:contain !important; }
 }
 </style>
+<style id="yoshi-background-viewport-fix-v4">
+/* Fixed viewport artwork on every non-opening page. Prevent top-only image on long mobile pages. */
+html { background:#04132e !important; }
+body { background-color:#04132e !important; background-image:none !important; position:relative; }
+body::before { content:""; position:fixed; z-index:-1; inset:0; pointer-events:none;
+ background-color:#04132e; background-image:url('./yoshilab-unified-mountain.png');
+ background-position:center center; background-size:100% auto; background-repeat:no-repeat; }
+/* Keep artwork visible even when the viewport is taller than the original landscape. */
+@media(max-width:700px){body::before {background-position:center center; background-size:100% auto;}}
+/* Banner fills the complete rounded rectangle without left/right empty strips. */
+.daily-hero-link,.daily-intro-art {background-color:#04132e !important;
+ background-image:linear-gradient(90deg,rgba(3,14,32,.78),rgba(4,19,42,.10)),url('./yoshilab-unified-mountain.png') !important;
+ background-position:center center !important; background-size:100% 100%,cover !important;
+ background-repeat:no-repeat !important;}
+/* Opening artwork remains the original illustration. */
+#welcomeCover {background:radial-gradient(ellipse at 50% 75%,#09295a 0%,transparent 65%),#05142f !important;}
+</style>
+<style id="yoshi-daily-flag-framing-v5">
+/* Show the red summit flag on the daily challenge banner, without letterboxing. */
+.daily-hero-link, .daily-intro-art {
+  background-image:linear-gradient(90deg,rgba(3,14,32,.84) 0%,rgba(3,14,32,.58) 36%,rgba(3,14,32,.08) 75%),url('./yoshilab-unified-mountain.png') !important;
+  background-size:100% 100%,cover !important;
+  background-position:center center,center 28% !important;
+  background-repeat:no-repeat !important;
+}
+@media(max-width:700px){
+ .daily-hero-link, .daily-intro-art {background-position:center center,center 28% !important;}
+}
+</style>
 </head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
   <div class="welcome-hero"><a class="welcome-hero-link welcome-hero-link-mypage" href="mypage.html" aria-label="MY PAGE"></a><a class="welcome-hero-link welcome-hero-link-home" href="./" aria-label="HOME"></a><div class="welcome-crown" aria-hidden="true">♕</div><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
   <section aria-label="使い方"><h2 class="welcome-how">🎮 HOW TO USE <span>学び方を選ぼう！</span></h2><div class="welcome-steps">
