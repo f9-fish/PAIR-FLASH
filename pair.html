@@ -295,6 +295,16 @@ html body:not(.unused-yoshilab-selector) {
   }
 }
 </style>
+
+<style id="yoshi-v13-time-background">
+/* Mobile-only: night is the default, so users without JS retain the approved v12 art. */
+@media (max-width:700px) {
+ html body.yoshi-daytime:not(.unused-yoshilab-selector),
+ html body.yoshi-daytime:has(#subjects:not(.hidden)):not(.welcome-active) {
+  background-image:linear-gradient(rgba(0,8,24,.25),rgba(0,8,24,.25)),url('./yoshilab-mobile-day-v13.png') !important;
+ }
+}
+</style>
 </head><body><div class="wrap"><a href="./index.html">← 通常練習に戻る</a><h1 class="pair-brand">Yoshi<span class="brand-accent">.Lab</span><span class="pair-suffix">PAIR</span></h1><p class="sub">2台連動・役割交代のタイミングを選べる</p><div class="row" style="margin:10px 0"><button id="soundToggle" type="button" style="flex:0 0 auto">🔇 効果音をON</button><span class="muted">各スマホで一度押してね</span></div><div id="status" class="status">Firebaseに接続しています…</div>
 <section id="lobby" class="panel hidden"><div id="wizard"><div class="step-label" id="stepLabel">STEP 1 / 5</div><h2 id="stepTitle">科目を選ぼう</h2><button type="button" id="stepBack" class="step-back hidden">← 戻る</button><div id="stepChoices"></div><p class="status" id="stepMessage"></p></div><div class="join-area"><h2>参加コードを持っている人（生徒B）</h2><p class="muted">生徒Aが作った6桁のコードを入力して参加してね。</p><div class="row"><input id="joinCode" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" placeholder="6桁のコード" aria-label="参加コード"><button id="join">参加（生徒B）</button></div></div></section>
 <section id="waiting" class="panel hidden"><h2>相手の参加を待っています</h2><div class="code" id="roomCode"></div><p class="muted">この6桁を相手に伝えてね。相手は「参加」に入力します。</p><button id="cancel" class="red">待機を終了</button></section>
@@ -678,4 +688,12 @@ localTimer=setInterval(updateTimer,300);
 $('cancel').onclick=()=>location.href='./pair.html';
 $('back').onclick=()=>location.href='./pair.html';
 init();
-</script><div id="streakCelebration" class="streak-celebration" hidden aria-live="polite"><div class="streak-celebration-card"><div class="streak-fire">🔥</div><div class="streak-count">5 STREAK</div><div class="streak-praise">連続正解！</div></div></div></body></html>
+</script><div id="streakCelebration" class="streak-celebration" hidden aria-live="polite"><div class="streak-celebration-card"><div class="streak-fire">🔥</div><div class="streak-count">5 STREAK</div><div class="streak-praise">連続正解！</div></div></div>
+<script id="yoshi-v13-time-background-script">
+/* Device-local time; refresh on visibility/focus and at each minute boundary. */
+(function(){
+ function apply(){var hour=new Date().getHours();document.body.classList.toggle('yoshi-daytime',hour>=6&&hour<17);}
+ apply();setInterval(apply,30000);document.addEventListener('visibilitychange',apply);window.addEventListener('focus',apply);
+})();
+</script>
+</body></html>
