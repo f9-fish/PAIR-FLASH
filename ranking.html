@@ -152,6 +152,23 @@ html body:not(.unused-yoshilab-selector) {
  background-attachment:fixed !important;
 }}
 </style>
+
+<style id="yoshi-mobile-background-v10">
+/* Mobile only. Desktop v9 styling and daily banners remain unchanged. */
+@media (max-width:700px) {
+  body {
+    background-size:100% 100%, 140% auto !important;
+    background-position:center center, center 38% !important;
+    background-repeat:no-repeat !important;
+    background-attachment:fixed !important;
+    background-color:#04132e !important;
+  }
+  /* HOME: slightly less magnification than other pages. */
+  body:has(#subjects:not(.hidden)):not(.welcome-active) {
+    background-size:100% 100%, 125% auto !important;
+  }
+}
+</style>
 </head><body><header class="topbar"><div class="wrap top"><a class="brand" href="./index.html"><span class="crown">♛</span> Yoshi.Lab<small>LEARN × BATTLE × LEVEL UP</small></a><nav class="nav"><a href="./index.html?view=subjects">⌂ ホーム</a><a href="./index.html?view=subjects">▣ 学習する</a><a href="./mypage.html">▥ 記録</a><a class="current" href="./ranking.html">🏆 ランキング</a><button id="headerLogin" type="button">🌐 ログイン</button><span id="headerSignedIn" class="muted hidden">✓ ログイン中</span></nav></div></header>
 <main class="wrap">
 <div class="season-cards"><div class="season-card" id="seasonCard1"><h2>Season 1</h2><div class="date">〜 11月27日</div><div class="sub">（後期中間試験終了日）</div></div><div class="season-card gold" id="seasonCard2"><h2>Season 2</h2><div class="date">〜 2月25日</div><div class="sub">（後期期末試験終了日）</div></div></div>

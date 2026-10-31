@@ -998,6 +998,23 @@ html body:not(.unused-yoshilab-selector) {
  background-attachment:fixed !important;
 }}
 </style>
+
+<style id="yoshi-mobile-background-v10">
+/* Mobile only. Desktop v9 styling and daily banners remain unchanged. */
+@media (max-width:700px) {
+  body {
+    background-size:100% 100%, 140% auto !important;
+    background-position:center center, center 38% !important;
+    background-repeat:no-repeat !important;
+    background-attachment:fixed !important;
+    background-color:#04132e !important;
+  }
+  /* HOME: slightly less magnification than other pages. */
+  body:has(#subjects:not(.hidden)):not(.welcome-active) {
+    background-size:100% 100%, 125% auto !important;
+  }
+}
+</style>
 </head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
   <div class="welcome-hero"><a class="welcome-hero-link welcome-hero-link-mypage" href="mypage.html" aria-label="MY PAGE"></a><a class="welcome-hero-link welcome-hero-link-home" href="./" aria-label="HOME"></a><div class="welcome-crown" aria-hidden="true">♕</div><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
   <section aria-label="使い方"><h2 class="welcome-how">🎮 HOW TO USE <span>学び方を選ぼう！</span></h2><div class="welcome-steps">
