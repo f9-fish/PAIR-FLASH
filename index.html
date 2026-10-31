@@ -1052,6 +1052,8 @@ html body:not(.unused-yoshilab-selector) {
 .quest-progress.yoshi-rank-enabled .quest-progress-copy{flex:1;min-width:0;}
 @media(max-width:390px){.quest-progress.yoshi-rank-enabled{gap:7px}.yoshi-home-rank{flex-basis:75px;padding:7px 3px}.yoshi-home-rank .yoshi-rank-label{font-size:10px;font-weight:800;color:#b9d2ee;line-height:1.1;}
 .yoshi-home-rank .yoshi-rank-name{font-size:10px}}
+/* Hide the daily challenge entry only during an active learning game. */
+body.yoshi-game-started .daily-hero-link{display:none!important}
 </style>
 </head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
   <div class="welcome-hero"><a class="welcome-hero-link welcome-hero-link-mypage" href="mypage.html" aria-label="MY PAGE"></a><a class="welcome-hero-link welcome-hero-link-home" href="./" aria-label="HOME"></a><div class="welcome-crown" aria-hidden="true">♕</div><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN × LEVEL UP</div><div class="welcome-line"></div></div>
@@ -1365,7 +1367,7 @@ function lockSettings(b){['direction','duration','order','mode','start'].forEach
 function start(){
  show('reveal',selectedStudyMode!=='textTyping');
  if(running||!availableIndices.length)return;
- clearInterval(tick);tick=null;running=true;paused=false;activeTimer.start();
+ clearInterval(tick);tick=null;running=true;paused=false;activeTimer.start();document.body.classList.add('yoshi-game-started');
  active='A';stats={A:{right:0,total:0},B:{right:0,total:0}};
  history=[];deck=[];round=0;last=-1;soloStreak={A:0,B:0};soloBestStreak=0;soloSaved=false;clearStreakCelebration();lockSettings(true);
  $('finishSession').disabled=false;$('pause').textContent='一時停止';$('pause').disabled=false;$('skip').disabled=false;$('switch').disabled=true;
@@ -1384,7 +1386,7 @@ function updateClock(){
 function finish(){
  stopClozeSpeech();show('clozeSpeechControls',false);show('soloTypingArea',false);
  if(!soloSaved&&stats.A.total+stats.B.total){soloSaved=true;saveSoloRecord('text',stats.A.right+stats.B.right,stats.A.total+stats.B.total,soloBestStreak,activeTimer.stop())}
- clearInterval(tick);tick=null;running=false;paused=false;lockSettings(false);
+ clearInterval(tick);tick=null;running=false;paused=false;document.body.classList.remove('yoshi-game-started');lockSettings(false);
  ['reveal','correct','wrong','skip','switch','pause','finishSession'].forEach(x=>$(x).disabled=true);
  $('cardLabel').textContent='終了';$('question').textContent='おつかれさま！';show('answer',false);
  $('cardHint').textContent='スコアを確認しよう';
@@ -1474,6 +1476,7 @@ function naturalCompare(a,b){
  return String(a).localeCompare(String(b),'ja',{numeric:true,sensitivity:'base'});
 }
 function chooseSubject(s){
+ document.body.classList.remove('yoshi-game-started');
  subject=s;unit=null;selectedLessonId='';selectedStudyMode='';
  show('modePicker',true);show('vocabPractice',false);show('subjects',false);show('units',false);show('parts',false);show('lessonNav',false);show('practice',false);
  $('modeHeading').textContent=s+'｜学習内容を選ぼう';
@@ -1602,7 +1605,7 @@ let vocabSessionRunning=false;
 function finishVocabularySession(){
  if(!vocabSessionRunning)return;
  stopVocabSpeech();show('vocabPronunciation',false);
- vocabSessionRunning=false;
+ vocabSessionRunning=false;document.body.classList.remove('yoshi-game-started');
  const elapsed=activeTimer.stop();
  const answered=vocabIndex+(vocabAnswered?1:0);
  if(answered>0)saveSoloRecord('vocab',vocabCorrect,answered,vocabBestStreak,elapsed);
@@ -1700,7 +1703,7 @@ $('vocabStart').onclick=()=>{
  stopVocabSpeech();show('vocabPronunciation',false);
  if(vocabSessionRunning){finishVocabularySession();return;}
  vocabDeck=selectedVocabulary.words.filter(w=>w.word&&w.meaning).map(w=>({...w})).sort(()=>Math.random()-.5);
- vocabIndex=0;vocabCorrect=0;vocabStreak=0;vocabBestStreak=0;vocabPoints=0;clearStreakCelebration();activeTimer.start();vocabSessionRunning=true;
+ vocabIndex=0;vocabCorrect=0;vocabStreak=0;vocabBestStreak=0;vocabPoints=0;clearStreakCelebration();activeTimer.start();vocabSessionRunning=true;document.body.classList.add('yoshi-game-started');
  $('vocabStart').textContent='■ 終了して記録';$('vocabStart').classList.add('green');$('vocabType').disabled=true;
  show('vocabGame',true);vocabQuestion();
 };
@@ -1811,6 +1814,7 @@ const yoshiDataReady=Promise.allSettled([fetchLessons(),fetchVocabulary()]).then
   window.scrollTo(0,0);
  });
  function home(){
+  document.body.classList.remove('yoshi-game-started');
   subject='';selectedStudyMode='';selectedLessonId='';unit=null;selectedVocabulary=null;
   ['modePicker','vocabPractice','units','parts','lessonNav','practice'].forEach(id=>show(id,false));
   show('subjects',true);
