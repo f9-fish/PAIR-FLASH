@@ -324,6 +324,9 @@ body:has(#subjects:not(.hidden)) .pair-feature .pair-start:active{
 /* v30: browser back/forward replaces in-page return buttons. Keep nodes for JS handlers. */
 #toSubjects, #toLessons, #modeBack, #vocabBack, #toUnits { display: none !important; }
 
+/* Minimal navigation: remove repeated top headings and slogans on every screen.
+   Keep headings inside cards, lesson lists, and exercises intact. */
+#pageTitle, #pageSub, #growthMotivation, #growthEyebrow {display:none!important;}
 /* Minimal home: hide redundant subject intro only on the subject-selection screen. */
 body:has(#subjects:not(.hidden)) #pageTitle,
 body:has(#subjects:not(.hidden)) #pageSub{display:none!important;}
