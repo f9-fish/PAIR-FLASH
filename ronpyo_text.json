@@ -48,6 +48,49 @@
   },
   {
     "subject": "論表",
+    "id": "13",
+    "name": "不定詞(2)",
+    "cards": [
+      [
+        "It is nice (of) Sachi (to) help me.",
+        "手伝って(くれるなんて)サチはなんて優しいんだ。"
+      ],
+      [
+        "It was (careless) (of) you (to) take the wrong bus.",
+        "間違ったバスに乗る(なんて)，あなたはU不注意で)したね。"
+      ],
+      [
+        "I (asked) (John) (to) (invite) Sarah, too.",
+        "私は(ジョンに)サラも(誘うように頼んだ)。"
+      ],
+      [
+        "Would you (like) (me) to (take) your photo?",
+        "写真を(お撮りしましょうか)。"
+      ],
+      [
+        "My parents won’t (allow) (me) (to) have a smartphone.",
+        "両親は(私が)スマホを持つ(ことを許そうとはしない)。"
+      ],
+      [
+        "I (listened) (to) (Mika) (play) the trumpet.",
+        "私は(ミカが)トランペット(を演奏するのを聞いた)。"
+      ],
+      [
+        "I (was) (watching) (my) (dog) (eat) his food.",
+        "私は(イヌが)えさ(を食べるのを見ていた)。"
+      ],
+      [
+        "Our teachers (let) (us) (come) (to) (school) (early) to prepare for the school festival.",
+        "先生たちは学園祭の準備のために(早く登校をさせてくれた)。"
+      ],
+      [
+        "I (had) (the) (clerk) (find) (the) (book) at the bookstore yesterday.",
+        "私は昨日書店で(店員にその本を見つけてもらった)。"
+      ]
+    ]
+  },
+  {
+    "subject": "論表",
     "id": "Extra 1",
     "name": "不定詞の慣用表現",
     "cards": [
