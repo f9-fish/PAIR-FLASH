@@ -1295,6 +1295,35 @@ function normalizeYoshiAnswer(value){
  return String(value||'').toLowerCase().replace(/[’‘]/g,"'")
   .replace(/[〜～~]/g,'').replace(/\s+/g,' ').trim();
 }
+// Free, offline alternative-answer rules. Deliberately conservative: no AI/API calls.
+function yoshiAnswerKey(value){
+ return normalizeYoshiAnswer(value).replace(/[.,!?;:。！？、，．]+$/g,'').trim();
+}
+const yoshiWordAlternatives=[
+ ['begin','start'],['buy','purchase'],['big','large'],['quick','fast'],
+ ['smart','intelligent'],['difficult','hard'],['easy','simple']
+];
+function yoshiVocabEquivalent(answer,expected){
+ const a=yoshiAnswerKey(answer),e=yoshiAnswerKey(expected);
+ if(a===e)return true;
+ // Restrict synonym matching to one-word answers to avoid unintended grammar changes.
+ if(!/^[a-z]+$/.test(a)||!/^[a-z]+$/.test(e))return false;
+ return yoshiWordAlternatives.some(group=>group.includes(a)&&group.includes(e));
+}
+function yoshiClozeEquivalent(field,english){
+ const answer=yoshiAnswerKey(field.value),expected=yoshiAnswerKey(field.dataset.expected);
+ if(answer===expected)return true;
+ // The surrounding words matter. 'Would you want me to ...?' is grammatical,
+ // although 'Would you like me to ...?' is usually more natural for an offer.
+ if(!((expected==='like'&&answer==='want')||(expected==='want'&&answer==='like')))return false;
+ const normalized=String(english||'').toLowerCase().replace(/[()]/g,'').replace(/\s+/g,' ').trim();
+ const fields=[...document.querySelectorAll('#question .cloze-inline-input')];
+ const index=fields.indexOf(field);
+ // Other blanks still have to match their expected values.
+ if(fields.some((f,i)=>i!==index&&yoshiAnswerKey(f.value)!==yoshiAnswerKey(f.dataset.expected)))return false;
+ return /^would you (?:like|want) me to\b/.test(normalized) &&
+        /^(?:would you )?\((?:like|want)\)/i.test(String(english||'').trim().replace(/^would you /i,''));
+}
 function checkClozeInlineInputs(root){
  const inputs=[...root.querySelectorAll('.cloze-inline-input')];
  const normalize=normalizeYoshiAnswer;
@@ -1454,7 +1483,7 @@ $('soloTypingSubmit').onclick=()=>{
  let correctCount=0;
  inputs.forEach((field)=>{
   const expected=field.dataset.expected||'';
-  const ok=normalize(field.value)===normalize(expected);
+  const ok=normalize(field.value)===normalize(expected)||yoshiClozeEquivalent(field,terms[current][0]);
   if(ok)correctCount++;
   field.classList.add(ok?'cloze-typed-correct':'cloze-typed-wrong');
   field.disabled=true;
@@ -1733,7 +1762,7 @@ $('vocabSubmit').onclick=()=>{
  if(vocabAnswered)return;
  const answer=$('vocabInput').value.trim();if(!answer)return;
  const expected=vocabDeck[vocabIndex].word.trim();
- vocabAnswer(normalizeYoshiAnswer(answer)===normalizeYoshiAnswer(expected),null);
+ vocabAnswer(yoshiVocabEquivalent(answer,expected),null);
 };
 $('vocabInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('vocabSubmit').click()});
 $('vocabNext').onclick=()=>{vocabIndex++;vocabQuestion()};
