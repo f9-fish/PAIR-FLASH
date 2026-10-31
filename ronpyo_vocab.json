@@ -72,28 +72,9 @@
       },
       {
         "word": "not to mention",
-        "meaning": "〜は言うまでもなく",
+        "meaning": "言うまでもなく",
         "hint": "",
         "reading": "ノットゥ メンション"
-      }
-    ]
-  },
-  {
-    "subject": "論表",
-    "id": "12",
-    "name": "関係詞",
-    "words": [
-      {
-        "word": "the place where I grew up",
-        "meaning": "私が育った場所",
-        "hint": "",
-        "reading": "ザ プレイス ウェア アイ グリュー アップ"
-      },
-      {
-        "word": "the reason why he left",
-        "meaning": "彼が去った理由",
-        "hint": "",
-        "reading": "ザ リーズン ワイ ヒー レフト"
       }
     ]
   }
