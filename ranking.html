@@ -222,6 +222,19 @@ html body:not(.unused-yoshilab-selector) {
 .entry.rank-enhanced .student-score{font-size:12px;font-weight:900;color:#d9ebff;white-space:nowrap}
 .entry.rank-enhanced.me{background:linear-gradient(90deg,#203b5b,#0b2543);outline:1px solid #e8bc61;box-shadow:inset 3px 0 #f1c66e}
 @media(max-width:660px){.podium{gap:5px}.winner{min-height:140px;padding:11px 3px}.winner.first{min-height:165px}.winner .medal{font-size:26px}.winner.first .medal{font-size:35px}.winner .name{font-size:11px}.winner .score{font-size:11px}.winner .student-rank{font-size:9px;padding:4px 5px}.entry.rank-enhanced{padding:9px 6px}.student-rank{font-size:9px}}
+</style><style id="yoshi-rank-icons-v19-style">
+.gem.yoshi-v19-gem{clip-path:none!important;background:none!important;border:0!important;filter:none!important;overflow:visible!important;display:inline-flex!important;align-items:center;justify-content:center}
+.gem.yoshi-v19-gem::before,.gem.yoshi-v19-gem::after,.gem.yoshi-v19-gem i{display:none!important}
+.gem.yoshi-v19-gem img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 2px 4px #0008)}
+.yoshi-home-rank .yoshi-rank-gem.yoshi-v19-home-icon{clip-path:none!important;background:none!important;filter:none!important;overflow:visible}
+.yoshi-home-rank .yoshi-rank-gem.yoshi-v19-home-icon::before,.yoshi-home-rank .yoshi-rank-gem.yoshi-v19-home-icon::after{display:none!important}
+.yoshi-v19-home-icon img{width:100%;height:100%;object-fit:contain}
+.student-rank .yoshi-v19-inline-icon{width:16px;height:18px;object-fit:contain;flex:none}
+.winner .medal.yoshi-v19-winner-emblem{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none!important;box-shadow:none!important;font-size:inherit!important;height:auto!important}
+.yoshi-v19-winner-emblem img{display:block;width:46px;height:49px;object-fit:contain;filter:drop-shadow(0 4px 5px #0008)}
+.yoshi-v19-position{font-size:12px;font-weight:900;color:#fff;letter-spacing:.02em}
+.yoshi-v19-mypage-icon{display:block;width:47px;height:54px;object-fit:contain;margin:5px auto}
+@media(max-width:660px){.yoshi-v19-winner-emblem img{width:35px;height:38px}.yoshi-v19-position{font-size:10px}}
 </style></head><body><header class="topbar"><div class="wrap top"><a class="brand" href="./index.html"><span class="crown">♛</span> Yoshi.Lab<small>LEARN × LEVEL UP</small></a><nav class="nav"><a href="./index.html?view=subjects">⌂ ホーム</a><a href="./index.html?view=subjects">▣ 学習する</a><a href="./mypage.html">▥ 記録</a><a class="current" href="./ranking.html">🏆 ランキング</a><button id="headerLogin" type="button">🌐 ログイン</button><span id="headerSignedIn" class="muted hidden">✓ ログイン中</span></nav></div></header>
 <main class="wrap">
 <div class="season-cards"><div class="season-card" id="seasonCard1"><h2>Season 1</h2><div class="date">〜 11月27日</div><div class="sub">（後期中間試験終了日）</div></div><div class="season-card gold" id="seasonCard2"><h2>Season 2</h2><div class="date">〜 2月25日</div><div class="sub">（後期期末試験終了日）</div></div></div>
@@ -324,4 +337,4 @@ $('rankHelp').onclick=()=>alert('ブロンズ 0XP／シルバー 500XP／ゴー�
  apply();setInterval(apply,30000);document.addEventListener('visibilitychange',apply);window.addEventListener('focus',apply);
 })();
 </script>
-</body></html>
+<script src="./yoshi-rank-icons-v19.js" defer></script></body></html>
