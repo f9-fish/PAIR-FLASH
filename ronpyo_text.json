@@ -1,6 +1,53 @@
 [
   {
     "subject": "論表",
+    "id": "12",
+    "name": "不定詞(1)",
+    "cards": [
+      [
+        "I (hope) (to) (study) (abroad) in Australia.",
+        "私はオーストラリアに(留学したいと思っています)。"
+      ],
+      [
+        "It (is) (difficult) (to) (ride) a unicycle.",
+        "一輪車に(乗ることは難しい)。"
+      ],
+      [
+        "I (found) (it) (important) (to) (learn) about foreign cultures.",
+        "私は外国の文化について(学ぶことは大切だとわかった)。"
+      ],
+      [
+        "Brenda (bought) (some) (magazines) (to) (read) (in) her free time.",
+        "ブレンダは暇なときに(読む雑誌を何冊か買った)。"
+      ],
+      [
+        "Could you (tell) (me) (the) (way) (to) (solve) this problem?",
+        "この問題を(解決する方法を教えて)いただけませんか。"
+      ],
+      [
+        "Adam gets up at 7:00 every morning (to) (take) (a) (bath).",
+        "アダムは(お風呂に入るために)，毎朝7時に起きます。"
+      ],
+      [
+        "I was disappointed to hear that your team lost the game.",
+        "あなたのチームが試合に負けたと聞いて，がっかりしました。"
+      ],
+      [
+        "Emi must be rich to have three houses.",
+        "3つの家を持っているなんて，エミは金持ちに違いない。"
+      ],
+      [
+        "This hotel is very comfortable to stay in.",
+        "このホテルは滞在するのにとても快適です。"
+      ],
+      [
+        "The British teacher spoke slowly for every student to understand her.",
+        "そのイギリス人の先生は生徒全員が理解できるようにゆっくり話した。"
+      ]
+    ]
+  },
+  {
+    "subject": "論表",
     "id": "Extra 1",
     "name": "不定詞の慣用表現",
     "cards": [
