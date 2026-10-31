@@ -827,8 +827,8 @@ button.primary,.primary:not(input),.btn.primary,.start-btn,.next-btn,.daily-acti
 button:not(.primary):not(.outline):not(.option):not(.correct):not(.wrong){transition:box-shadow .2s,border-color .2s;}
 button:focus-visible,a:focus-visible{outline:2px solid #6bd9ff;outline-offset:3px;}
 /* Existing welcome cover used a separate opaque image, so override it too. */
-#welcomeCover{background:linear-gradient(180deg,rgba(3,15,35,.20),#041126 92%),url('./mountain-sunset-new.png') center top/cover fixed no-repeat!important;}
-#welcomeCover .welcome-hero{background:linear-gradient(180deg,rgba(4,17,38,.12),rgba(4,17,38,.5)),url('./mountain-sunset-new.png') center center/cover no-repeat!important;}
+
+
 .daily-hero-link,.daily-intro-art{background-image:linear-gradient(90deg,rgba(3,14,32,.75),rgba(4,19,42,.13)),url('./mountain-sunset-new.png')!important;background-size:cover!important;background-position:center center!important;}
 @media(max-width:650px){body{background-attachment:scroll!important;background-position:center top!important;background-size:auto 100vh!important;}#welcomeCover{background-attachment:scroll!important;}}
 </style>
@@ -866,6 +866,11 @@ body { background-color:#04132e!important; background-image:linear-gradient(180d
   background-repeat:no-repeat !important;
   background-attachment:scroll !important;
 }
+</style>
+<style id="welcome-original-art-restored-v11">
+/* Restore original welcome artwork; do not affect the study screens. */
+#welcomeCover { background: radial-gradient(ellipse at 50% 75%,#09295a 0%,transparent 65%),#05142f !important; background-image: none !important; }
+#welcomeCover .welcome-hero { background-image: url('./welcome-header-v35.jpg?v=11') !important; background-position:center top !important; background-size:100% 100% !important; background-repeat:no-repeat !important; }
 </style>
 </head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
   <div class="welcome-hero"><a class="welcome-hero-link welcome-hero-link-mypage" href="mypage.html" aria-label="MY PAGE"></a><a class="welcome-hero-link welcome-hero-link-home" href="./" aria-label="HOME"></a><div class="welcome-crown" aria-hidden="true">♕</div><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
