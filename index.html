@@ -831,7 +831,17 @@ button:focus-visible,a:focus-visible{outline:2px solid #6bd9ff;outline-offset:3p
 #welcomeCover .welcome-hero{background:linear-gradient(180deg,rgba(4,17,38,.12),rgba(4,17,38,.5)),url('./mountain-bg-v2.jpg') center center/cover no-repeat!important;}
 .daily-hero-link,.daily-intro-art{background-image:linear-gradient(90deg,rgba(3,14,32,.75),rgba(4,19,42,.13)),url('./mountain-bg-v2.jpg')!important;background-size:cover!important;background-position:center center!important;}
 @media(max-width:650px){body{background-attachment:scroll!important;background-position:center top!important;background-size:auto 100vh!important;}#welcomeCover{background-attachment:scroll!important;}}
-</style></head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
+</style>
+<style id="yoshilab-crisp-mountain-v3">
+/* Mountain clarity fix: maintain panorama aspect ratio and avoid cover zoom. */
+html{background:#041126;}
+body{background-color:#041126!important;background-image:linear-gradient(180deg,rgba(2,12,31,.14) 0%,rgba(3,14,35,.19) 36%,rgba(3,14,35,.53) 75%,#041126 100%),url('./mountain-clear-v3.jpg')!important;background-size:100% 100%,100% auto!important;background-position:center top!important;background-repeat:no-repeat!important;background-attachment:fixed!important;}
+.daily-hero-link,.daily-intro-art{background-image:linear-gradient(90deg,rgba(3,14,32,.83) 0%,rgba(4,19,42,.34) 55%,rgba(4,19,42,.07) 100%),url('./mountain-clear-v3.jpg')!important;background-size:100% 100%,cover!important;background-position:center,center 38%!important;background-repeat:no-repeat!important;}
+#welcomeCover{background-image:linear-gradient(180deg,rgba(3,15,35,.12),rgba(4,17,38,.80)),url('./mountain-clear-v3.jpg')!important;background-size:100% 100%,100% auto!important;background-position:center top!important;background-repeat:no-repeat!important;background-attachment:scroll!important;}
+#welcomeCover .welcome-hero{background-image:linear-gradient(180deg,rgba(4,17,38,.10),rgba(4,17,38,.38)),url('./mountain-clear-v3.jpg')!important;background-size:100% 100%,cover!important;background-position:center,center 35%!important;background-repeat:no-repeat!important;}
+@media(max-width:700px){body{background-size:100% 100%,auto 78vh!important;background-position:center top!important;background-attachment:scroll!important;} .daily-hero-link,.daily-intro-art{background-position:center,center 35%!important;}}
+</style>
+</head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
   <div class="welcome-hero"><a class="welcome-hero-link welcome-hero-link-mypage" href="mypage.html" aria-label="MY PAGE"></a><a class="welcome-hero-link welcome-hero-link-home" href="./" aria-label="HOME"></a><div class="welcome-crown" aria-hidden="true">♕</div><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
   <section aria-label="使い方"><h2 class="welcome-how">🎮 HOW TO USE <span>学び方を選ぼう！</span></h2><div class="welcome-steps">
     <div class="welcome-step"><div class="welcome-symbol welcome-symbol-word" aria-hidden="true"></div><div class="welcome-step-content"><div class="welcome-step-title">単語を勉強したい</div><div class="welcome-desc">重要単語を覚えて英語の土台をつくろう！</div><div class="welcome-path"><span class="welcome-chip">科目</span><span class="welcome-chevron">›</span><span class="welcome-chip">Lesson</span><span class="welcome-chevron">›</span><span class="welcome-chip">Part</span><span class="welcome-chevron">›</span><span class="welcome-chip end">単語チェック</span></div></div></div>
