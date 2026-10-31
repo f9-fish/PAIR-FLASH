@@ -186,6 +186,39 @@ html { background-color:#06152c!important; }
 body { background-color:#06152c!important; background-image:linear-gradient(180deg,rgba(2,9,27,.10),rgba(2,10,28,.23)),url('./mountain-sunset-new.png')!important; background-position:center top!important; background-size:cover!important; background-repeat:no-repeat!important; background-attachment:fixed!important; }
 @media(max-width:700px){body{background-attachment:scroll!important;background-size:auto 100vh!important;background-position:52% top!important}}
 </style>
+
+<style id="yoshilab-red-flag-background-v2">
+/* Visual-only update: show full image width instead of cropping on narrow screens. */
+html { background-color:#04132e!important; }
+body { background-color:#04132e!important; background-image:linear-gradient(180deg,rgba(3,14,34,.12),rgba(3,14,34,.25)),url('./mountain-red-flag.png')!important; background-size:100% 100%,100% auto!important; background-position:center top!important; background-repeat:no-repeat!important; background-attachment:fixed!important; }
+@media(max-width:700px){ body { background-size:100% 100%,100% auto!important; background-position:center top!important; background-attachment:scroll!important; } }
+</style>
+
+<style id="yoshi-unified-background-v3">
+/* All non-opening screens use the exact same uploaded image. */
+html { background-color:#04132e !important; }
+body {
+ background-color:#04132e !important;
+ background-image:url('./yoshilab-unified-mountain.png') !important;
+ background-position:center top !important;
+ background-size:100% auto !important;
+ background-repeat:no-repeat !important;
+ background-attachment:scroll !important;
+}
+/* Card art uses the same asset without zooming/cropping the landscape. */
+.daily-hero-link, .daily-intro-art {
+ background-color:#04132e !important;
+ background-image:url('./yoshilab-unified-mountain.png') !important;
+ background-position:center center !important;
+ background-size:contain !important;
+ background-repeat:no-repeat !important;
+}
+@media(max-width:700px){
+ body { background-image:url('./yoshilab-unified-mountain.png') !important;
+        background-size:100% auto !important; background-position:center top !important; }
+ .daily-hero-link,.daily-intro-art { background-size:contain !important; }
+}
+</style>
 </head><body><div class="wrap"><a href="./index.html">← 通常練習に戻る</a><h1 class="pair-brand">Yoshi<span class="brand-accent">.Lab</span><span class="pair-suffix">PAIR</span></h1><p class="sub">2台連動・役割交代のタイミングを選べる</p><div class="row" style="margin:10px 0"><button id="soundToggle" type="button" style="flex:0 0 auto">🔇 効果音をON</button><span class="muted">各スマホで一度押してね</span></div><div id="status" class="status">Firebaseに接続しています…</div>
 <section id="lobby" class="panel hidden"><div id="wizard"><div class="step-label" id="stepLabel">STEP 1 / 5</div><h2 id="stepTitle">科目を選ぼう</h2><button type="button" id="stepBack" class="step-back hidden">← 戻る</button><div id="stepChoices"></div><p class="status" id="stepMessage"></p></div><div class="join-area"><h2>参加コードを持っている人（生徒B）</h2><p class="muted">生徒Aが作った6桁のコードを入力して参加してね。</p><div class="row"><input id="joinCode" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" placeholder="6桁のコード" aria-label="参加コード"><button id="join">参加（生徒B）</button></div></div></section>
 <section id="waiting" class="panel hidden"><h2>相手の参加を待っています</h2><div class="code" id="roomCode"></div><p class="muted">この6桁を相手に伝えてね。相手は「参加」に入力します。</p><button id="cancel" class="red">待機を終了</button></section>
