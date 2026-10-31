@@ -252,6 +252,22 @@ html body:not(.unused-yoshilab-selector) {
 }
 .winner.second .yoshi-v19-winner-emblem img{filter:drop-shadow(0 0 7px rgba(179,225,255,.55)) drop-shadow(0 4px 5px rgba(0,0,0,.45))!important}
 </style>
+
+<style id="yoshi-v24-mobile-rank-legend-fix">
+/* Mobile-only: prevent XP/division labels from being squeezed or clipped. */
+@media (max-width:660px){
+  #rankSteps.rank-steps{display:flex;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;gap:8px;scroll-snap-type:x proximity;padding:10px 11px 13px;}
+  #rankSteps .rank-step,#rankSteps .rank-step:nth-child(4),#rankSteps .rank-step:nth-child(even){
+    box-sizing:border-box;flex:0 0 192px;min-width:192px;width:192px;min-height:78px;
+    padding:10px 9px;align-items:center;gap:9px;scroll-snap-align:start;
+  }
+  #rankSteps .rank-step b{flex:0 0 30px;width:30px;}
+  #rankSteps .rank-step-info{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:5px;flex:1;min-width:0;}
+  #rankSteps .rank-step-name{font-size:13px!important;white-space:nowrap!important;line-height:1.2;}
+  #rankSteps .rank-step-meta{display:flex;flex-direction:column;align-items:flex-start;gap:3px;width:100%;min-width:0;}
+  #rankSteps .rank-step-meta small{font-size:10px!important;white-space:nowrap!important;line-height:1.3;max-width:100%;}
+}
+</style>
 </head><body><header class="topbar"><div class="wrap top"><a class="brand" href="./index.html"><span class="crown">♛</span> Yoshi.Lab<small>LEARN × LEVEL UP</small></a><nav class="nav"><a href="./index.html?view=subjects">⌂ ホーム</a><a href="./index.html?view=subjects">▣ 学習する</a><a href="./mypage.html">▥ 記録</a><a class="current" href="./ranking.html">🏆 ランキング</a><button id="headerLogin" type="button">🌐 ログイン</button><span id="headerSignedIn" class="muted hidden">✓ ログイン中</span></nav></div></header>
 <main class="wrap">
 <div class="season-cards"><div class="season-card" id="seasonCard1"><h2>Season 1</h2><div class="date">〜 11月27日</div><div class="sub">（後期中間試験終了日）</div></div><div class="season-card gold" id="seasonCard2"><h2>Season 2</h2><div class="date">〜 2月25日</div><div class="sub">（後期期末試験終了日）</div></div></div>
