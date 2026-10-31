@@ -809,7 +809,7 @@ body:has(#subjects.hidden) .quest-rank{display:none!important}
 /* Yoshi.Lab — mountain/night-sky visual refresh; existing UI and behavior preserved */
 :root{--mountain-blue:#06152c;--mountain-line:#2470b5;--mountain-glow:#0daaff}
 html{background:#06152c!important}
-body{color:#f1f7ff!important;background:linear-gradient(180deg,rgba(2,12,29,.18) 0%,rgba(3,17,37,.83) 35%,#06152c 80%),url('./mountain-scenery.jpg') center top / 100% auto no-repeat,#06152c!important;min-height:100vh}
+body{color:#f1f7ff!important;background:linear-gradient(180deg,rgba(2,12,29,.18) 0%,rgba(3,17,37,.83) 35%,#06152c 80%),url('./mountain-sunset-new.png') center top / 100% auto no-repeat,#06152c!important;min-height:100vh}
 .panel,.card,.lesson-card,.menu-card,.subject-card,.choice-card,.stat,.box,.tile{border-color:rgba(67,149,221,.46)!important;box-shadow:0 9px 25px rgba(0,7,25,.28);}
 .panel,.card,.lesson-card,.menu-card,.subject-card,.choice-card,.stat,.box,.tile{background-color:rgba(5,30,61,.91)}
 button,.btn,a.btn,.primary,.action-btn{transition:box-shadow .18s ease,transform .18s ease,border-color .18s ease}
@@ -820,23 +820,29 @@ input,select,textarea{background-color:rgba(5,28,56,.94);border-color:#346ca0;co
 </style><style id="mountain-theme-v2">
 /* Yoshi.Lab mountain theme v2 — intentionally loaded last */
 html{background:#041126!important;}
-body{background-color:#041126!important;background-image:linear-gradient(180deg,rgba(2,11,28,.23) 0%,rgba(3,16,37,.72) 42%,#041126 100%),url('./mountain-bg-v2.jpg')!important;background-position:center top!important;background-size:cover!important;background-attachment:fixed!important;background-repeat:no-repeat!important;color:#f1f7ff!important;min-height:100vh;}
+body{background-color:#041126!important;background-image:linear-gradient(180deg,rgba(2,11,28,.23) 0%,rgba(3,16,37,.72) 42%,#041126 100%),url('./mountain-sunset-new.png')!important;background-position:center top!important;background-size:cover!important;background-attachment:fixed!important;background-repeat:no-repeat!important;color:#f1f7ff!important;min-height:100vh;}
 /* Keep the original structure and all navigation/actions intact. */
 .panel,.card,.stat,.mode-card,.subject-card,.lesson-card,.part-card,.welcome-step{border-color:rgba(74,167,255,.55)!important;box-shadow:0 9px 27px rgba(0,8,26,.32),inset 0 1px 0 rgba(170,218,255,.08)!important;}
 button.primary,.primary:not(input),.btn.primary,.start-btn,.next-btn,.daily-action{background:linear-gradient(115deg,#12c9ff,#0564fa)!important;border:1px solid #40d7ff!important;color:white!important;box-shadow:0 5px 20px rgba(0,127,255,.43),inset 0 1px 0 rgba(255,255,255,.25)!important;border-radius:15px!important;}
 button:not(.primary):not(.outline):not(.option):not(.correct):not(.wrong){transition:box-shadow .2s,border-color .2s;}
 button:focus-visible,a:focus-visible{outline:2px solid #6bd9ff;outline-offset:3px;}
 /* Existing welcome cover used a separate opaque image, so override it too. */
-#welcomeCover{background:linear-gradient(180deg,rgba(3,15,35,.20),#041126 92%),url('./mountain-bg-v2.jpg') center top/cover fixed no-repeat!important;}
-#welcomeCover .welcome-hero{background:linear-gradient(180deg,rgba(4,17,38,.12),rgba(4,17,38,.5)),url('./mountain-bg-v2.jpg') center center/cover no-repeat!important;}
-.daily-hero-link,.daily-intro-art{background-image:linear-gradient(90deg,rgba(3,14,32,.75),rgba(4,19,42,.13)),url('./mountain-bg-v2.jpg')!important;background-size:cover!important;background-position:center center!important;}
+#welcomeCover{background:linear-gradient(180deg,rgba(3,15,35,.20),#041126 92%),url('./mountain-sunset-new.png') center top/cover fixed no-repeat!important;}
+#welcomeCover .welcome-hero{background:linear-gradient(180deg,rgba(4,17,38,.12),rgba(4,17,38,.5)),url('./mountain-sunset-new.png') center center/cover no-repeat!important;}
+.daily-hero-link,.daily-intro-art{background-image:linear-gradient(90deg,rgba(3,14,32,.75),rgba(4,19,42,.13)),url('./mountain-sunset-new.png')!important;background-size:cover!important;background-position:center center!important;}
 @media(max-width:650px){body{background-attachment:scroll!important;background-position:center top!important;background-size:auto 100vh!important;}#welcomeCover{background-attachment:scroll!important;}}
 </style>
 <style id="yoshilab-background-only-v5">
 /* Background-only adjustment. No card/layout/behavior overrides. */
 html { background-color:#06152c!important; }
-body { background-color:#06152c!important; background-image:linear-gradient(180deg,rgba(3,12,30,.12) 0%,rgba(3,12,30,.25) 55%,rgba(3,12,30,.46) 100%),url('./mountain-background-clear.jpg')!important; background-repeat:no-repeat!important; background-position:center top!important; background-size:100% auto!important; background-attachment:fixed!important; }
+body { background-color:#06152c!important; background-image:linear-gradient(180deg,rgba(3,12,30,.12) 0%,rgba(3,12,30,.25) 55%,rgba(3,12,30,.46) 100%),url('./mountain-sunset-new.png')!important; background-repeat:no-repeat!important; background-position:center top!important; background-size:100% auto!important; background-attachment:fixed!important; }
 @media(max-width:800px){body{background-size:auto 100vh!important;background-position:55% top!important}}
+</style>
+
+<style id="yoshi-new-mountain-background-v6">
+html { background-color:#06152c!important; }
+body { background-color:#06152c!important; background-image:linear-gradient(180deg,rgba(2,9,27,.10),rgba(2,10,28,.23)),url('./mountain-sunset-new.png')!important; background-position:center top!important; background-size:cover!important; background-repeat:no-repeat!important; background-attachment:fixed!important; }
+@media(max-width:700px){body{background-attachment:scroll!important;background-size:auto 100vh!important;background-position:52% top!important}}
 </style>
 </head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
   <div class="welcome-hero"><a class="welcome-hero-link welcome-hero-link-mypage" href="mypage.html" aria-label="MY PAGE"></a><a class="welcome-hero-link welcome-hero-link-home" href="./" aria-label="HOME"></a><div class="welcome-crown" aria-hidden="true">♕</div><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
