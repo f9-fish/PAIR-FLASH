@@ -26,14 +26,18 @@ async function load(){
       if(!Array.isArray(card))continue;
       const english=String(card[0]||'').trim(),japanese=String(card[1]||'').trim();
       const gaps=[...english.matchAll(/\(([^()]+)\)/g)].map(m=>m[1].trim());
-      if(english&&japanese&&gaps.length===1&&/^[a-zA-Z][a-zA-Z\s'-]*$/.test(gaps[0]))
-       sentenceMap.set(english+'\u0000'+japanese,{english,japanese,answer:gaps[0]});
+      const valid=gaps.filter(g=>/^[a-zA-Z][a-zA-Z\s'-]*$/.test(g));
+      if(english&&japanese&&valid.length){
+       // One entry per source sentence; at quiz creation, choose one of its valid blanks.
+       const key=normalize(english.replace(/[()]/g,''));
+       if(!sentenceMap.has(key))sentenceMap.set(key,{english,japanese,gaps:valid});
+      }
      }
     }
    }
   }
   words=[...wordMap.values()];sentences=[...sentenceMap.values()];
-  if(new Set(words.map(w=>normalize(w.word))).size+new Set(sentences.map(s=>normalize(s.english.replace(/\([^()]+\)/g,'( )')))).size<10)throw Error('重複なしで10問出題できるだけの問題データがありません');
+  if(new Set(words.map(w=>normalize(w.word))).size+new Set(sentences.map(s=>normalize(s.english.replace(/[()]/g,'')))).size<10)throw Error('重複なしで10問出題できるだけの問題データがありません');
   const available=[words.length>=4?'単語4択':null,words.length?'単語タイピング':null,sentences.length?'本文タイピング':null].filter(Boolean);
   $('status').textContent='読み込み完了：単語 '+words.length+'語・本文 '+sentences.length+'問／'+available.join('・');
   $('start').disabled=false;
@@ -45,13 +49,21 @@ function makeQuestion(type, item){
   return {type,prompt:item.word,correct:item.meaning,options:shuffle([item.meaning,...distractors])};
  }
  if(type==='word')return {type,prompt:item.meaning,correct:item.word};
- return {type,prompt:item.english,translation:item.japanese,correct:item.answer};
+ const matches=[...item.english.matchAll(/\(([^()]+)\)/g)];
+ const candidates=matches.filter(m=>/^[a-zA-Z][a-zA-Z\s'-]*$/.test(m[1].trim()));
+ const chosen=candidates[Math.floor(Math.random()*candidates.length)];
+ let cursor=0;
+ const prompt=item.english.replace(/\(([^()]+)\)/g,(_,value)=>{
+  const match=matches[cursor++];
+  return match.index===chosen.index?'（　　　）':value;
+ });
+ return {type,prompt,translation:item.japanese,correct:chosen[1].trim()};
 }
 function start(){
  // Fixed sequence: 3 vocabulary choices, 3 vocabulary typing, 4 sentence typing.
  // Each question is drawn without replacement, including across word formats.
  const uniqueWords=shuffle([...new Map(words.map(w=>[normalize(w.word),w])).values()]);
- const uniqueSentences=shuffle([...new Map(sentences.map(s=>[normalize(s.english.replace(/\([^()]+\)/g,'( )')),s])).values()]);
+ const uniqueSentences=shuffle([...new Map(sentences.map(s=>[normalize(s.english.replace(/[()]/g,'')),s])).values()]);
  if(uniqueWords.length<6||uniqueSentences.length<4){
   $('status').textContent='この出題構成には、異なる単語6語と本文穴埋め4問が必要です（現在：単語'+uniqueWords.length+'語、本文'+uniqueSentences.length+'問）。';
   return;
@@ -73,10 +85,10 @@ function render(){
  $('typingArea').classList.toggle('hidden',q.type==='choice');
  $('questionType').textContent=q.type==='choice'?'🔘 単語4択：英単語の意味を選ぼう':q.type==='word'?'⌨️ 単語タイピング：日本語に合う英単語を入力しよう':'⚡ 本文タイピング：空欄に入る英語を入力しよう';
  if(q.type==='sentence'){
-  const parts=q.prompt.split(/\([^()]+\)/);
+  const parts=q.prompt.split('（　　　）');
   $('word').append(document.createTextNode(parts[0]));
   const blank=document.createElement('span');blank.className='blank';blank.textContent='（　　　　）';$('word').append(blank);
-  $('word').append(document.createTextNode(parts.slice(1).join('')));
+  $('word').append(document.createTextNode(parts.slice(1).join('（　　　）')));
   const translation=document.createElement('small');translation.textContent=q.translation;$('word').append(translation);
  }else $('word').textContent=q.prompt;
  if(q.type==='choice')q.options.forEach(option=>{
@@ -107,7 +119,7 @@ function next(){
  $('review').replaceChildren();
  answers.forEach((a,i)=>{
   const d=document.createElement('div');d.className='result-item';
-  const t=document.createElement('strong');t.textContent=(a.ok?'✓ ':'✕ ')+(i+1)+'. '+(a.type==='sentence'?a.prompt.replace(/\(([^()]+)\)/,'（　　　）'):a.prompt);
+  const t=document.createElement('strong');t.textContent=(a.ok?'✓ ':'✕ ')+(i+1)+'. '+(a.type==='sentence'?a.prompt:a.prompt);
   const kind=document.createElement('div');kind.className='muted';kind.textContent=({choice:'単語4択',word:'単語タイピング',sentence:'本文タイピング'})[a.type];
   const info=document.createElement('div');info.className='muted';info.textContent='君の回答：'+a.selected+' ／ 正解：'+a.correct;
   d.append(t,kind,info);$('review').append(d);
