@@ -166,33 +166,21 @@ button:focus-visible,a:focus-visible{outline:2px solid #6bd9ff;outline-offset:3p
 #welcomeCover .welcome-hero{background:linear-gradient(180deg,rgba(4,17,38,.12),rgba(4,17,38,.5)),url('./mountain-bg-v2.jpg') center center/cover no-repeat!important;}
 .daily-hero-link,.daily-intro-art{background-image:linear-gradient(90deg,rgba(3,14,32,.75),rgba(4,19,42,.13)),url('./mountain-bg-v2.jpg')!important;background-size:cover!important;background-position:center center!important;}
 @media(max-width:650px){body{background-attachment:scroll!important;background-position:center top!important;background-size:auto 100vh!important;}#welcomeCover{background-attachment:scroll!important;}}
-</style><style id="yoshi-cinematic-v4">
-/* Yoshi.Lab cinematic desktop redesign v4: visual layer only */
-:root{--cinematic-bg:#031329;--cinematic-line:#168cde}
-html{background:#031329!important}
-body{background-color:#031329!important;background-image:linear-gradient(180deg,rgba(0,11,31,.03) 0%,rgba(0,12,29,.05) 38%,rgba(0,10,25,.45) 74%,#031329 100%),url('./mountain-cinematic.jpg')!important;background-repeat:no-repeat!important;background-position:center top!important;background-size:100% auto!important;background-attachment:fixed!important;color:#f4f8ff!important}
-body:before{content:none!important}
-.daily-hero-link,.daily-intro-art{background-image:linear-gradient(90deg,rgba(2,17,40,.88) 0%,rgba(2,18,41,.46) 46%,rgba(2,18,41,.03) 100%),url('./mountain-cinematic.jpg')!important;background-size:cover!important;background-position:center 39%!important;border:1px solid #25a6ee!important;box-shadow:0 12px 36px #001025a6!important}
-.daily-hero-link{min-height:212px!important;border-radius:24px!important;padding:28px 35px!important;margin:16px 0 18px!important}
-.daily-hero-title{font-size:clamp(27px,3vw,38px)!important;font-weight:900!important}
-.daily-hero-detail strong{color:#ffd06d!important;font-size:1.4em!important}
-.daily-hero-arrow{background:linear-gradient(145deg,#04c9ff,#0754f3)!important;box-shadow:0 0 22px #05a5ff85!important}
-.quest-progress,.quest-rank{background:linear-gradient(120deg,rgba(0,26,66,.94),rgba(1,42,94,.87))!important;border:1px solid #138fea!important;box-shadow:0 8px 24px #00102a80!important}
-.quest-rank a{border:2px solid #ffd449!important;background:linear-gradient(135deg,#120d0b,#4c300b)!important;box-shadow:0 0 17px #ffbf4280!important}
-body:has(#subjects:not(.hidden)) #subjects{background:linear-gradient(140deg,rgba(1,24,60,.96),rgba(0,23,57,.95))!important;border:1px solid #168de8!important;border-radius:25px!important;box-shadow:0 15px 36px #00112b90!important}
-body:has(#subjects:not(.hidden)) #subjects .choice{border-radius:22px!important;min-height:190px!important;position:relative!important;overflow:hidden!important;box-shadow:inset 0 0 20px #ffffff16,0 0 22px #038cff40!important}
-body:has(#subjects:not(.hidden)) #subjects .choice:first-child{background:linear-gradient(125deg,#0288ec 0%,#0757c3 52%,#04337d 100%)!important;border:3px solid #0cd6ff!important;box-shadow:0 0 18px #00caff8a,inset 0 0 28px #00bfff35!important}
-body:has(#subjects:not(.hidden)) #subjects .choice:nth-child(2){background:linear-gradient(125deg,#bb34ef 0%,#7823ce 55%,#421082 100%)!important;border:3px solid #e668ff!important;box-shadow:0 0 18px #d84cff88,inset 0 0 28px #f53aff2b!important}
-body:has(#subjects:not(.hidden)) #subjects .growth-subject-name{font-size:clamp(38px,5vw,58px)!important;color:white!important;text-shadow:0 3px 12px #00183c88!important}
-body:has(#subjects:not(.hidden)) #subjects .growth-subject-emoji{font-size:43px!important}
-body:has(#subjects:not(.hidden)) #subjects .choice small{color:#f1f8ff!important;font-size:14px!important}
-body:has(#subjects:not(.hidden)) #subjects .growth-subject-cta{background:linear-gradient(140deg,#00bdff,#0759f6)!important;border-radius:50%!important;min-width:44px!important;min-height:44px!important;display:flex!important;align-items:center!important;justify-content:center!important;font-size:0!important;box-shadow:0 0 15px #08a9ff80!important}
-body:has(#subjects:not(.hidden)) #subjects .growth-subject-cta span{font-size:26px!important}
-.header-account .account-nav-links a{background:linear-gradient(135deg,#1299ff,#1462d9)!important;color:#fff!important;border:1px solid #208ef5!important;border-radius:10px!important}
-.panel,.card,.lesson-card,.menu-card,.box,.tile{backdrop-filter:blur(8px)}
-@media(min-width:1000px){body{background-size:100% auto!important}.daily-hero-link{min-height:212px!important}}
-@media(max-width:700px){body{background-size:auto 100vh!important;background-position:center top!important;background-attachment:scroll!important}.daily-hero-link{min-height:155px!important;padding:18px!important}body:has(#subjects:not(.hidden)) #subjects .choice{min-height:160px!important}}
-</style></head><body><div class="wrap"><a href="./index.html">← 通常練習に戻る</a><h1 class="pair-brand">Yoshi<span class="brand-accent">.Lab</span><span class="pair-suffix">PAIR</span></h1><p class="sub">2台連動・役割交代のタイミングを選べる</p><div class="row" style="margin:10px 0"><button id="soundToggle" type="button" style="flex:0 0 auto">🔇 効果音をON</button><span class="muted">各スマホで一度押してね</span></div><div id="status" class="status">Firebaseに接続しています…</div>
+</style><style id="mountain-balanced-fix">
+/* Preserve the entire mountain panorama instead of zooming to viewport height. */
+html{background:#041126!important}
+body{background-image:linear-gradient(180deg,rgba(2,11,28,.12),rgba(3,16,37,.32) 35%,rgba(4,17,38,.78) 78%,#041126 100%),url('./mountain-balanced.jpg')!important;background-color:#041126!important;background-size:100% 100%,100% auto!important;background-position:center top!important;background-repeat:no-repeat!important;background-attachment:scroll!important}
+#welcomeCover{background-image:linear-gradient(180deg,rgba(3,15,35,.18),rgba(4,17,38,.88)),url('./mountain-balanced.jpg')!important;background-size:100% 100%,100% auto!important;background-position:center top!important;background-repeat:no-repeat!important;background-attachment:scroll!important}
+#welcomeCover .welcome-hero{background-image:linear-gradient(180deg,rgba(4,17,38,.12),rgba(4,17,38,.45)),url('./mountain-bg-v2.jpg')!important;background-size:100% 100%,100% auto!important;background-position:center top!important;background-repeat:no-repeat!important}
+@media(max-width:650px){body,#welcomeCover{background-size:100% 100%,100% auto!important;background-position:center top!important;background-attachment:scroll!important}}
+</style>
+<style id="yoshilab-background-only-v5">
+/* Background-only adjustment. No card/layout/behavior overrides. */
+html { background-color:#06152c!important; }
+body { background-color:#06152c!important; background-image:linear-gradient(180deg,rgba(3,12,30,.12) 0%,rgba(3,12,30,.25) 55%,rgba(3,12,30,.46) 100%),url('./mountain-background-clear.jpg')!important; background-repeat:no-repeat!important; background-position:center top!important; background-size:100% auto!important; background-attachment:fixed!important; }
+@media(max-width:800px){body{background-size:auto 100vh!important;background-position:55% top!important}}
+</style>
+</head><body><div class="wrap"><a href="./index.html">← 通常練習に戻る</a><h1 class="pair-brand">Yoshi<span class="brand-accent">.Lab</span><span class="pair-suffix">PAIR</span></h1><p class="sub">2台連動・役割交代のタイミングを選べる</p><div class="row" style="margin:10px 0"><button id="soundToggle" type="button" style="flex:0 0 auto">🔇 効果音をON</button><span class="muted">各スマホで一度押してね</span></div><div id="status" class="status">Firebaseに接続しています…</div>
 <section id="lobby" class="panel hidden"><div id="wizard"><div class="step-label" id="stepLabel">STEP 1 / 5</div><h2 id="stepTitle">科目を選ぼう</h2><button type="button" id="stepBack" class="step-back hidden">← 戻る</button><div id="stepChoices"></div><p class="status" id="stepMessage"></p></div><div class="join-area"><h2>参加コードを持っている人（生徒B）</h2><p class="muted">生徒Aが作った6桁のコードを入力して参加してね。</p><div class="row"><input id="joinCode" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" placeholder="6桁のコード" aria-label="参加コード"><button id="join">参加（生徒B）</button></div></div></section>
 <section id="waiting" class="panel hidden"><h2>相手の参加を待っています</h2><div class="code" id="roomCode"></div><p class="muted">この6桁を相手に伝えてね。相手は「参加」に入力します。</p><button id="cancel" class="red">待機を終了</button></section>
 <section id="rotationSetup" class="panel hidden" aria-live="polite">
