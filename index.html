@@ -958,6 +958,13 @@ body::before { content:""; position:fixed; z-index:-1; inset:0; pointer-events:n
  .daily-hero-link, .daily-intro-art {background-position:center center,center 28% !important;}
 }
 </style>
+<style id="yoshi-background-visible-v6">
+/* Fix hidden negative stacking layer; preserve the v5 daily banner. */
+html { background-color:#04132e !important; }
+body { background-image:url('./yoshilab-unified-mountain.png') !important; background-color:#04132e !important; background-repeat:no-repeat !important; background-position:center center !important; background-size:cover !important; background-attachment:fixed !important; }
+body::before { content:none !important; display:none !important; }
+@media(max-width:700px) { body { background-position:center center !important; background-size:cover !important; background-attachment:fixed !important; } }
+</style>
 </head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
   <div class="welcome-hero"><a class="welcome-hero-link welcome-hero-link-mypage" href="mypage.html" aria-label="MY PAGE"></a><a class="welcome-hero-link welcome-hero-link-home" href="./" aria-label="HOME"></a><div class="welcome-crown" aria-hidden="true">♕</div><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
   <section aria-label="使い方"><h2 class="welcome-how">🎮 HOW TO USE <span>学び方を選ぼう！</span></h2><div class="welcome-steps">
