@@ -1047,9 +1047,11 @@ html body:not(.unused-yoshilab-selector) {
 .yoshi-home-rank .yoshi-rank-gem{display:block;position:relative;width:29px;height:36px;clip-path:polygon(50% 0%,90% 32%,78% 80%,50% 100%,22% 80%,10% 32%);background:linear-gradient(130deg,#fff8,var(--rank-tone,#c98c60) 36%,#081d3e 60%,var(--rank-tone,#c98c60));filter:drop-shadow(0 0 3px var(--rank-tone,#c98c60));}
 .yoshi-home-rank .yoshi-rank-gem:before{content:'';position:absolute;inset:5px;clip-path:inherit;background:#071a32;}
 .yoshi-home-rank .yoshi-rank-gem:after{content:'';position:absolute;inset:9px 11px;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);background:var(--rank-tone,#c98c60);}
+.yoshi-home-rank .yoshi-rank-label{font-size:10px;font-weight:800;color:#b9d2ee;line-height:1.1;}
 .yoshi-home-rank .yoshi-rank-name{font-size:11px;line-height:1.2;font-weight:900;color:#f1f6ff;overflow-wrap:anywhere;}
 .quest-progress.yoshi-rank-enabled .quest-progress-copy{flex:1;min-width:0;}
-@media(max-width:390px){.quest-progress.yoshi-rank-enabled{gap:7px}.yoshi-home-rank{flex-basis:75px;padding:7px 3px}.yoshi-home-rank .yoshi-rank-name{font-size:10px}}
+@media(max-width:390px){.quest-progress.yoshi-rank-enabled{gap:7px}.yoshi-home-rank{flex-basis:75px;padding:7px 3px}.yoshi-home-rank .yoshi-rank-label{font-size:10px;font-weight:800;color:#b9d2ee;line-height:1.1;}
+.yoshi-home-rank .yoshi-rank-name{font-size:10px}}
 </style>
 </head><body><div id="welcomeCover" aria-label="Yoshi.Lab オープニング"><div class="welcome-inner">
   <div class="welcome-hero"><a class="welcome-hero-link welcome-hero-link-mypage" href="mypage.html" aria-label="MY PAGE"></a><a class="welcome-hero-link welcome-hero-link-home" href="./" aria-label="HOME"></a><div class="welcome-crown" aria-hidden="true">♕</div><div class="welcome-logo">Yoshi<span>.Lab</span></div><div class="welcome-tagline">YOUR ENGLISH<br>PRACTICE SPACE</div><div class="welcome-motto">LEARN ・ PRACTICE ・ IMPROVE</div><div class="welcome-line"></div></div>
@@ -1868,26 +1870,27 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
 })();
 </script>
 
+<script src="./yoshi-ranks-v14.js"></script>
 <script id="yoshi-v13-home-rank-script">
 (function(){
  const tiers=[['ブロンズ',0,'#c98c60'],['シルバー',500,'#c3d5ea'],['ゴールド',1500,'#f4c04d'],['プラチナ',3500,'#7ad5e8'],['ダイヤモンド',7000,'#7aafff'],['マスター',12000,'#bb89ff'],['レディアント',12000,'#ffd779']];
  const parent=document.getElementById('questProgress');if(!parent)return;
  const badge=document.createElement('div');badge.className='yoshi-home-rank';badge.setAttribute('aria-label','現在のランク');
  const gem=document.createElement('span');gem.className='yoshi-rank-gem';gem.setAttribute('aria-hidden','true');
- const name=document.createElement('span');name.className='yoshi-rank-name';name.textContent='ランク —';badge.append(gem,name);parent.prepend(badge);parent.classList.add('yoshi-rank-enabled');
+ const label=document.createElement('span');label.className='yoshi-rank-label';label.textContent='ランク';const name=document.createElement('span');name.className='yoshi-rank-name';name.textContent='—';badge.append(label,gem,name);parent.prepend(badge);parent.classList.add('yoshi-rank-enabled');
  let busy=false;
  async function update(){
   const a=window.YoshiAccount;if(busy||!a?.user){name.textContent='ランク —';return;}busy=true;
   try{
    const [board,season,grade,grades]=await Promise.all([a.leaderboard(),Promise.resolve(a.getSeason?.()),a.grade().catch(()=>null),a.grades().catch(()=>({}))]);
-   const uid=a.user.uid,entry=board?.[uid];if(!entry){name.textContent='ブロンズ';badge.style.setProperty('--rank-tone',tiers[0][2]);return;}
+   const uid=a.user.uid,entry=board?.[uid];if(!entry){name.textContent='ブロンズ Ⅲ';badge.style.setProperty('--rank-tone',tiers[0][2]);return;}
    const xp=entry.seasonId===season?.id?Math.max(0,Number(entry.seasonXP)||0):0;
    let index=0;for(let i=5;i>=0;i--){if(xp>=tiers[i][1]){index=i;break;}}
    if(index===5&&Number(grade)>0){
     const peers=Object.entries(board).filter(([id,r])=>Number(grades?.[id])===Number(grade)).map(([id,r])=>({id,xp:r.seasonId===season?.id?Math.max(0,Number(r.seasonXP)||0):0,name:String(r.name||r.nickname||'Player')})).sort((a,b)=>b.xp-a.xp||a.name.localeCompare(b.name));
     const pos=peers.findIndex(r=>r.id===uid);if(pos>=0&&pos<10)index=6;
    }
-   name.textContent=tiers[index][0];badge.style.setProperty('--rank-tone',tiers[index][2]);
+   name.textContent=window.YoshiRanks.get(xp,index===6?0:-1).name;badge.style.setProperty('--rank-tone',tiers[index][2]);
   }catch(err){console.warn('[Yoshi.Lab] ランク表示の取得失敗',err);name.textContent='ランク —';}
   finally{busy=false;}
  }
